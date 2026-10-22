@@ -126,7 +126,7 @@ const principles = [
   <!-- Governed AI -->
   <section class="section section--tint" aria-labelledby="governed-title">
     <div class="container governed">
-      <div>
+      <div class="governed-head">
         <span class="eyebrow">How we build AI</span>
         <h2 id="governed-title">AI does the work. People keep control.</h2>
       </div>
@@ -180,13 +180,27 @@ const principles = [
       <div>
         <span class="eyebrow">Industries</span>
         <h2 class="h2-sm">Or start from your industry.</h2>
-        <ul class="chips">
-          {industries.map((i) => (
-            <li>
-              <a href={`/industries/#${i.id}`}>{i.name}</a>
-            </li>
-          ))}
+        <ul class="ind-list">
+          {industries.map((i) => {
+            const fits = productList.filter((p) => i.relevance[p.id] !== 'none');
+            return (
+              <li>
+                <a href={`/industries/#${i.id}`}>
+                  <span class="ind-name">{i.name}</span>
+                  <span class="ind-fit">
+                    <span class="visually-hidden">Fits {fits.map((p) => p.name).join(', ')}</span>
+                    {fits.map((p) => (
+                      <span class="fit" data-product={p.id} aria-hidden="true">
+                        <ProductGlyph product={p.id} size={16} />
+                      </span>
+                    ))}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
+        <p class="muted legend">Icons show the Aegis products that fit each industry.</p>
       </div>
     </div>
   </section>
@@ -243,6 +257,7 @@ const principles = [
     justify-items: start;
   }
   .hero-copy h1 {
+    font-size: var(--fs-h1);
     max-width: 14ch;
   }
   .hero-actions {
@@ -325,30 +340,29 @@ const principles = [
   /* Governed AI */
   .governed {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: clamp(40px, 6vw, 88px);
-    align-items: start;
+    gap: clamp(36px, 5vw, 64px);
   }
-  .governed > div {
+  .governed-head {
     display: grid;
     gap: 18px;
     justify-items: start;
-    position: sticky;
-    top: calc(var(--nav-h) + 24px);
+    max-width: 30rem;
+  }
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(24px, 4vw, 56px);
   }
   .principles li {
-    padding: 26px 0;
+    padding-top: 22px;
     border-top: 1px solid var(--line-2);
-  }
-  .principles li:last-child {
-    border-bottom: 1px solid var(--line-2);
   }
   .principles h3 {
     margin-bottom: 8px;
   }
   .principles p {
     color: var(--text-dim);
-    max-width: 44ch;
+    max-width: 36ch;
   }
 
   /* Trust */
@@ -401,39 +415,56 @@ const principles = [
     height: 18px;
     flex: none;
     color: var(--accent-bright);
-    transition: transform var(--t-med) var(--ease);
+    transition: transform 160ms var(--ease);
   }
   @media (hover: hover) {
     .sol-list a:hover {
       color: var(--accent-bright);
     }
     .sol-list a:hover :global(svg) {
-      transform: translateX(4px);
+      transform: translateX(3px);
     }
   }
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  .ind-list {
     margin-top: 10px;
   }
-  .chips a {
-    display: inline-flex;
+  .ind-list a {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    min-height: 44px;
-    padding: 0 18px;
-    border: 1px solid var(--line-2);
-    border-radius: 999px;
-    color: var(--text-dim);
-    transition:
-      color var(--t-fast) var(--ease),
-      border-color var(--t-fast) var(--ease),
-      background var(--t-fast) var(--ease);
+    gap: 16px;
+    min-height: 60px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line-2);
+    transition: color var(--t-fast) var(--ease);
   }
-  .chips a:hover {
-    color: var(--text);
-    border-color: var(--accent-line);
+  .ind-list li:last-child a {
+    border-bottom: 1px solid var(--line-2);
+  }
+  .legend {
+    font-size: var(--fs-label);
+  }
+  .ind-name {
+    font-size: 1.0625rem;
+  }
+  .ind-fit {
+    display: inline-flex;
+    gap: 8px;
+  }
+  .fit {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-line);
     background: var(--accent-soft);
+    color: var(--accent-bright);
+  }
+  @media (hover: hover) {
+    .ind-list a:hover .ind-name {
+      color: var(--accent-bright);
+    }
   }
 
   /* Resources / company */
@@ -472,19 +503,19 @@ const principles = [
     .duo {
       grid-template-columns: 1fr;
     }
-    .hero-art {
-      order: -1;
+    .hero-copy h1 {
+      max-width: 20ch;
     }
     .hero-art :global(.hero-mark) {
-      width: min(62%, 260px);
+      width: min(54%, 220px);
     }
     .cards {
       grid-template-columns: 1fr;
       max-width: 520px;
       margin-inline: auto;
     }
-    .governed > div {
-      position: static;
+    .principles {
+      grid-template-columns: 1fr;
     }
   }
   @media (max-width: 520px) {

@@ -41,7 +41,7 @@ const hasVisual = Astro.slots.has('visual');
 <style>
   .page-hero {
     position: relative;
-    padding: clamp(44px, 6vw, 88px) 0 clamp(56px, 7vw, 104px);
+    padding: clamp(36px, 4.5vw, 64px) 0 clamp(56px, 7vw, 96px);
     overflow: hidden;
   }
   .page-hero::before {
@@ -57,7 +57,7 @@ const hasVisual = Astro.slots.has('visual');
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: clamp(40px, 6vw, 80px);
-    align-items: center;
+    align-items: start;
   }
   .has-visual .inner {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);

@@ -1,17 +1,21 @@
 ---
-import Logo from './Logo.astro';
-import type { ProductId } from '../data/products';
+import ProductGlyph from './ProductGlyph.astro';
+import { products, type ProductId } from '../data/products';
 interface Props {
   product: ProductId;
   items: { label: string; href: string }[];
   cta: { label: string; href: string };
 }
 const { product, items, cta } = Astro.props;
+const name = products[product].name;
 ---
 
 <div class="subnav" data-product={product}>
   <div class="container inner">
-    <Logo product={product} size="sm" />
+    <span class="who">
+      <ProductGlyph product={product} size={18} />
+      {name}
+    </span>
     <nav aria-label="On this page">
       <ul>
         {items.map((i) => (
@@ -32,14 +36,25 @@ const { product, items, cta } = Astro.props;
     position: sticky;
     top: var(--nav-h);
     z-index: 900;
-    background: rgba(7, 11, 20, 0.94);
+    background: var(--bg);
     border-block: 1px solid var(--line);
   }
   .inner {
     display: flex;
     align-items: center;
     gap: 28px;
-    min-height: 58px;
+    min-height: 48px;
+  }
+  .who {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    font-weight: 500;
+    font-size: var(--fs-small);
+    color: var(--accent-bright);
+    padding-right: 20px;
+    border-right: 1px solid var(--line-2);
   }
   nav {
     flex: 1;
@@ -69,8 +84,8 @@ const { product, items, cta } = Astro.props;
     color: var(--text);
   }
   .btn {
-    min-height: 40px;
-    padding: 8px 18px;
+    min-height: 38px;
+    padding: 6px 16px;
   }
   @media (max-width: 960px) {
     .inner {

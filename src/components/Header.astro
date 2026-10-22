@@ -15,6 +15,10 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
       <Logo size="md" />
     </a>
 
+    <a class="mobile-contact btn btn--primary" href={nav.actions.contact.href}>
+      Contact
+    </a>
+
     <button
       class="menu-toggle"
       type="button"
@@ -133,7 +137,7 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(7, 11, 20, 0.92);
+    background: var(--bg);
     border-bottom: 1px solid var(--line);
   }
   .bar {
@@ -198,7 +202,7 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
   .chev {
     width: 14px;
     height: 14px;
-    transition: transform var(--t-med) var(--ease);
+    transition: transform 180ms var(--ease);
   }
   .nav-trigger[aria-expanded='true'] .chev {
     transform: rotate(180deg);
@@ -246,16 +250,22 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     visibility: hidden;
     opacity: 0;
     transform: translateY(-6px);
+    transform-origin: top left;
+    /* leave fast */
     transition:
-      opacity var(--t-med) var(--ease),
-      transform var(--t-med) var(--ease),
-      visibility 0s linear var(--t-med);
+      opacity 120ms var(--ease),
+      transform 120ms var(--ease),
+      visibility 0s linear 120ms;
   }
   .has-mega.is-open .mega {
     visibility: visible;
     opacity: 1;
     transform: none;
-    transition-delay: 0s;
+    /* enter a little slower */
+    transition:
+      opacity 180ms var(--ease),
+      transform 180ms var(--ease),
+      visibility 0s;
   }
   .mega-products {
     display: grid;
@@ -342,6 +352,12 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     color: var(--accent-bright);
   }
 
+  .mobile-contact {
+    display: none;
+    margin-left: auto;
+    min-height: 40px;
+    padding: 8px 16px;
+  }
   .menu-toggle {
     display: none;
     width: 46px;
@@ -360,7 +376,7 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
   .menu-toggle path {
     transform-origin: 12px 12px;
     transition:
-      transform var(--t-med) var(--ease),
+      transform 180ms var(--ease),
       opacity var(--t-fast) var(--ease);
   }
   .menu-toggle[aria-expanded='true'] .l1 {
@@ -374,6 +390,12 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
   @media (max-width: 960px) {
     .menu-toggle {
       display: inline-flex;
+    }
+    .mobile-contact {
+      display: inline-flex;
+    }
+    :global(.no-js) .mobile-contact {
+      display: none;
     }
     .drawer {
       display: none;
@@ -465,6 +487,11 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
       min-height: 48px;
       border: 1px solid var(--line-2);
       border-radius: 999px;
+    }
+  }
+  @media (max-width: 379px) {
+    .mobile-contact {
+      display: none;
     }
   }
   @media (max-width: 960px) {

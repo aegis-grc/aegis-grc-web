@@ -17,7 +17,7 @@ const { title, steps } = Astro.props;
       <li class:list={{ last: i === steps.length - 1 }}>
         <span class="node" aria-hidden="true"></span>
         <span class="label">{s.label}</span>
-        <span class="note">{s.note}</span>
+        <span class="sub">{s.note}</span>
       </li>
     ))}
   </ol>
@@ -93,7 +93,7 @@ const { title, steps } = Astro.props;
     font-weight: 500;
     color: var(--text);
   }
-  .note {
+  .sub {
     font-size: var(--fs-small);
     color: var(--text-dim);
   }

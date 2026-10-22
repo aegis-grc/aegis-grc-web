@@ -123,10 +123,12 @@ const byArea = areas
     width: 18px;
     height: 18px;
     color: var(--accent-bright);
-    transition: transform var(--t-med) var(--ease);
+    transition: transform 160ms var(--ease);
   }
-  .items a:hover :global(svg) {
-    transform: translateX(3px);
+  @media (hover: hover) {
+    .items a:hover :global(svg) {
+      transform: translateX(3px);
+    }
   }
   @media (max-width: 960px) {
     .area {

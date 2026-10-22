@@ -54,16 +54,16 @@ export const footer = {
     {
       title: 'Solutions',
       links: [
-        { label: 'Solutions', href: '/solutions/' },
-        { label: 'Industries', href: '/industries/' },
-        { label: 'Aria, the Aegis intelligence layer', href: ariaPath },
+        { label: 'By problem', href: '/solutions/' },
+        { label: 'By industry', href: '/industries/' },
       ],
     },
     {
       title: 'Resources',
       links: [
-        { label: 'Resources', href: '/resources/' },
+        { label: 'Product guides', href: '/resources/' },
         { label: 'Security', href: '/security/' },
+        { label: 'Aria, the Aegis intelligence layer', href: ariaPath },
       ],
     },
     {

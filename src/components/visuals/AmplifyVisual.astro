@@ -18,7 +18,7 @@ const stages = [
     {stages.map((s, i) => (
       <li class:list={{ last: i === stages.length - 1 }} style={`--i:${i}`}>
         <span class="label">{s.label}</span>
-        <span class="note">{s.note}</span>
+        <span class="sub">{s.note}</span>
       </li>
     ))}
   </ol>
@@ -53,13 +53,13 @@ const stages = [
   }
   ol {
     display: grid;
-    gap: 8px;
-    padding: 18px 22px;
+    gap: 6px;
+    padding: 14px 22px;
   }
   li {
     display: grid;
     gap: 2px;
-    padding: 13px 18px;
+    padding: 10px 16px;
     margin-left: calc(var(--i) * 3.4%);
     border: 1px solid var(--line-2);
     border-left: 3px solid var(--accent);
@@ -70,7 +70,7 @@ const stages = [
     font-weight: 500;
     color: var(--text);
   }
-  .note {
+  .sub {
     font-size: var(--fs-small);
     color: var(--text-dim);
   }
@@ -79,7 +79,7 @@ const stages = [
     border-color: var(--accent-bright);
   }
   .last .label,
-  .last .note {
+  .last .sub {
     color: var(--accent-ink);
   }
   .attr {

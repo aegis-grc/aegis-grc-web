@@ -64,7 +64,7 @@ ol {
   color: var(--bg);
   border-radius: 8px;
   font-weight: 500;
-  transition: top var(--t-fast) var(--ease);
+  /* appears instantly: a keyboard action should not animate */
 }
 .skip-link:focus {
   top: 12px;
@@ -98,7 +98,7 @@ h3 {
   text-wrap: balance;
 }
 h1 {
-  font-size: var(--fs-h1);
+  font-size: var(--fs-h1-page);
   line-height: 1.02;
   font-weight: 500;
 }
@@ -179,18 +179,18 @@ p {
   white-space: nowrap;
   cursor: pointer;
   transition:
-    background var(--t-med) var(--ease),
-    border-color var(--t-med) var(--ease),
-    color var(--t-med) var(--ease),
+    background var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease),
     transform var(--t-fast) var(--ease);
 }
 .btn:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 .btn svg {
   width: 15px;
   height: 15px;
-  transition: transform var(--t-med) var(--ease);
+  transition: transform 160ms var(--ease);
 }
 .btn--primary {
   background: var(--text);
@@ -232,7 +232,7 @@ p {
 .link-arrow svg {
   width: 15px;
   height: 15px;
-  transition: transform var(--t-med) var(--ease);
+  transition: transform 160ms var(--ease);
 }
 @media (hover: hover) {
   .link-arrow:hover svg {

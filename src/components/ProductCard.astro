@@ -23,7 +23,7 @@ const { product, note } = Astro.props;
     </p>
     <h3>{product.name}</h3>
     <p class="summary">{product.summary}</p>
-    {note && <p class="note">{note}</p>}
+    {note && <p class="aside">{note}</p>}
     <a class="more link-arrow" href={product.path}>
       Explore {product.name}
       <Arrow />
@@ -40,9 +40,7 @@ const { product, note } = Astro.props;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    transition:
-      border-color var(--t-med) var(--ease),
-      transform var(--t-med) var(--ease);
+    transition: border-color var(--t-fast) var(--ease);
   }
   .card::before {
     content: '';
@@ -57,7 +55,7 @@ const { product, note } = Astro.props;
     background: radial-gradient(ellipse 80% 90% at 50% 0%, var(--accent-glow), transparent 75%);
   }
   .art :global(.motif) {
-    transition: transform var(--t-med) var(--ease);
+    transition: transform 160ms var(--ease);
   }
   .body {
     display: flex;
@@ -80,7 +78,7 @@ const { product, note } = Astro.props;
   .summary {
     color: var(--text-dim);
   }
-  .note {
+  .aside {
     font-size: var(--fs-small);
     color: var(--text-faint);
   }
@@ -97,7 +95,6 @@ const { product, note } = Astro.props;
   @media (hover: hover) {
     .card:hover {
       border-color: var(--accent-line);
-      transform: translateY(-3px);
     }
     .card:hover .art :global(.motif) {
       transform: translateY(-3px);

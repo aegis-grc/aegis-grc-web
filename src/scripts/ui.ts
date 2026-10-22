@@ -50,7 +50,7 @@ if (productsItem && productsTrigger) {
   });
   productsItem.addEventListener('pointerleave', (e) => {
     if (e.pointerType !== 'mouse' || pinned) return;
-    closeTimer = window.setTimeout(() => setMega(false), 140);
+    closeTimer = window.setTimeout(() => setMega(false), 120);
   });
   productsItem.addEventListener('focusout', (e) => {
     const next = e.relatedTarget as Node | null;

@@ -12,6 +12,8 @@ const label: Record<Relevance, string> = {
   relevant: 'Relevant',
   none: 'Not a focus',
 };
+// Compact wording for the matrix so all three product columns fit on a phone.
+const short: Record<Relevance, string> = { primary: 'Primary', relevant: 'Relevant', none: '' };
 ---
 
 <BaseLayout
@@ -48,7 +50,8 @@ const label: Record<Relevance, string> = {
               <th scope="col">Industry</th>
               {productList.map((p) => (
                 <th scope="col" data-product={p.id}>
-                  {p.name}
+                  <span class="visually-hidden">Aegis </span>
+                  {p.short}
                 </th>
               ))}
             </tr>
@@ -62,9 +65,12 @@ const label: Record<Relevance, string> = {
                 {productList.map((p) => (
                   <td class={`fit fit--${i.relevance[p.id]}`}>
                     {i.relevance[p.id] === 'none' ? (
-                      <span aria-label="Not a focus">&mdash;</span>
+                      <>
+                        <span aria-hidden="true">&mdash;</span>
+                        <span class="visually-hidden">Not a focus</span>
+                      </>
                     ) : (
-                      label[i.relevance[p.id]]
+                      short[i.relevance[p.id]]
                     )}
                   </td>
                 ))}
@@ -125,7 +131,6 @@ const label: Record<Relevance, string> = {
   }
   table {
     width: 100%;
-    min-width: 640px;
     border-collapse: collapse;
   }
   th,
@@ -205,6 +210,17 @@ const label: Record<Relevance, string> = {
   }
   .note {
     margin-top: 40px;
+  }
+  @media (max-width: 640px) {
+    th,
+    td {
+      padding: 14px 10px;
+      font-size: var(--fs-small);
+    }
+    th:first-child,
+    td:first-child {
+      padding-left: 14px;
+    }
   }
   @media (max-width: 960px) {
     .ind {
