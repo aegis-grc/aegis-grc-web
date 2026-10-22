@@ -49,11 +49,7 @@ const capabilities = [
   path={path}
   product="grc"
   schema={[
-    productSchema(
-      { ...products.grc, name: 'Aegis Contracts', path },
-      description,
-      Astro.site,
-    ),
+    productSchema({ ...products.grc, name: 'Aegis Contracts', path }, description, Astro.site),
     breadcrumbSchema(
       [
         { name: 'Aegis', path: '/' },
@@ -78,13 +74,23 @@ const capabilities = [
     ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=contracts">Contact sales<Arrow /></a>
-      <a class="btn btn--ghost" href="#capabilities">What it does</a>
+      <a class="btn btn--accent" href="/contact/?topic=contracts">
+        Contact sales
+        <Arrow />
+      </a>
+      <a class="btn btn--ghost" href="#capabilities">
+        What it does
+      </a>
     </Fragment>
     <LifecycleFlow slot="visual" title="Contract lifecycle" steps={flow} />
   </PageHero>
 
-  <section class="section section--tint" id="capabilities" aria-labelledby="cap-title" data-product="grc">
+  <section
+    class="section section--tint"
+    id="capabilities"
+    aria-labelledby="cap-title"
+    data-product="grc"
+  >
     <div class="container split">
       <div class="stack sticky">
         <span class="eyebrow">What it does</span>
@@ -95,14 +101,12 @@ const capabilities = [
         </p>
       </div>
       <ul class="rows">
-        {
-          capabilities.map((c) => (
-            <li>
-              <h3>{c.title}</h3>
-              <p>{c.text}</p>
-            </li>
-          ))
-        }
+        {capabilities.map((c) => (
+          <li>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -122,8 +126,14 @@ const capabilities = [
           Use Aegis Contracts on its own, or as part of the full Aegis GRC platform.
         </p>
         <div class="links">
-          <a class="link-arrow" href="/products/grc/">Explore Aegis GRC<Arrow /></a>
-          <a class="link-arrow" href="/products/grc/qms/">Explore Aegis QMS<Arrow /></a>
+          <a class="link-arrow" href="/products/grc/">
+            Explore Aegis GRC
+            <Arrow />
+          </a>
+          <a class="link-arrow" href="/products/grc/qms/">
+            Explore Aegis QMS
+            <Arrow />
+          </a>
         </div>
       </div>
     </div>

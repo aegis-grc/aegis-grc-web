@@ -46,26 +46,30 @@ const label: Record<Relevance, string> = {
           <thead>
             <tr>
               <th scope="col">Industry</th>
-              {productList.map((p) => <th scope="col" data-product={p.id}>{p.name}</th>)}
+              {productList.map((p) => (
+                <th scope="col" data-product={p.id}>
+                  {p.name}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {
-              industries.map((i) => (
-                <tr>
-                  <th scope="row"><a href={`#${i.id}`}>{i.name}</a></th>
-                  {productList.map((p) => (
-                    <td class={`fit fit--${i.relevance[p.id]}`}>
-                      {i.relevance[p.id] === 'none' ? (
-                        <span aria-label="Not a focus">&mdash;</span>
-                      ) : (
-                        label[i.relevance[p.id]]
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            }
+            {industries.map((i) => (
+              <tr>
+                <th scope="row">
+                  <a href={`#${i.id}`}>{i.name}</a>
+                </th>
+                {productList.map((p) => (
+                  <td class={`fit fit--${i.relevance[p.id]}`}>
+                    {i.relevance[p.id] === 'none' ? (
+                      <span aria-label="Not a focus">&mdash;</span>
+                    ) : (
+                      label[i.relevance[p.id]]
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -74,31 +78,29 @@ const label: Record<Relevance, string> = {
 
   <section class="section" aria-label="Industries">
     <div class="container">
-      {
-        industries.map((i) => (
-          <article class="ind" id={i.id}>
-            <div class="stack">
-              <h2>{i.name}</h2>
-              <p class="lede">{i.matters}</p>
-            </div>
-            <ul class="fits">
-              {productList
-                .filter((p) => i.relevance[p.id] !== 'none')
-                .map((p) => (
-                  <li data-product={p.id}>
-                    <a href={p.path}>
-                      <ProductGlyph product={p.id} size={20} />
-                      <span>
-                        <strong>{products[p.id].name}</strong>
-                        <span>{label[i.relevance[p.id]]}</span>
-                      </span>
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </article>
-        ))
-      }
+      {industries.map((i) => (
+        <article class="ind" id={i.id}>
+          <div class="stack">
+            <h2>{i.name}</h2>
+            <p class="lede">{i.matters}</p>
+          </div>
+          <ul class="fits">
+            {productList
+              .filter((p) => i.relevance[p.id] !== 'none')
+              .map((p) => (
+                <li data-product={p.id}>
+                  <a href={p.path}>
+                    <ProductGlyph product={p.id} size={20} />
+                    <span>
+                      <strong>{products[p.id].name}</strong>
+                      <span>{label[i.relevance[p.id]]}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </article>
+      ))}
       <p class="note">
         Aegis products help teams organize and run their programs. They do not make an organization
         compliant or certified, and nothing on this page implies an industry certification.

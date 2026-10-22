@@ -15,18 +15,24 @@ const steps = [
     <span class="chip">Awaiting approval</span>
   </figcaption>
   <ol>
-    {
-      steps.map((s) => (
-        <li>
-          <span class="node" aria-hidden="true"></span>
-          <span class="label">{s.label}</span>
-          <span class="note">{s.note}</span>
-        </li>
-      ))
-    }
+    {steps.map((s) => (
+      <li>
+        <span class="node" aria-hidden="true"></span>
+        <span class="label">{s.label}</span>
+        <span class="note">{s.note}</span>
+      </li>
+    ))}
   </ol>
   <div class="gate">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
       <path d="M6 20V10a6 6 0 0 1 12 0v10M4 20h16M12 11v5" />
     </svg>
     <span>

@@ -35,8 +35,7 @@ export const products: Record<ProductId, Product> = {
     short: 'Amplify',
     path: '/products/amplify/',
     category: 'AI sales, marketing & revenue operations',
-    summary:
-      'Capture, respond to, and convert demand for contractors and home-service businesses.',
+    summary: 'Capture, respond to, and convert demand for contractors and home-service businesses.',
     appUrl: clean(import.meta.env.PUBLIC_APP_URL_AMPLIFY),
     schemaCategory: 'BusinessApplication',
   },

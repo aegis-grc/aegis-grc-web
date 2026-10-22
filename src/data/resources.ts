@@ -2,12 +2,7 @@ import type { ProductId } from './products';
 
 /** Kinds the Resources page can hold as the library grows. Only product guides exist today. */
 export type ResourceKind =
-  | 'guide'
-  | 'article'
-  | 'case-study'
-  | 'whitepaper'
-  | 'update'
-  | 'documentation';
+  'guide' | 'article' | 'case-study' | 'whitepaper' | 'update' | 'documentation';
 
 export type ResourceArea = ProductId | 'security' | 'intelligence';
 

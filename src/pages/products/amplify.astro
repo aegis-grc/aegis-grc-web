@@ -57,16 +57,30 @@ const groups = [
     lockup
     title="Keep every lead moving toward a booked job."
     lede="Aegis Amplify is AI-native sales, marketing, and revenue operations for contractors and home-service businesses, from the first inquiry to the follow-up on an estimate."
-    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Products', href: '/products/' }, { name: 'Aegis Amplify' }]}
+    crumbs={[
+      { name: 'Aegis', href: '/' },
+      { name: 'Products', href: '/products/' },
+      { name: 'Aegis Amplify' },
+    ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=amplify">Contact sales<Arrow /></a>
-      <a class="btn btn--ghost" href="#capabilities">What it covers</a>
+      <a class="btn btn--accent" href="/contact/?topic=amplify">
+        Contact sales
+        <Arrow />
+      </a>
+      <a class="btn btn--ghost" href="#capabilities">
+        What it covers
+      </a>
     </Fragment>
     <AmplifyVisual slot="visual" />
   </PageHero>
 
-  <section class="section section--tint" id="capabilities" aria-labelledby="cap-title" data-product="amplify">
+  <section
+    class="section section--tint"
+    id="capabilities"
+    aria-labelledby="cap-title"
+    data-product="amplify"
+  >
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">What it covers</span>
@@ -78,17 +92,17 @@ const groups = [
         </p>
       </div>
       <div class="cols-2">
-        {
-          groups.map((g) => (
-            <article class="group">
-              <h3>{g.title}</h3>
-              <p>{g.text}</p>
-              <ul class="tags">
-                {g.tags.map((t) => <li>{t}</li>)}
-              </ul>
-            </article>
-          ))
-        }
+        {groups.map((g) => (
+          <article class="group">
+            <h3>{g.title}</h3>
+            <p>{g.text}</p>
+            <ul class="tags">
+              {g.tags.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -108,7 +122,10 @@ const groups = [
           Aegis Amplify is part of the Aegis family, alongside Aegis GRC and Aegis Sentinel. Aria,
           the Aegis intelligence layer, brings a consistent approach to AI across all three.
         </p>
-        <a class="link-arrow" href={ariaPath}>Meet Aria<Arrow /></a>
+        <a class="link-arrow" href={ariaPath}>
+          Meet Aria
+          <Arrow />
+        </a>
       </div>
     </div>
   </section>

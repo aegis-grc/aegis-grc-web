@@ -11,8 +11,12 @@ import { contactEmail } from '../data/site';
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Terms' }]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--primary" href={`mailto:${contactEmail}`}>Email {contactEmail}</a>
-      <a class="btn btn--ghost" href="/contact/">Contact us</a>
+      <a class="btn btn--primary" href={`mailto:${contactEmail}`}>
+        Email {contactEmail}
+      </a>
+      <a class="btn btn--ghost" href="/contact/">
+        Contact us
+      </a>
     </Fragment>
   </PageHero>
 </BaseLayout>

@@ -32,41 +32,39 @@ import { breadcrumbSchema } from '../lib/seo';
 
   <section class="section section--tint" aria-label="Solutions">
     <div class="container">
-      {
-        solutions.map((s) => (
-          <article class="sol" id={s.id}>
-            <div class="stack">
-              <h2>{s.title}</h2>
-              <p class="problem">{s.problem}</p>
-            </div>
-            <div class="stack">
-              <p class="lede">{s.change}</p>
-              <ul class="prods">
-                {s.products.map((id) => (
-                  <li data-product={id}>
-                    <a href={products[id].path}>
-                      <ProductGlyph product={id} size={18} />
-                      {products[id].name}
+      {solutions.map((s) => (
+        <article class="sol" id={s.id}>
+          <div class="stack">
+            <h2>{s.title}</h2>
+            <p class="problem">{s.problem}</p>
+          </div>
+          <div class="stack">
+            <p class="lede">{s.change}</p>
+            <ul class="prods">
+              {s.products.map((id) => (
+                <li data-product={id}>
+                  <a href={products[id].path}>
+                    <ProductGlyph product={id} size={18} />
+                    {products[id].name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            {s.links && (
+              <ul class="extra">
+                {s.links.map((l) => (
+                  <li>
+                    <a class="link-arrow" href={l.href}>
+                      {l.label}
+                      <Arrow />
                     </a>
                   </li>
                 ))}
               </ul>
-              {s.links && (
-                <ul class="extra">
-                  {s.links.map((l) => (
-                    <li>
-                      <a class="link-arrow" href={l.href}>
-                        {l.label}
-                        <Arrow />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </article>
-        ))
-      }
+            )}
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 

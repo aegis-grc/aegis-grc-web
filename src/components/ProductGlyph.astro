@@ -19,28 +19,22 @@ const { product, size = 22 } = Astro.props;
   aria-hidden="true"
   focusable="false"
 >
-  {
-    product === 'grc' && (
-      <>
-        <path d="M5 12.8 9.6 17.4 19 7.2" />
-      </>
-    )
-  }
-  {
-    product === 'amplify' && (
-      <>
-        <path d="m6 13 6-6 6 6" />
-        <path d="m6 19 6-6 6 6" />
-      </>
-    )
-  }
-  {
-    product === 'sentinel' && (
-      <>
-        <path d="M6 20V10a6 6 0 0 1 12 0v10" />
-        <path d="M4 20h16" />
-        <path d="M12 11v5" />
-      </>
-    )
-  }
+  {product === 'grc' && (
+    <>
+      <path d="M5 12.8 9.6 17.4 19 7.2" />
+    </>
+  )}
+  {product === 'amplify' && (
+    <>
+      <path d="m6 13 6-6 6 6" />
+      <path d="m6 19 6-6 6 6" />
+    </>
+  )}
+  {product === 'sentinel' && (
+    <>
+      <path d="M6 20V10a6 6 0 0 1 12 0v10" />
+      <path d="M4 20h16" />
+      <path d="M12 11v5" />
+    </>
+  )}
 </svg>

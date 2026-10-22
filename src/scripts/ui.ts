@@ -24,25 +24,32 @@ drawer?.addEventListener('click', (e) => {
   if ((e.target as HTMLElement).closest('a')) setDrawer(false);
 });
 
-/* ---- Products mega-menu: disclosure pattern ---- */
+/* ---- Products mega-menu: disclosure pattern ----
+ * States: closed, hover-open (closes when the pointer leaves), and pinned (opened by
+ * click or keyboard; stays open until closed). A click on a hover-opened menu pins it,
+ * so hovering and then clicking never makes the menu flicker shut. */
 let closeTimer: number | undefined;
-function setMega(open: boolean) {
+let pinned = false;
+function setMega(open: boolean, pin = false) {
   if (!productsItem || !productsTrigger) return;
   productsItem.classList.toggle('is-open', open);
   productsTrigger.setAttribute('aria-expanded', String(open));
+  pinned = open && pin;
 }
 if (productsItem && productsTrigger) {
   productsTrigger.addEventListener('click', () => {
-    setMega(productsTrigger.getAttribute('aria-expanded') !== 'true');
+    const isOpen = productsTrigger.getAttribute('aria-expanded') === 'true';
+    if (isOpen && !pinned) setMega(true, true);
+    else setMega(!isOpen, true);
   });
   // Hover opens for mouse users only; touch and keyboard use the button.
   productsItem.addEventListener('pointerenter', (e) => {
     if (e.pointerType !== 'mouse') return;
     window.clearTimeout(closeTimer);
-    setMega(true);
+    if (!productsItem.classList.contains('is-open')) setMega(true);
   });
   productsItem.addEventListener('pointerleave', (e) => {
-    if (e.pointerType !== 'mouse') return;
+    if (e.pointerType !== 'mouse' || pinned) return;
     closeTimer = window.setTimeout(() => setMega(false), 140);
   });
   productsItem.addEventListener('focusout', (e) => {

@@ -13,9 +13,14 @@ const { product, note } = Astro.props;
 ---
 
 <article class="card" data-product={product.id}>
-  <div class="art"><ProductMotif product={product.id} /></div>
+  <div class="art">
+    <ProductMotif product={product.id} />
+  </div>
   <div class="body">
-    <p class="cat"><ProductGlyph product={product.id} size={18} />{product.category}</p>
+    <p class="cat">
+      <ProductGlyph product={product.id} size={18} />
+      {product.category}
+    </p>
     <h3>{product.name}</h3>
     <p class="summary">{product.summary}</p>
     {note && <p class="note">{note}</p>}

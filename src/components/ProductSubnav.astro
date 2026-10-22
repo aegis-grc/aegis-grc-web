@@ -14,10 +14,16 @@ const { product, items, cta } = Astro.props;
     <Logo product={product} size="sm" />
     <nav aria-label="On this page">
       <ul>
-        {items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+        {items.map((i) => (
+          <li>
+            <a href={i.href}>{i.label}</a>
+          </li>
+        ))}
       </ul>
     </nav>
-    <a class="btn btn--accent" href={cta.href}>{cta.label}</a>
+    <a class="btn btn--accent" href={cta.href}>
+      {cta.label}
+    </a>
   </div>
 </div>
 

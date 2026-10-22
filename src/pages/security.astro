@@ -96,14 +96,12 @@ const productDetail = [
         </p>
       </div>
       <ul class="rows">
-        {
-          principles.map((p) => (
-            <li>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
-            </li>
-          ))
-        }
+        {principles.map((p) => (
+          <li>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -119,17 +117,23 @@ const productDetail = [
         </p>
       </div>
       <div class="cols-3">
-        {
-          productDetail.map((d) => (
-            <article class="group" data-product={d.product.id}>
-              <h3 class="ph"><ProductGlyph product={d.product.id} size={22} />{d.product.name}</h3>
-              <ul class="items">
-                {d.items.map((i) => <li>{i}</li>)}
-              </ul>
-              <a class="link-arrow" href={d.product.path}>About {d.product.name}<Arrow /></a>
-            </article>
-          ))
-        }
+        {productDetail.map((d) => (
+          <article class="group" data-product={d.product.id}>
+            <h3 class="ph">
+              <ProductGlyph product={d.product.id} size={22} />
+              {d.product.name}
+            </h3>
+            <ul class="items">
+              {d.items.map((i) => (
+                <li>{i}</li>
+              ))}
+            </ul>
+            <a class="link-arrow" href={d.product.path}>
+              About {d.product.name}
+              <Arrow />
+            </a>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -146,7 +150,10 @@ const productDetail = [
           current security documentation for a review, ask us and we will tell you exactly what is
           available.
         </p>
-        <a class="link-arrow" href="/contact/?topic=security">Ask a security question<Arrow /></a>
+        <a class="link-arrow" href="/contact/?topic=security">
+          Ask a security question
+          <Arrow />
+        </a>
       </div>
     </div>
   </section>

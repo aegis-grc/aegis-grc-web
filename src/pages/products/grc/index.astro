@@ -106,11 +106,20 @@ const security = [
     lockup
     title="Run governance, risk, and compliance as one connected program."
     lede="Aegis GRC brings compliance, risk, audit, vendor management, contracts, quality management, and learning into one platform, with AI that works from your own policies and playbook."
-    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Products', href: '/products/' }, { name: 'Aegis GRC' }]}
+    crumbs={[
+      { name: 'Aegis', href: '/' },
+      { name: 'Products', href: '/products/' },
+      { name: 'Aegis GRC' },
+    ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=grc">Contact sales<Arrow /></a>
-      <a class="btn btn--ghost" href="#how">See how it works</a>
+      <a class="btn btn--accent" href="/contact/?topic=grc">
+        Contact sales
+        <Arrow />
+      </a>
+      <a class="btn btn--ghost" href="#how">
+        See how it works
+      </a>
     </Fragment>
     <GrcVisual slot="visual" />
   </PageHero>
@@ -142,34 +151,35 @@ const security = [
         <div>
           <h3>Before</h3>
           <ul>
-            {
-              before.map((b) => (
-                <li>
-                  <strong>{b.title}</strong>
-                  <span>{b.text}</span>
-                </li>
-              ))
-            }
+            {before.map((b) => (
+              <li>
+                <strong>{b.title}</strong>
+                <span>{b.text}</span>
+              </li>
+            ))}
           </ul>
         </div>
         <div>
           <h3>With Aegis GRC</h3>
           <ul>
-            {
-              after.map((a) => (
-                <li>
-                  <strong>{a.title}</strong>
-                  <span>{a.text}</span>
-                </li>
-              ))
-            }
+            {after.map((a) => (
+              <li>
+                <strong>{a.title}</strong>
+                <span>{a.text}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--tint" id="platform" aria-labelledby="platform-title" data-product="grc">
+  <section
+    class="section section--tint"
+    id="platform"
+    aria-labelledby="platform-title"
+    data-product="grc"
+  >
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">The platform</span>
@@ -194,7 +204,10 @@ const security = [
             <li>Contract repository</li>
             <li>Company Playbook</li>
           </ul>
-          <a class="link-arrow" href="/products/grc/contracts/">Explore Aegis Contracts<Arrow /></a>
+          <a class="link-arrow" href="/products/grc/contracts/">
+            Explore Aegis Contracts
+            <Arrow />
+          </a>
         </article>
         <article class="group">
           <h3>Quality management (QMS)</h3>
@@ -208,7 +221,10 @@ const security = [
             <li>Approval and review workflows</li>
             <li>Audit trail</li>
           </ul>
-          <a class="link-arrow" href="/products/grc/qms/">Explore Aegis QMS<Arrow /></a>
+          <a class="link-arrow" href="/products/grc/qms/">
+            Explore Aegis QMS
+            <Arrow />
+          </a>
         </article>
         <article class="group">
           <h3>Risk, audit, and compliance</h3>
@@ -254,14 +270,12 @@ const security = [
         </p>
       </div>
       <ul class="rows fw">
-        {
-          frameworks.map((f) => (
-            <li>
-              <h3>{f.name}</h3>
-              <p>{f.note}</p>
-            </li>
-          ))
-        }
+        {frameworks.map((f) => (
+          <li>
+            <h3>{f.name}</h3>
+            <p>{f.note}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -273,14 +287,12 @@ const security = [
         <h2 id="how-title">Your whole program, connected in four steps.</h2>
       </div>
       <ol class="steps">
-        {
-          steps.map((s) => (
-            <li>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-            </li>
-          ))
-        }
+        {steps.map((s) => (
+          <li>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
       </ol>
     </div>
   </section>
@@ -347,19 +359,24 @@ const security = [
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Security</span>
-        <h2 id="security-title">A platform that holds your compliance data should be built carefully.</h2>
+        <h2 id="security-title">
+          A platform that holds your compliance data should be built carefully.
+        </h2>
       </div>
       <ul class="cols-3 rows-cols">
-        {
-          security.map((s) => (
-            <li>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-            </li>
-          ))
-        }
+        {security.map((s) => (
+          <li>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
       </ul>
-      <p class="more"><a class="link-arrow" href="/security/">How Aegis approaches security<Arrow /></a></p>
+      <p class="more">
+        <a class="link-arrow" href="/security/">
+          How Aegis approaches security
+          <Arrow />
+        </a>
+      </p>
     </div>
   </section>
 

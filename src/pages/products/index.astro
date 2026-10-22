@@ -11,7 +11,16 @@ import { breadcrumbSchema } from '../../lib/seo';
 const detail: Record<string, { text: string; tags: string[] }> = {
   grc: {
     text: 'Compliance, risk, audit, vendor management, contracts, quality management, and learning in one connected program, with AI that works from your own policies and playbook.',
-    tags: ['Compliance', 'Risk', 'Audit', 'Vendors', 'Contracts', 'QMS', 'Learning', 'Trust Center'],
+    tags: [
+      'Compliance',
+      'Risk',
+      'Audit',
+      'Vendors',
+      'Contracts',
+      'QMS',
+      'Learning',
+      'Trust Center',
+    ],
   },
   amplify: {
     text: 'AI-native sales, marketing, and revenue operations for contractors and home-service businesses, from lead response to estimate follow-up and attribution.',
@@ -47,31 +56,39 @@ const detail: Record<string, { text: string; tags: string[] }> = {
 
   <section class="section section--tint" aria-label="Products">
     <div class="container list">
-      {
-        productList.map((p) => (
-          <article class="item" data-product={p.id}>
-            <div class="art"><ProductMotif product={p.id} /></div>
-            <div class="info">
-              <p class="cat"><ProductGlyph product={p.id} size={18} />{p.category}</p>
-              <h2>{p.name}</h2>
-              <p class="lede">{detail[p.id].text}</p>
-              <ul class="tags">
-                {detail[p.id].tags.map((t) => <li>{t}</li>)}
-              </ul>
-              <div class="links">
-                <a class="btn btn--accent" href={p.path}>Explore {p.name}<Arrow /></a>
-                {p.id === 'grc' &&
-                  grcFamily.map((c) => (
-                    <a class="link-arrow" href={c.path}>
-                      {c.name}
-                      <Arrow />
-                    </a>
-                  ))}
-              </div>
+      {productList.map((p) => (
+        <article class="item" data-product={p.id}>
+          <div class="art">
+            <ProductMotif product={p.id} />
+          </div>
+          <div class="info">
+            <p class="cat">
+              <ProductGlyph product={p.id} size={18} />
+              {p.category}
+            </p>
+            <h2>{p.name}</h2>
+            <p class="lede">{detail[p.id].text}</p>
+            <ul class="tags">
+              {detail[p.id].tags.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+            <div class="links">
+              <a class="btn btn--accent" href={p.path}>
+                Explore {p.name}
+                <Arrow />
+              </a>
+              {p.id === 'grc' &&
+                grcFamily.map((c) => (
+                  <a class="link-arrow" href={c.path}>
+                    {c.name}
+                    <Arrow />
+                  </a>
+                ))}
             </div>
-          </article>
-        ))
-      }
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -86,7 +103,10 @@ const detail: Record<string, { text: string; tags: string[] }> = {
           Aria is the Aegis intelligence layer: a shared approach to reasoning, orchestration, and
           human control that each product applies to its own work.
         </p>
-        <a class="link-arrow" href={ariaPath}>Meet Aria<Arrow /></a>
+        <a class="link-arrow" href={ariaPath}>
+          Meet Aria
+          <Arrow />
+        </a>
       </div>
     </div>
   </section>
@@ -121,7 +141,8 @@ const detail: Record<string, { text: string; tags: string[] }> = {
     border: 1px solid var(--line-2);
     border-radius: var(--radius-lg);
     background:
-      radial-gradient(ellipse 80% 90% at 50% 0%, var(--accent-glow), transparent 75%), var(--surface);
+      radial-gradient(ellipse 80% 90% at 50% 0%, var(--accent-glow), transparent 75%),
+      var(--surface);
   }
   .info {
     display: grid;

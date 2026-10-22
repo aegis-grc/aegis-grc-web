@@ -11,16 +11,16 @@ const stages = [
 ---
 
 <figure class="pipe" data-product="amplify">
-  <figcaption><span class="dot"></span>From first inquiry to booked job</figcaption>
+  <figcaption>
+    <span class="dot"></span>From first inquiry to booked job
+  </figcaption>
   <ol>
-    {
-      stages.map((s, i) => (
-        <li class:list={{ last: i === stages.length - 1 }} style={`--i:${i}`}>
-          <span class="label">{s.label}</span>
-          <span class="note">{s.note}</span>
-        </li>
-      ))
-    }
+    {stages.map((s, i) => (
+      <li class:list={{ last: i === stages.length - 1 }} style={`--i:${i}`}>
+        <span class="label">{s.label}</span>
+        <span class="note">{s.note}</span>
+      </li>
+    ))}
   </ol>
   <div class="attr">Attribution connects each job back to the source that started it.</div>
 </figure>

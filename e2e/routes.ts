@@ -1,0 +1,20 @@
+/** Every public route. Keep in sync with src/pages. */
+export const routes = [
+  '/',
+  '/products/',
+  '/products/grc/',
+  '/products/grc/contracts/',
+  '/products/grc/qms/',
+  '/products/amplify/',
+  '/products/sentinel/',
+  '/platform/intelligence/',
+  '/solutions/',
+  '/industries/',
+  '/security/',
+  '/resources/',
+  '/company/',
+  '/contact/',
+  '/sign-in/',
+  '/privacy/',
+  '/terms/',
+];

@@ -37,7 +37,11 @@ import { breadcrumbSchema } from '../lib/seo';
           <li>Anything your security or procurement team needs to see</li>
         </ul>
         <p class="muted">
-          Prefer email? Write to <a class="mail" href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+          Prefer email? Write to{' '}
+          <a class="mail" href={`mailto:${contactEmail}`}>
+            {contactEmail}
+          </a>
+          .
         </p>
       </div>
       <ContactForm />

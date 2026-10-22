@@ -33,15 +33,29 @@ const fullTitle = rawTitle ? title : `${title} | Aegis`;
     <meta name="color-scheme" content="dark" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
-      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      document.documentElement.className = document.documentElement.className.replace(
+        'no-js',
+        'js',
+      );
     </script>
-    <Font cssVariable="--font-display" preload={[{ weight: 500, style: 'normal', subset: 'latin' }]} />
+    <Font
+      cssVariable="--font-display"
+      preload={[{ weight: 500, style: 'normal', subset: 'latin' }]}
+    />
     <Font cssVariable="--font-body" preload={[{ weight: 400, style: 'normal', subset: 'latin' }]} />
     <Font cssVariable="--font-mono" />
-    <Seo title={fullTitle} description={description} path={path} noindex={noindex} schema={schema} />
+    <Seo
+      title={fullTitle}
+      description={description}
+      path={path}
+      noindex={noindex}
+      schema={schema}
+    />
   </head>
   <body data-product={product}>
-    <a class="skip-link" href="#main">Skip to main content</a>
+    <a class="skip-link" href="#main">
+      Skip to main content
+    </a>
     <Header />
     <main id="main" tabindex="-1">
       <slot />

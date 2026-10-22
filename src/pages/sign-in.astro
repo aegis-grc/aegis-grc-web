@@ -31,29 +31,30 @@ import { breadcrumbSchema } from '../lib/seo';
   <section class="section section--tint" aria-label="Choose a product">
     <div class="container">
       <ul class="choices">
-        {
-          productList.map((p) => (
-            <li class="choice" data-product={p.id}>
-              <span class="g"><ProductGlyph product={p.id} size={24} /></span>
-              <h2>{p.name}</h2>
-              <p class="muted">{p.category}</p>
-              {p.appUrl ? (
-                <a class="btn btn--accent" href={p.appUrl} rel="noopener">
-                  Sign in to {p.name}
-                  <Arrow />
-                </a>
-              ) : (
-                <p class="pending">
-                  Your {p.name} sign-in link comes from your administrator or your Aegis contact.
-                  <a href="/contact/">Need help? Contact us</a>
-                </p>
-              )}
-            </li>
-          ))
-        }
+        {productList.map((p) => (
+          <li class="choice" data-product={p.id}>
+            <span class="g">
+              <ProductGlyph product={p.id} size={24} />
+            </span>
+            <h2>{p.name}</h2>
+            <p class="muted">{p.category}</p>
+            {p.appUrl ? (
+              <a class="btn btn--accent" href={p.appUrl} rel="noopener">
+                Sign in to {p.name}
+                <Arrow />
+              </a>
+            ) : (
+              <p class="pending">
+                Your {p.name} sign-in link comes from your administrator or your Aegis contact.
+                <a href="/contact/">Need help? Contact us</a>
+              </p>
+            )}
+          </li>
+        ))}
       </ul>
       <p class="note">
-        New to Aegis? <a href="/products/">Explore the products</a> or <a href="/contact/">contact sales</a>.
+        New to Aegis? <a href="/products/">Explore the products</a> or{' '}
+        <a href="/contact/">contact sales</a>.
       </p>
     </div>
   </section>

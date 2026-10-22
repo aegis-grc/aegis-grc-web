@@ -15,8 +15,15 @@ const { title, text, primary, secondary } = Astro.props;
       <h2 id="cta-title">{title}</h2>
       {text && <p class="lede">{text}</p>}
       <div class="actions">
-        <a class="btn btn--accent" href={primary.href}>{primary.label}<Arrow /></a>
-        {secondary && <a class="btn btn--ghost" href={secondary.href}>{secondary.label}</a>}
+        <a class="btn btn--accent" href={primary.href}>
+          {primary.label}
+          <Arrow />
+        </a>
+        {secondary && (
+          <a class="btn btn--ghost" href={secondary.href}>
+            {secondary.label}
+          </a>
+        )}
       </div>
     </div>
   </div>

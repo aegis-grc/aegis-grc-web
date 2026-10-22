@@ -34,28 +34,26 @@ const byArea = areas
 
   <section class="section section--tint" aria-label="Resource library">
     <div class="container">
-      {
-        byArea.map((a) => (
-          <section class="area" aria-labelledby={`area-${a.id}`}>
-            <div class="stack">
-              <h2 id={`area-${a.id}`}>{a.title}</h2>
-              <p class="muted">{a.blurb}</p>
-            </div>
-            <ul class="items">
-              {a.items.map((r) => (
-                <li>
-                  <a href={r.href}>
-                    <span class="kind">{kindLabels[r.kind]}</span>
-                    <span class="title">{r.title}</span>
-                    <span class="sum">{r.summary}</span>
-                    <Arrow />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
+      {byArea.map((a) => (
+        <section class="area" aria-labelledby={`area-${a.id}`}>
+          <div class="stack">
+            <h2 id={`area-${a.id}`}>{a.title}</h2>
+            <p class="muted">{a.blurb}</p>
+          </div>
+          <ul class="items">
+            {a.items.map((r) => (
+              <li>
+                <a href={r.href}>
+                  <span class="kind">{kindLabels[r.kind]}</span>
+                  <span class="title">{r.title}</span>
+                  <span class="sum">{r.summary}</span>
+                  <Arrow />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </div>
   </section>
 

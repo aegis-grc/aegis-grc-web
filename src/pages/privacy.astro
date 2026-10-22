@@ -4,15 +4,24 @@ import PageHero from '../components/PageHero.astro';
 import { contactEmail } from '../data/site';
 ---
 
-<BaseLayout title="Privacy policy" description="Privacy information for the Aegis website." path="/privacy/" noindex>
+<BaseLayout
+  title="Privacy policy"
+  description="Privacy information for the Aegis website."
+  path="/privacy/"
+  noindex
+>
   <PageHero
     title="Privacy policy"
     lede="Aegis has not yet published a privacy policy on this website. If you have a privacy question or request, contact us and we will respond."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Privacy policy' }]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--primary" href={`mailto:${contactEmail}`}>Email {contactEmail}</a>
-      <a class="btn btn--ghost" href="/contact/">Contact us</a>
+      <a class="btn btn--primary" href={`mailto:${contactEmail}`}>
+        Email {contactEmail}
+      </a>
+      <a class="btn btn--ghost" href="/contact/">
+        Contact us
+      </a>
     </Fragment>
   </PageHero>
 </BaseLayout>

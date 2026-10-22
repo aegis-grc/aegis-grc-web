@@ -36,7 +36,10 @@ const workflow = [
 
 const sources = [
   { name: 'CrowdStrike', note: 'Endpoint and identity detections' },
-  { name: 'Microsoft Defender, Entra, and Purview', note: 'Microsoft security and identity signals' },
+  {
+    name: 'Microsoft Defender, Entra, and Purview',
+    note: 'Microsoft security and identity signals',
+  },
   { name: 'AWS', note: 'Security telemetry from AWS' },
   { name: 'Cloudflare', note: 'Edge and network security signals' },
 ];
@@ -91,16 +94,30 @@ const controls = [
     lockup
     title="AI-native security operations, with people in control."
     lede="Aegis Sentinel brings alert ingestion, correlation, investigation, and case management into one workflow. AI assists the analyst, and consequential actions wait for human approval."
-    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Products', href: '/products/' }, { name: 'Aegis Sentinel' }]}
+    crumbs={[
+      { name: 'Aegis', href: '/' },
+      { name: 'Products', href: '/products/' },
+      { name: 'Aegis Sentinel' },
+    ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=sentinel">Request a briefing<Arrow /></a>
-      <a class="btn btn--ghost" href="#workflow">See the workflow</a>
+      <a class="btn btn--accent" href="/contact/?topic=sentinel">
+        Request a briefing
+        <Arrow />
+      </a>
+      <a class="btn btn--ghost" href="#workflow">
+        See the workflow
+      </a>
     </Fragment>
     <SentinelVisual slot="visual" />
   </PageHero>
 
-  <section class="section section--tint" id="workflow" aria-labelledby="workflow-title" data-product="sentinel">
+  <section
+    class="section section--tint"
+    id="workflow"
+    aria-labelledby="workflow-title"
+    data-product="sentinel"
+  >
     <div class="container split">
       <div class="stack sticky">
         <span class="eyebrow">Workflow</span>
@@ -111,14 +128,12 @@ const controls = [
         </p>
       </div>
       <ul class="rows">
-        {
-          workflow.map((w) => (
-            <li>
-              <h3>{w.title}</h3>
-              <p>{w.text}</p>
-            </li>
-          ))
-        }
+        {workflow.map((w) => (
+          <li>
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -133,14 +148,12 @@ const controls = [
         </p>
       </div>
       <ul class="sources">
-        {
-          sources.map((s) => (
-            <li>
-              <h3>{s.name}</h3>
-              <p>{s.note}</p>
-            </li>
-          ))
-        }
+        {sources.map((s) => (
+          <li>
+            <h3>{s.name}</h3>
+            <p>{s.note}</p>
+          </li>
+        ))}
       </ul>
       <p class="note legal-note">
         Product and company names belong to their respective owners. Their use here does not imply
@@ -149,7 +162,12 @@ const controls = [
     </div>
   </section>
 
-  <section class="section section--tint" id="control" aria-labelledby="control-title" data-product="sentinel">
+  <section
+    class="section section--tint"
+    id="control"
+    aria-labelledby="control-title"
+    data-product="sentinel"
+  >
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Control</span>
@@ -160,19 +178,22 @@ const controls = [
         </p>
       </div>
       <ul class="cols-3 ctrl">
-        {
-          controls.map((c) => (
-            <li>
-              <h3>{c.title}</h3>
-              <p>{c.text}</p>
-            </li>
-          ))
-        }
+        {controls.map((c) => (
+          <li>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
 
-  <section class="section" id="safeguards" aria-labelledby="safeguards-title" data-product="sentinel">
+  <section
+    class="section"
+    id="safeguards"
+    aria-labelledby="safeguards-title"
+    data-product="sentinel"
+  >
     <div class="container split split--even">
       <div class="stack">
         <span class="eyebrow">AI safeguards</span>
@@ -197,10 +218,13 @@ const controls = [
   <section class="section section--tight aria-note" data-product="sentinel" aria-label="About Aria">
     <div class="container stack">
       <p class="lede">
-        Aegis Sentinel is part of the Aegis family. Aria, the Aegis intelligence layer, is the shared
-        approach to AI across Aegis products.
+        Aegis Sentinel is part of the Aegis family. Aria, the Aegis intelligence layer, is the
+        shared approach to AI across Aegis products.
       </p>
-      <a class="link-arrow" href={ariaPath}>Meet Aria<Arrow /></a>
+      <a class="link-arrow" href={ariaPath}>
+        Meet Aria
+        <Arrow />
+      </a>
     </div>
   </section>
 

@@ -16,17 +16,15 @@ const markSize = { sm: 24, md: 30, lg: 40 }[size];
 <span class:list={['lockup', `lockup--${size}`]} data-product={product}>
   <Mark size={markSize} />
   <span class="word">Aegis</span>
-  {
-    p && (
-      <>
-        <span class="sep" aria-hidden="true" />
-        <span class="prod">
-          <ProductGlyph product={p.id} size={size === 'lg' ? 22 : 18} />
-          {p.short}
-        </span>
-      </>
-    )
-  }
+  {p && (
+    <>
+      <span class="sep" aria-hidden="true" />
+      <span class="prod">
+        <ProductGlyph product={p.id} size={size === 'lg' ? 22 : 18} />
+        {p.short}
+      </span>
+    </>
+  )}
 </span>
 
 <style>
@@ -35,6 +33,10 @@ const markSize = { sm: 24, md: 30, lg: 40 }[size];
     align-items: center;
     gap: 12px;
     line-height: 1;
+    max-width: 100%;
+  }
+  .lockup :global(.mark) {
+    flex: none;
   }
   .word {
     font-family: var(--font-display);
@@ -50,7 +52,20 @@ const markSize = { sm: 24, md: 30, lg: 40 }[size];
     font-size: 1.1rem;
   }
   .lockup--lg .word {
-    font-size: 1.75rem;
+    font-size: clamp(1.35rem, 6.2vw, 1.75rem);
+  }
+  @media (max-width: 400px) {
+    .lockup--lg {
+      gap: 9px;
+    }
+    .lockup--lg :global(.mark) {
+      width: 30px;
+      height: auto;
+    }
+    .lockup--lg .prod {
+      font-size: 0.8125rem;
+      gap: 6px;
+    }
   }
   .sep {
     width: 1px;

@@ -63,8 +63,13 @@ const concept = [
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Aria' }]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/products/">Explore the products<Arrow /></a>
-      <a class="btn btn--ghost" href="/security/">How Aegis approaches security</a>
+      <a class="btn btn--accent" href="/products/">
+        Explore the products
+        <Arrow />
+      </a>
+      <a class="btn btn--ghost" href="/security/">
+        How Aegis approaches security
+      </a>
     </Fragment>
     <AriaDiagram slot="visual" />
   </PageHero>
@@ -76,14 +81,12 @@ const concept = [
         <h2 id="stands-title">One philosophy for AI across every product.</h2>
       </div>
       <ul class="cols-2 grid">
-        {
-          principles.map((p) => (
-            <li>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
-            </li>
-          ))
-        }
+        {principles.map((p) => (
+          <li>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -114,19 +117,17 @@ const concept = [
         <span class="eyebrow">Conceptual</span>
         <h2 id="concept-title">A direction we are exploring for Sentinel.</h2>
         <p class="note">
-          Conceptual only. These specialist roles are design ideas for Aegis Sentinel, not
-          available features.
+          Conceptual only. These specialist roles are design ideas for Aegis Sentinel, not available
+          features.
         </p>
       </div>
       <ul class="rows">
-        {
-          concept.map((c) => (
-            <li>
-              <h3>{c.name}</h3>
-              <p>{c.role}</p>
-            </li>
-          ))
-        }
+        {concept.map((c) => (
+          <li>
+            <h3>{c.name}</h3>
+            <p>{c.role}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>

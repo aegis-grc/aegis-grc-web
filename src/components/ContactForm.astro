@@ -48,7 +48,9 @@ const interests = [
     <div class="field">
       <label for="cf-topic">I'm interested in</label>
       <select id="cf-topic" name="topic">
-        {interests.map((i) => <option value={i.value}>{i.label}</option>)}
+        {interests.map((i) => (
+          <option value={i.value}>{i.label}</option>
+        ))}
       </select>
     </div>
   </div>
@@ -58,16 +60,15 @@ const interests = [
   </div>
   <div class="submit">
     <button class="btn btn--accent" type="submit">
-      {endpoint ? 'Send message' : 'Open as an email'}<Arrow />
+      {endpoint ? 'Send message' : 'Open as an email'}
+      <Arrow />
     </button>
-    {
-      !endpoint && (
-        <p class="hint">
-          This opens a pre-filled email to <a href={`mailto:${contactEmail}`}>{contactEmail}</a> in
-          your email app.
-        </p>
-      )
-    }
+    {!endpoint && (
+      <p class="hint">
+        This opens a pre-filled email to <a href={`mailto:${contactEmail}`}>{contactEmail}</a> in
+        your email app.
+      </p>
+    )}
   </div>
 </form>
 
@@ -91,7 +92,10 @@ const interests = [
           `Work email: ${data.get('email') ?? ''}`,
           `Company: ${data.get('company') ?? ''}`,
         ].join('\n');
-        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        // Cancelable hook: lets tests (or later analytics) observe the composed email.
+        const compose = new CustomEvent('contact:compose', { detail: { href }, cancelable: true });
+        if (form.dispatchEvent(compose)) location.href = href;
       });
     }
   }

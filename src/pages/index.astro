@@ -50,21 +50,26 @@ const principles = [
           does the work; your people stay in control.
         </p>
         <div class="hero-actions">
-          <a class="btn btn--primary" href="/products/">Explore the products<Arrow /></a>
-          <a class="btn btn--ghost" href="/contact/">Contact sales</a>
+          <a class="btn btn--primary" href="/products/">
+            Explore the products
+            <Arrow />
+          </a>
+          <a class="btn btn--ghost" href="/contact/">
+            Contact sales
+          </a>
         </div>
         <ul class="domains" aria-label="Where Aegis works">
-          {
-            domains.map((d) => (
-              <li data-product={d.product.id}>
-                <a href={d.product.path}>
-                  <span class="d-glyph"><ProductGlyph product={d.product.id} size={20} /></span>
-                  <span class="d-word">{d.word}</span>
-                  <span class="d-name">{d.product.name}</span>
-                </a>
-              </li>
-            ))
-          }
+          {domains.map((d) => (
+            <li data-product={d.product.id}>
+              <a href={d.product.path}>
+                <span class="d-glyph">
+                  <ProductGlyph product={d.product.id} size={20} />
+                </span>
+                <span class="d-word">{d.word}</span>
+                <span class="d-name">{d.product.name}</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
       <div class="hero-art">
@@ -86,16 +91,14 @@ const principles = [
         </p>
       </div>
       <div class="cards">
-        {
-          productList.map((p) => (
-            <div>
-              <ProductCard
-                product={p}
-                note={p.id === 'grc' ? 'Includes Aegis Contracts and Aegis QMS.' : undefined}
-              />
-            </div>
-          ))
-        }
+        {productList.map((p) => (
+          <div>
+            <ProductCard
+              product={p}
+              note={p.id === 'grc' ? 'Includes Aegis Contracts and Aegis QMS.' : undefined}
+            />
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -111,7 +114,10 @@ const principles = [
           orchestrating the steps of a workflow, and keeping people in control. Each product puts
           Aria to work in its own domain.
         </p>
-        <a class="link-arrow" href={ariaPath}>Meet Aria<Arrow /></a>
+        <a class="link-arrow" href={ariaPath}>
+          Meet Aria
+          <Arrow />
+        </a>
       </div>
       <AriaDiagram />
     </div>
@@ -125,14 +131,12 @@ const principles = [
         <h2 id="governed-title">AI does the work. People keep control.</h2>
       </div>
       <ul class="principles">
-        {
-          principles.map((p) => (
-            <li>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
-            </li>
-          ))
-        }
+        {principles.map((p) => (
+          <li>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -148,7 +152,10 @@ const principles = [
           Aegis explains how its products approach identity, data handling, and approval controls,
           and says plainly what is and is not yet in place.
         </p>
-        <a class="link-arrow" href="/security/">How Aegis approaches security<Arrow /></a>
+        <a class="link-arrow" href="/security/">
+          How Aegis approaches security
+          <Arrow />
+        </a>
       </div>
     </div>
   </section>
@@ -160,23 +167,25 @@ const principles = [
         <span class="eyebrow">Solutions</span>
         <h2 id="solutions-title">Start from the problem.</h2>
         <ul class="sol-list">
-          {
-            solutions.map((s) => (
-              <li>
-                <a href={`/solutions/#${s.id}`}>
-                  {s.title}
-                  <Arrow />
-                </a>
-              </li>
-            ))
-          }
+          {solutions.map((s) => (
+            <li>
+              <a href={`/solutions/#${s.id}`}>
+                {s.title}
+                <Arrow />
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
       <div>
         <span class="eyebrow">Industries</span>
         <h2 class="h2-sm">Or start from your industry.</h2>
         <ul class="chips">
-          {industries.map((i) => <li><a href={`/industries/#${i.id}`}>{i.name}</a></li>)}
+          {industries.map((i) => (
+            <li>
+              <a href={`/industries/#${i.id}`}>{i.name}</a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
@@ -188,12 +197,18 @@ const principles = [
       <a class="duo-card" href="/resources/">
         <h2 class="h3">Resources</h2>
         <p>Product guides and security information, kept in one place as the library grows.</p>
-        <span class="link-arrow">Browse resources<Arrow /></span>
+        <span class="link-arrow">
+          Browse resources
+          <Arrow />
+        </span>
       </a>
       <a class="duo-card" href="/company/">
         <h2 class="h3">Company</h2>
         <p>What Aegis builds, and the principles behind the product family.</p>
-        <span class="link-arrow">About Aegis<Arrow /></span>
+        <span class="link-arrow">
+          About Aegis
+          <Arrow />
+        </span>
       </a>
     </div>
   </section>

@@ -11,7 +11,9 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
 
 <header class="site-header" id="site-header">
   <div class="container bar">
-    <a class="home" href="/" aria-label="Aegis home"><Logo size="md" /></a>
+    <a class="home" href="/" aria-label="Aegis home">
+      <Logo size="md" />
+    </a>
 
     <button
       class="menu-toggle"
@@ -21,7 +23,13 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
       id="menu-toggle"
     >
       <span class="visually-hidden">Menu</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        aria-hidden="true"
+      >
         <path class="l1" d="M4 8h16" stroke-linecap="round"></path>
         <path class="l2" d="M4 16h16" stroke-linecap="round"></path>
       </svg>
@@ -31,7 +39,11 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
       <nav aria-label="Primary">
         <ul class="primary">
           <li class="has-mega" id="products-item">
-            <a class="top nav-fallback" href="/products/" aria-current={inProducts ? 'page' : undefined}>
+            <a
+              class="top nav-fallback"
+              href="/products/"
+              aria-current={inProducts ? 'page' : undefined}
+            >
               {nav.products.label}
             </a>
             <button
@@ -44,34 +56,40 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
             >
               {nav.products.label}
               <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path
+                  d="m4 6 4 4 4-4"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
               </svg>
             </button>
 
             <div class="mega" id="mega-products" role="group" aria-label="Products">
               <ul class="mega-products">
-                {
-                  nav.products.items.map((p) => (
-                    <li data-product={p.id}>
-                      <a class="mega-item" href={p.href}>
-                        <span class="mega-glyph">
-                          <ProductGlyph product={p.id} size={22} />
-                        </span>
-                        <span class="mega-text">
-                          <span class="mega-name">{p.name}</span>
-                          <span class="mega-desc">{p.description}</span>
-                        </span>
-                      </a>
-                      {p.children.length > 0 && (
-                        <ul class="mega-sub">
-                          {p.children.map((c) => (
-                            <li><a href={c.href}>{c.name}</a></li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))
-                }
+                {nav.products.items.map((p) => (
+                  <li data-product={p.id}>
+                    <a class="mega-item" href={p.href}>
+                      <span class="mega-glyph">
+                        <ProductGlyph product={p.id} size={22} />
+                      </span>
+                      <span class="mega-text">
+                        <span class="mega-name">{p.name}</span>
+                        <span class="mega-desc">{p.description}</span>
+                      </span>
+                    </a>
+                    {p.children.length > 0 && (
+                      <ul class="mega-sub">
+                        {p.children.map((c) => (
+                          <li>
+                            <a href={c.href}>{c.name}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
               </ul>
               <div class="mega-foot">
                 <a class="link-arrow" href={nav.products.all.href}>
@@ -84,23 +102,27 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
               </div>
             </div>
           </li>
-          {
-            nav.links.map((l) => (
-              <li>
-                <a class="top" href={l.href} aria-current={current(l.href)}>
-                  {l.label}
-                </a>
-              </li>
-            ))
-          }
+          {nav.links.map((l) => (
+            <li>
+              <a class="top" href={l.href} aria-current={current(l.href)}>
+                {l.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
 
       <div class="actions">
-        <a class="signin" href={nav.actions.signIn.href} aria-current={current(nav.actions.signIn.href)}>
+        <a
+          class="signin"
+          href={nav.actions.signIn.href}
+          aria-current={current(nav.actions.signIn.href)}
+        >
           {nav.actions.signIn.label}
         </a>
-        <a class="btn btn--primary" href={nav.actions.contact.href}>{nav.actions.contact.label}</a>
+        <a class="btn btn--primary" href={nav.actions.contact.href}>
+          {nav.actions.contact.label}
+        </a>
       </div>
     </div>
   </div>

@@ -55,20 +55,20 @@ const beliefs = [
         <h2 id="build-title">Three products across revenue, risk, and security.</h2>
       </div>
       <ul class="prods">
-        {
-          productList.map((p) => (
-            <li data-product={p.id}>
-              <a href={p.path}>
-                <span class="g"><ProductGlyph product={p.id} size={22} /></span>
-                <span>
-                  <strong>{p.name}</strong>
-                  <span>{p.category}</span>
-                </span>
-                <Arrow />
-              </a>
-            </li>
-          ))
-        }
+        {productList.map((p) => (
+          <li data-product={p.id}>
+            <a href={p.path}>
+              <span class="g">
+                <ProductGlyph product={p.id} size={22} />
+              </span>
+              <span>
+                <strong>{p.name}</strong>
+                <span>{p.category}</span>
+              </span>
+              <Arrow />
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -99,14 +99,12 @@ const beliefs = [
         <h2 id="beliefs-title">Product philosophy.</h2>
       </div>
       <ul class="rows">
-        {
-          beliefs.map((b) => (
-            <li>
-              <h3>{b.title}</h3>
-              <p>{b.text}</p>
-            </li>
-          ))
-        }
+        {beliefs.map((b) => (
+          <li>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </li>
+        ))}
       </ul>
     </div>
   </section>

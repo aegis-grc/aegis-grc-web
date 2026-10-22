@@ -8,17 +8,18 @@ const { title, steps } = Astro.props;
 ---
 
 <figure class="flow" data-product="grc">
-  <figcaption><span class="dot"></span>{title}</figcaption>
+  <figcaption>
+    <span class="dot"></span>
+    {title}
+  </figcaption>
   <ol>
-    {
-      steps.map((s, i) => (
-        <li class:list={{ last: i === steps.length - 1 }}>
-          <span class="node" aria-hidden="true"></span>
-          <span class="label">{s.label}</span>
-          <span class="note">{s.note}</span>
-        </li>
-      ))
-    }
+    {steps.map((s, i) => (
+      <li class:list={{ last: i === steps.length - 1 }}>
+        <span class="node" aria-hidden="true"></span>
+        <span class="label">{s.label}</span>
+        <span class="note">{s.note}</span>
+      </li>
+    ))}
   </ol>
 </figure>
 

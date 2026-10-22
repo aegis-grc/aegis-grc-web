@@ -15,16 +15,22 @@ const tiles = [
     <span class="dot"></span>One connected program
   </figcaption>
   <ul>
-    {
-      tiles.map((t) => (
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d={t.d} />
-          </svg>
-          <span>{t.label}</span>
-        </li>
-      ))
-    }
+    {tiles.map((t) => (
+      <li>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d={t.d} />
+        </svg>
+        <span>{t.label}</span>
+      </li>
+    ))}
   </ul>
   <div class="foot">
     <span class="bar"></span>

@@ -24,17 +24,15 @@ const rows = [
     <span class="sub">Reasoning · orchestration · context · human control</span>
   </div>
   <ul>
-    {
-      rows.map((r) => (
-        <li data-product={r.product.id}>
-          <span class="head">
-            <ProductGlyph product={r.product.id} size={18} />
-            {r.product.name}
-          </span>
-          <span class="text">{r.text}</span>
-        </li>
-      ))
-    }
+    {rows.map((r) => (
+      <li data-product={r.product.id}>
+        <span class="head">
+          <ProductGlyph product={r.product.id} size={18} />
+          {r.product.name}
+        </span>
+        <span class="text">{r.text}</span>
+      </li>
+    ))}
   </ul>
 </div>
 
