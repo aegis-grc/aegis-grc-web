@@ -37,8 +37,7 @@ export const nav = {
 };
 
 export const footer = {
-  blurb:
-    'Aegis builds AI-native operating platforms for high-stakes business operations: revenue, risk, and security.',
+  blurb: 'The AI does the work. People keep control.',
   groups: [
     {
       title: 'Products',

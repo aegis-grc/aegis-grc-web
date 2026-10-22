@@ -1,0 +1,129 @@
+---
+import Plane from './Plane.astro';
+
+interface Props {
+  class?: string;
+}
+---
+
+<Plane product="sentinel" title="Case" status="Awaiting approval" dark class={Astro.props.class}>
+  <div class="work">
+    <svg class="graph" viewBox="0 0 150 120" fill="none" aria-hidden="true">
+      <g stroke="var(--accent-line)" stroke-width="1.2">
+        <path d="M14 18C60 18 70 60 100 60"></path>
+        <path d="M14 46C56 46 72 60 100 60"></path>
+        <path d="M14 74C56 74 72 60 100 60"></path>
+        <path d="M14 102C60 102 70 60 100 60"></path>
+      </g>
+      <g fill="var(--bg)" stroke="var(--accent-text)" stroke-width="1.4">
+        <circle cx="14" cy="18" r="4.5"></circle>
+        <circle cx="14" cy="46" r="4.5"></circle>
+        <circle cx="14" cy="74" r="4.5"></circle>
+        <circle cx="14" cy="102" r="4.5"></circle>
+      </g>
+      <circle cx="100" cy="60" r="9" fill="var(--accent)"></circle>
+      <circle cx="100" cy="60" r="15" stroke="var(--accent-line)" stroke-width="1"></circle>
+      <path
+        d="M100 60h42"
+        stroke="var(--accent-line)"
+        stroke-width="1.2"
+        stroke-dasharray="3 4"
+      ></path>
+    </svg>
+    <ul class="tl">
+      <li>
+        <i></i>
+        <b style="width:78%"></b>
+      </li>
+      <li>
+        <i></i>
+        <b style="width:62%"></b>
+      </li>
+      <li>
+        <i></i>
+        <b style="width:70%"></b>
+      </li>
+      <li class="plan">
+        <i></i>
+        <b style="width:54%"></b>
+        <span>Plan</span>
+      </li>
+    </ul>
+  </div>
+  <div class="gate">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M6 20V10a6 6 0 0 1 12 0v10M4 20h16M12 11v5"></path>
+    </svg>
+    <span>Approval gate</span>
+  </div>
+</Plane>
+
+<style>
+  .work {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 16px;
+    align-items: center;
+  }
+  .graph {
+    width: 100%;
+    height: auto;
+  }
+  .tl {
+    display: grid;
+    gap: 14px;
+  }
+  .tl li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tl i {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .tl b {
+    height: 7px;
+    border-radius: 4px;
+    background: var(--line-2);
+  }
+  .tl .plan span {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--accent-text);
+  }
+  .gate {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 11px 14px;
+    border: 1px dashed var(--accent-line);
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+  .gate svg {
+    width: 20px;
+    height: 20px;
+    flex: none;
+  }
+  .gate span {
+    color: var(--text);
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
-import LifecycleFlow from '../../../components/visuals/LifecycleFlow.astro';
+import FlowPlane from '../../../components/ui/FlowPlane.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { productSchema, breadcrumbSchema } from '../../../lib/seo';
@@ -24,10 +24,7 @@ const capabilities = [
     title: 'AI drafting and redlining',
     text: 'An AI copilot drafts and redlines using your Company Playbook, and flags risk before you sign.',
   },
-  {
-    title: 'Built-in e-signatures',
-    text: 'Collect signatures without leaving the platform.',
-  },
+  { title: 'Built-in e-signatures', text: 'Collect signatures without leaving the platform.' },
   {
     title: 'Obligation and renewal tracking',
     text: 'Keep track of what each contract commits you to, with renewal alerts so dates do not slip past.',
@@ -63,7 +60,7 @@ const capabilities = [
 >
   <PageHero
     product="grc"
-    eyebrow="Part of Aegis GRC"
+    label="Aegis Contracts · part of Aegis GRC"
     title="Manage contracts from first draft to renewal."
     lede="Aegis Contracts is AI-native contract lifecycle management inside Aegis GRC. Draft, redline, negotiate, and e-sign with an AI copilot that works from your playbook."
     crumbs={[
@@ -74,26 +71,28 @@ const capabilities = [
     ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=contracts">
+      <a class="btn btn--primary" href="/contact/?topic=contracts">
         Contact sales
         <Arrow />
       </a>
-      <a class="btn btn--ghost" href="#capabilities">
+      <a class="link-arrow" href="#capabilities">
         What it does
+        <Arrow />
       </a>
     </Fragment>
-    <LifecycleFlow slot="visual" title="Contract lifecycle" steps={flow} />
+    <div slot="visual" class="vis">
+      <FlowPlane title="Contract lifecycle" steps={flow} />
+    </div>
   </PageHero>
 
   <section
-    class="section section--tint"
+    class="section ground-mist"
     id="capabilities"
     aria-labelledby="cap-title"
     data-product="grc"
   >
     <div class="container split">
       <div class="stack sticky">
-        <span class="eyebrow">What it does</span>
         <h2 id="cap-title">One place for every contract, from the first draft on.</h2>
         <p class="lede">
           Contracts are scattered across inboxes, drives, and signing tools. Aegis Contracts gives
@@ -114,7 +113,7 @@ const capabilities = [
   <section class="section" id="grc" aria-labelledby="grc-title" data-product="grc">
     <div class="container split split--even">
       <div class="stack">
-        <span class="eyebrow">Part of Aegis GRC</span>
+        <span class="label">Part of Aegis GRC</span>
         <h2 id="grc-title">Contracts sit beside the rest of the program.</h2>
       </div>
       <div class="stack">
@@ -140,6 +139,7 @@ const capabilities = [
   </section>
 
   <CtaBand
+    product="grc"
     title="See how Aegis Contracts would fit your process."
     text="Tell us how you handle contracts today and we will follow up."
     primary={{ label: 'Contact sales', href: '/contact/?topic=contracts' }}
@@ -148,6 +148,9 @@ const capabilities = [
 </BaseLayout>
 
 <style>
+  .vis {
+    max-width: 460px;
+  }
   .links {
     display: flex;
     flex-wrap: wrap;

@@ -24,13 +24,13 @@ import { breadcrumbSchema } from '../lib/seo';
   ]}
 >
   <PageHero
-    eyebrow="Solutions"
+    label="Solutions"
     title="Start from the problem, not the product."
     lede="Aegis products are built for specific domains. Find the work you need to improve, then see which product fits."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Solutions' }]}
   />
 
-  <section class="section section--tint" aria-label="Solutions">
+  <section class="section list" aria-label="Solutions">
     <div class="container">
       {solutions.map((s) => (
         <article class="sol" id={s.id}>
@@ -44,7 +44,7 @@ import { breadcrumbSchema } from '../lib/seo';
               {s.products.map((id) => (
                 <li data-product={id}>
                   <a href={products[id].path}>
-                    <ProductGlyph product={id} size={18} />
+                    <ProductGlyph product={id} size={17} />
                     {products[id].name}
                   </a>
                 </li>
@@ -77,45 +77,44 @@ import { breadcrumbSchema } from '../lib/seo';
 </BaseLayout>
 
 <style>
+  .list {
+    padding-top: clamp(24px, 4vw, 56px);
+  }
   .sol {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: clamp(28px, 6vw, 88px);
-    padding: clamp(32px, 4vw, 52px) 0;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(28px, 6vw, 104px);
+    padding: clamp(36px, 4.5vw, 64px) 0;
     border-top: 1px solid var(--line-2);
   }
   .sol:first-child {
-    padding-top: 0;
     border-top: 0;
   }
   h2 {
-    font-size: var(--fs-h3);
+    font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+    letter-spacing: -0.04em;
+    line-height: 1.04;
   }
   .problem {
     color: var(--text-dim);
-    max-width: 42ch;
+    max-width: 40ch;
   }
   .prods {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 10px 22px;
   }
   .prods a {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    min-height: 44px;
-    padding: 0 16px;
-    border: 1px solid var(--accent-line);
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--accent-bright);
-    font-weight: 500;
-    transition: background var(--t-fast) var(--ease);
+    font-weight: 560;
+    color: var(--accent-text);
+    border-bottom: 1px solid var(--accent-line);
+    padding-bottom: 2px;
   }
   .prods a:hover {
-    background: var(--accent-line);
-    color: var(--text);
+    border-color: var(--accent-text);
   }
   .extra {
     display: grid;

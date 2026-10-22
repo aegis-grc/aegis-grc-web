@@ -79,16 +79,15 @@ const productDetail = [
   ]}
 >
   <PageHero
-    eyebrow="Security and trust"
+    label="Security and trust"
     title="How Aegis approaches security."
     lede="The principles that apply across Aegis products, and where to find product-level detail. This page says plainly what it does and does not cover."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Security' }]}
   />
 
-  <section class="section section--tint" aria-labelledby="principles-title">
+  <section class="section" aria-labelledby="principles-title">
     <div class="container split">
       <div class="stack sticky">
-        <span class="eyebrow">Corporate principles</span>
         <h2 id="principles-title">How we think about building software people have to trust.</h2>
         <p class="note">
           These are design principles that guide Aegis products. Product-level implementation detail
@@ -106,10 +105,9 @@ const productDetail = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="detail-title">
+  <section class="section ground-mist" aria-labelledby="detail-title">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Product detail</span>
+      <div class="split head">
         <h2 id="detail-title">What each product does today.</h2>
         <p class="lede">
           Specifics belong to the product that implements them. Here is how each product describes
@@ -118,9 +116,9 @@ const productDetail = [
       </div>
       <div class="cols-3">
         {productDetail.map((d) => (
-          <article class="group" data-product={d.product.id}>
+          <article class="col" data-product={d.product.id}>
             <h3 class="ph">
-              <ProductGlyph product={d.product.id} size={22} />
+              <ProductGlyph product={d.product.id} size={20} />
               {d.product.name}
             </h3>
             <ul class="items">
@@ -138,10 +136,9 @@ const productDetail = [
     </div>
   </section>
 
-  <section class="section section--tint section--tight" aria-labelledby="certs-title">
+  <section class="section" aria-labelledby="certs-title">
     <div class="container split split--even">
       <div class="stack">
-        <span class="eyebrow">Certifications and reports</span>
         <h2 id="certs-title">What this page does not list.</h2>
       </div>
       <div class="stack">
@@ -167,15 +164,18 @@ const productDetail = [
 </BaseLayout>
 
 <style>
+  .head {
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 72px);
+  }
   .ph {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 1.5rem;
     color: var(--text);
   }
   .ph :global(svg) {
-    color: var(--accent-bright);
+    color: var(--accent-text);
   }
   .items {
     display: grid;
@@ -191,9 +191,10 @@ const productDetail = [
     content: '';
     position: absolute;
     left: 0;
-    top: 0.7em;
-    width: 7px;
-    height: 1px;
+    top: 0.75em;
+    width: 8px;
+    height: 2px;
+    border-radius: 1px;
     background: var(--accent);
   }
 </style>

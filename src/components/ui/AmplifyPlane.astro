@@ -1,0 +1,137 @@
+---
+import Plane from './Plane.astro';
+
+interface Props {
+  class?: string;
+  /** compact: four lanes (hero, menus). wide: six lanes for a full-width product moment. */
+  variant?: 'compact' | 'wide';
+}
+const { variant = 'compact', class: className } = Astro.props;
+// Lanes and skeleton leads only: structure, not data.
+const compact = [
+  { name: 'New', leads: [{ w: 72 }, { w: 56 }] },
+  { name: 'Replied', leads: [{ w: 64, hot: true }, { w: 48 }] },
+  { name: 'Booked', leads: [{ w: 60 }] },
+  { name: 'Quoted', leads: [{ w: 68 }, { w: 44 }] },
+];
+const wide = [
+  { name: 'New lead', leads: [{ w: 72 }, { w: 56 }, { w: 64 }] },
+  { name: 'Instant reply', leads: [{ w: 64, hot: true }, { w: 48 }] },
+  { name: 'Nurture', leads: [{ w: 58 }, { w: 70 }] },
+  { name: 'Booked', leads: [{ w: 60 }, { w: 46 }] },
+  { name: 'Estimate', leads: [{ w: 68 }] },
+  { name: 'Follow-up', leads: [{ w: 52 }, { w: 62 }] },
+];
+const lanes = variant === 'wide' ? wide : compact;
+---
+
+<Plane product="amplify" title="Pipeline" status="Live" class={className}>
+  <div class="lanes" style={`--n:${lanes.length}`}>
+    {lanes.map((l) => (
+      <div class="lane">
+        <span class="hd">{l.name}</span>
+        {l.leads.map((lead) => (
+          <div class:list={['lead', { hot: lead.hot }]}>
+            <i class="av"></i>
+            <span class="lines">
+              <b style={`width:${lead.w}%`} />
+              <b style="width:38%" />
+            </span>
+            {lead.hot && <u class="tag">Instant</u>}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+  <div class="source">
+    <span class="hd">Source</span>
+    <span class="seg">
+      <i style="flex:5"></i>
+      <i style="flex:3"></i>
+      <i style="flex:2"></i>
+      <i style="flex:1"></i>
+    </span>
+  </div>
+</Plane>
+
+<style>
+  .lanes {
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    gap: 10px;
+  }
+  .lane {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+  .hd {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .lead {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 8px;
+    padding: 9px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--surface);
+  }
+  .av {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--silver-wash);
+  }
+  .lines {
+    display: grid;
+    gap: 5px;
+  }
+  .lines b {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--line-2);
+  }
+  .lead.hot {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 6px 16px -8px var(--accent-line);
+  }
+  .tag {
+    grid-column: 1 / -1;
+    justify-self: start;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--accent-text);
+  }
+  .source {
+    display: grid;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .seg {
+    display: flex;
+    gap: 3px;
+    height: 8px;
+  }
+  .seg i {
+    border-radius: 4px;
+    background: var(--accent);
+  }
+  .seg i:nth-child(2) {
+    opacity: 0.7;
+  }
+  .seg i:nth-child(3) {
+    opacity: 0.45;
+  }
+  .seg i:nth-child(4) {
+    opacity: 0.25;
+  }
+</style>

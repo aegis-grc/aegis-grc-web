@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import ProductGlyph from './ProductGlyph.astro';
+import MiniPlane from './ui/MiniPlane.astro';
 import Arrow from './Arrow.astro';
 import { nav } from '../data/site';
 
@@ -75,13 +76,12 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
                 {nav.products.items.map((p) => (
                   <li data-product={p.id}>
                     <a class="mega-item" href={p.href}>
-                      <span class="mega-glyph">
-                        <ProductGlyph product={p.id} size={22} />
+                      <MiniPlane product={p.id} />
+                      <span class="mega-name">
+                        <ProductGlyph product={p.id} size={16} />
+                        {p.name}
                       </span>
-                      <span class="mega-text">
-                        <span class="mega-name">{p.name}</span>
-                        <span class="mega-desc">{p.description}</span>
-                      </span>
+                      <span class="mega-desc">{p.description}</span>
                     </a>
                     {p.children.length > 0 && (
                       <ul class="mega-sub">
@@ -95,13 +95,18 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
                   </li>
                 ))}
               </ul>
+              <a class="aria-card" href={nav.products.aria.href}>
+                <span class="aria-thread" aria-hidden="true"></span>
+                <span class="aria-name">{nav.products.aria.label}</span>
+                <span class="aria-note">The Aegis intelligence layer, shared across products.</span>
+              </a>
               <div class="mega-foot">
                 <a class="link-arrow" href={nav.products.all.href}>
                   {nav.products.all.label}
                   <Arrow />
                 </a>
-                <a class="aria-link" href={nav.products.aria.href}>
-                  <strong>{nav.products.aria.label}</strong> — {nav.products.aria.note}
+                <a class="muted" href="/solutions/">
+                  Not sure where to start? Browse solutions
                 </a>
               </div>
             </div>
@@ -137,7 +142,9 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--bg);
+    background: rgba(255, 255, 255, 0.88);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    backdrop-filter: saturate(160%) blur(14px);
     border-bottom: 1px solid var(--line);
   }
   .bar {
@@ -163,7 +170,7 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
   .primary {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
   }
   .top {
     display: inline-flex;
@@ -185,16 +192,6 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
   .top[aria-current='page'],
   .top[data-current='true'] {
     color: var(--text);
-  }
-  .top[aria-current='page']::after,
-  .top[data-current='true']::after {
-    content: '';
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    bottom: 6px;
-    height: 1px;
-    background: var(--accent);
   }
   li {
     position: relative;
@@ -224,6 +221,10 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
   .signin:hover {
     color: var(--text);
   }
+  .actions .btn {
+    min-height: 42px;
+    padding: 8px 18px;
+  }
 
   /* Without JS the trigger is a plain link to /products/; with JS it is a disclosure button */
   :global(.js) .nav-fallback {
@@ -236,22 +237,24 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     display: none;
   }
 
-  /* Mega-menu (desktop) */
+  /* Mega-menu (desktop): three products with a thumbnail each, plus Aria and a way out */
   .mega {
     position: absolute;
-    top: calc(100% + 10px);
-    left: -16px;
-    width: min(880px, calc(100vw - 2 * var(--gutter)));
-    padding: 26px;
-    background: var(--surface);
+    top: calc(100% + 12px);
+    left: -24px;
+    width: min(980px, calc(100vw - 2 * var(--gutter)));
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 0.92fr);
+    gap: 8px 22px;
+    background: var(--paper);
     border: 1px solid var(--line-2);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
+    border-radius: 18px;
+    box-shadow: var(--shadow-plane);
     visibility: hidden;
     opacity: 0;
     transform: translateY(-6px);
     transform-origin: top left;
-    /* leave fast */
     transition:
       opacity 120ms var(--ease),
       transform 120ms var(--ease),
@@ -261,95 +264,109 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     visibility: visible;
     opacity: 1;
     transform: none;
-    /* enter a little slower */
     transition:
       opacity 180ms var(--ease),
       transform 180ms var(--ease),
       visibility 0s;
   }
   .mega-products {
+    display: contents;
+  }
+  .mega-products > li {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    align-content: start;
     gap: 10px;
   }
   .mega-item {
-    display: flex;
-    gap: 14px;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid transparent;
-    transition:
-      background var(--t-fast) var(--ease),
-      border-color var(--t-fast) var(--ease);
-  }
-  .mega-item:hover {
-    background: var(--accent-soft);
-    border-color: var(--accent-line);
-  }
-  .mega-glyph {
-    flex: none;
-    width: 40px;
-    height: 40px;
     display: grid;
-    place-items: center;
-    border-radius: 10px;
-    color: var(--accent-bright);
-    background: var(--accent-soft);
-    border: 1px solid var(--accent-line);
-  }
-  .mega-text {
-    display: grid;
-    gap: 3px;
+    gap: 10px;
+    padding: 10px;
+    margin: -10px;
+    border-radius: 14px;
   }
   .mega-name {
-    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 560;
+    letter-spacing: -0.01em;
     color: var(--text);
+  }
+  .mega-name :global(svg) {
+    color: var(--accent-text);
   }
   .mega-desc {
     font-size: var(--fs-small);
     line-height: 1.45;
     color: var(--text-dim);
   }
+  @media (hover: hover) {
+    .mega-item:hover :global(.mini) {
+      transform: translateY(-2px);
+      border-color: var(--accent-line);
+    }
+  }
   .mega-sub {
     display: flex;
-    gap: 6px;
-    padding: 2px 0 0 68px;
+    gap: 14px;
     flex-wrap: wrap;
   }
   .mega-sub a {
-    display: inline-flex;
-    min-height: 32px;
-    align-items: center;
-    padding: 0 10px;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    font-size: var(--fs-label);
+    font-size: var(--fs-small);
     color: var(--text-dim);
+    padding: 2px 0;
+    border-bottom: 1px solid var(--line-2);
   }
   .mega-sub a:hover {
     color: var(--text);
-    border-color: var(--accent-line);
+    border-color: var(--text);
+  }
+  .aria-card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    padding: 18px 18px 18px 22px;
+    border-radius: 14px;
+    background: var(--mist);
+    overflow: hidden;
+  }
+  .aria-thread {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--amplify), var(--sentinel), var(--grc));
+  }
+  .aria-name {
+    font-weight: 560;
+    letter-spacing: -0.01em;
+  }
+  .aria-note {
+    font-size: var(--fs-small);
+    line-height: 1.45;
+    color: var(--text-dim);
+  }
+  @media (hover: hover) {
+    .aria-card:hover .aria-name {
+      color: var(--blue);
+    }
   }
   .mega-foot {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
     flex-wrap: wrap;
-    margin-top: 18px;
-    padding-top: 18px;
+    margin-top: 10px;
+    padding-top: 16px;
     border-top: 1px solid var(--line);
-  }
-  .aria-link {
-    color: var(--text-dim);
     font-size: var(--fs-small);
   }
-  .aria-link strong {
+  .mega-foot .muted:hover {
     color: var(--text);
-    font-weight: 500;
-  }
-  .aria-link:hover strong {
-    color: var(--accent-bright);
   }
 
   .mobile-contact {
@@ -366,7 +383,7 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     justify-content: center;
     background: none;
     border: 1px solid var(--line-2);
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
   }
   .menu-toggle svg {
@@ -386,8 +403,7 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     transform: translateY(-4px) rotate(-45deg);
   }
 
-  /* Tablet and mobile: drawer with Products expanded inline */
-  @media (max-width: 960px) {
+  @media (max-width: 1060px) {
     .menu-toggle {
       display: inline-flex;
     }
@@ -410,7 +426,7 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
       max-height: calc(100dvh - var(--nav-h));
       overflow-y: auto;
       padding: 8px var(--gutter) 28px;
-      background: var(--bg);
+      background: var(--paper);
       border-bottom: 1px solid var(--line);
     }
     .site-header.menu-open .drawer,
@@ -434,11 +450,6 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
       padding: 0;
       font-size: 1.0625rem;
     }
-    .top[aria-current='page']::after,
-    .top[data-current='true']::after {
-      display: none;
-    }
-    /* Products group: heading + always-visible list */
     .nav-trigger {
       display: none;
     }
@@ -446,12 +457,16 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
       display: inline-flex;
     }
     :global(.no-js) .mega {
-      display: block;
+      display: grid;
+    }
+    .nav-fallback {
+      color: var(--text);
     }
     .mega {
       position: static;
       width: auto;
       padding: 0 0 14px;
+      display: block;
       background: none;
       border: 0;
       box-shadow: none;
@@ -460,17 +475,26 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
       transform: none;
     }
     .mega-products {
-      grid-template-columns: 1fr;
+      display: grid;
       gap: 2px;
     }
     .mega-item {
+      grid-template-columns: 1fr;
+      gap: 2px;
+      margin: 0;
       padding: 10px 0;
     }
+    .mega-item :global(.mini) {
+      display: none;
+    }
     .mega-sub {
-      padding-left: 54px;
+      padding-left: 24px;
+    }
+    .aria-card {
+      margin-top: 8px;
     }
     .mega-foot {
-      margin-top: 8px;
+      margin-top: 12px;
       padding-top: 12px;
     }
     .actions {
@@ -481,6 +505,7 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
     }
     .actions .btn {
       width: 100%;
+      min-height: 48px;
     }
     .signin {
       justify-content: center;
@@ -492,12 +517,6 @@ const current = (href: string) => (path === href || path.startsWith(href) ? 'pag
   @media (max-width: 379px) {
     .mobile-contact {
       display: none;
-    }
-  }
-  @media (max-width: 960px) {
-    /* The Products heading link on mobile just labels the list below it */
-    .nav-fallback {
-      color: var(--text);
     }
   }
 </style>

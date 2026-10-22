@@ -59,7 +59,7 @@ const interests = [
     <textarea id="cf-message" name="message" rows="6" required></textarea>
   </div>
   <div class="submit">
-    <button class="btn btn--accent" type="submit">
+    <button class="btn btn--primary" type="submit">
       {endpoint ? 'Send message' : 'Open as an email'}
       <Arrow />
     </button>
@@ -128,9 +128,9 @@ const interests = [
     padding: 12px 14px;
     font: inherit;
     color: var(--text);
-    background: var(--surface);
+    background: var(--paper);
     border: 1px solid var(--line-2);
-    border-radius: 10px;
+    border-radius: 12px;
     transition: border-color var(--t-fast) var(--ease);
   }
   textarea {
@@ -139,14 +139,14 @@ const interests = [
   input:hover,
   select:hover,
   textarea:hover {
-    border-color: var(--silver-2);
+    border-color: var(--text-faint);
   }
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
-    outline: 2px solid var(--accent-bright);
+    outline: 2px solid var(--blue);
     outline-offset: 2px;
-    border-color: var(--accent-bright);
+    border-color: var(--blue);
   }
   .submit {
     display: flex;
@@ -160,7 +160,7 @@ const interests = [
     max-width: 38ch;
   }
   .hint a {
-    color: var(--accent-bright);
+    color: var(--blue);
     text-decoration: underline;
     text-underline-offset: 3px;
   }

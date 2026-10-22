@@ -8,7 +8,7 @@
 }
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--nav-h) + 16px);
+  scroll-padding-top: calc(var(--nav-h) + var(--subnav-h) + 16px);
 }
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -21,7 +21,8 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--fs-body);
-  line-height: 1.65;
+  font-weight: 400;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -48,7 +49,7 @@ ol {
   color: var(--accent-ink);
 }
 :focus-visible {
-  outline: 2px solid var(--accent-bright);
+  outline: 2px solid var(--accent-text);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -60,11 +61,10 @@ ol {
   top: -64px;
   z-index: 2000;
   padding: 10px 16px;
-  background: var(--text);
-  color: var(--bg);
+  background: var(--ink);
+  color: var(--paper);
   border-radius: 8px;
   font-weight: 500;
-  /* appears instantly: a keyboard action should not animate */
 }
 .skip-link:focus {
   top: 12px;
@@ -79,42 +79,56 @@ ol {
 }
 .section {
   padding-block: var(--section-y);
-}
-.section--tint {
-  background: var(--bg-2);
-  border-block: 1px solid var(--line);
+  position: relative;
 }
 .section--tight {
-  padding-block: calc(var(--section-y) * 0.62);
+  padding-block: calc(var(--section-y) * 0.55);
+}
+
+/* Grounds: sections flow by changing ground, not by drawing a box around each one */
+.ground-mist {
+  background: var(--mist);
+}
+.ground-fog {
+  background: linear-gradient(180deg, var(--mist) 0%, var(--fog) 100%);
+}
+.ground-dark {
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* Typography */
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.012em;
   text-wrap: balance;
+  color: var(--text);
 }
 h1 {
   font-size: var(--fs-h1-page);
   line-height: 1.02;
-  font-weight: 500;
+  font-weight: 560;
+  letter-spacing: -0.042em;
 }
 h2 {
   font-size: var(--fs-h2);
   line-height: 1.06;
-  font-weight: 500;
+  font-weight: 540;
+  letter-spacing: -0.034em;
 }
 h3 {
   font-size: var(--fs-h3);
-  line-height: 1.15;
+  line-height: 1.22;
+  font-weight: 560;
+  letter-spacing: -0.016em;
 }
 h4 {
   font-size: var(--fs-h4);
-  font-weight: 500;
+  font-weight: 560;
   line-height: 1.35;
+  letter-spacing: -0.005em;
 }
 p {
   text-wrap: pretty;
@@ -123,59 +137,49 @@ p {
   font-size: var(--fs-lede);
   line-height: 1.55;
   color: var(--text-dim);
-  max-width: 40em;
+  max-width: 38em;
+  letter-spacing: -0.006em;
 }
 .muted {
   color: var(--text-dim);
 }
-.measure {
-  max-width: 62ch;
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 450;
+  letter-spacing: 0.01em;
 }
 
-/* Eyebrow: a quiet marker, used where it adds information (product/section type) */
-.eyebrow {
+/* A section label only where it says something real (e.g. a product name) */
+.label {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.02em;
-  color: var(--accent-bright);
-}
-.eyebrow::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 1px;
-  background: var(--accent);
-  transform: rotate(45deg);
+  gap: 8px;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--accent-text);
 }
 
 .section-head {
-  max-width: 46rem;
-  margin-bottom: clamp(36px, 5vw, 64px);
   display: grid;
   gap: 18px;
-}
-.section-head--center {
-  margin-inline: auto;
-  text-align: center;
-  justify-items: center;
+  max-width: 44rem;
+  margin-bottom: clamp(36px, 5vw, 72px);
 }
 
-/* Buttons */
+/* Buttons: ink is the primary action; product colour stays in small marks */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 46px;
+  min-height: 48px;
   padding: 11px 22px;
   border-radius: 999px;
   border: 1px solid transparent;
   font-weight: 500;
   font-size: var(--fs-small);
-  letter-spacing: 0.005em;
+  letter-spacing: -0.005em;
   white-space: nowrap;
   cursor: pointer;
   transition:
@@ -193,18 +197,25 @@ p {
   transition: transform 160ms var(--ease);
 }
 .btn--primary {
-  background: var(--text);
-  color: var(--bg);
+  background: var(--ink);
+  color: var(--paper);
 }
 .btn--primary:hover {
-  background: #ffffff;
+  background: #1b2740;
+}
+[data-theme='dark'] .btn--primary {
+  background: var(--paper);
+  color: var(--ink);
+}
+[data-theme='dark'] .btn--primary:hover {
+  background: #e4eaf4;
 }
 .btn--accent {
   background: var(--accent);
   color: var(--accent-ink);
 }
 .btn--accent:hover {
-  background: var(--accent-bright);
+  filter: brightness(1.06);
 }
 .btn--ghost {
   border-color: var(--line-2);
@@ -212,8 +223,8 @@ p {
   background: transparent;
 }
 .btn--ghost:hover {
-  border-color: var(--accent-line);
-  background: var(--accent-soft);
+  border-color: var(--text-faint);
+  background: var(--line-soft);
 }
 @media (hover: hover) {
   .btn:hover svg {
@@ -221,13 +232,12 @@ p {
   }
 }
 
-/* Text link with arrow */
 .link-arrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-weight: 500;
-  color: var(--accent-bright);
+  color: var(--accent-text);
 }
 .link-arrow svg {
   width: 15px;

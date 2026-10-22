@@ -22,24 +22,24 @@ import { breadcrumbSchema } from '../lib/seo';
   ]}
 >
   <PageHero
-    eyebrow="Sign in"
+    label="Sign in"
     title="Sign in to your Aegis product."
     lede="Each Aegis product is its own application. Choose the one you use."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Sign in' }]}
   />
 
-  <section class="section section--tint" aria-label="Choose a product">
+  <section class="section ground-mist" aria-label="Choose a product">
     <div class="container">
-      <ul class="choices">
+      <ul class="cols-3">
         {productList.map((p) => (
-          <li class="choice" data-product={p.id}>
+          <li class="col choice" data-product={p.id}>
             <span class="g">
-              <ProductGlyph product={p.id} size={24} />
+              <ProductGlyph product={p.id} size={22} />
             </span>
             <h2>{p.name}</h2>
             <p class="muted">{p.category}</p>
             {p.appUrl ? (
-              <a class="btn btn--accent" href={p.appUrl} rel="noopener">
+              <a class="btn btn--primary" href={p.appUrl} rel="noopener">
                 Sign in to {p.name}
                 <Arrow />
               </a>
@@ -53,7 +53,7 @@ import { breadcrumbSchema } from '../lib/seo';
         ))}
       </ul>
       <p class="note">
-        New to Aegis? <a href="/products/">Explore the products</a> or{' '}
+        New to Aegis? <a href="/products/">Explore the products</a> or
         <a href="/contact/">contact sales</a>.
       </p>
     </div>
@@ -61,33 +61,23 @@ import { breadcrumbSchema } from '../lib/seo';
 </BaseLayout>
 
 <style>
-  .choices {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
   .choice {
-    display: grid;
-    gap: 12px;
-    align-content: start;
-    padding: 30px;
-    background: var(--surface);
-    border: 1px solid var(--line);
     border-top: 2px solid var(--accent);
-    border-radius: var(--radius-lg);
+    gap: 12px;
   }
   .g {
     display: grid;
     place-items: center;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 12px;
     border: 1px solid var(--accent-line);
     background: var(--accent-soft);
-    color: var(--accent-bright);
+    color: var(--accent-text);
   }
   h2 {
     font-size: 1.75rem;
+    letter-spacing: -0.03em;
   }
   .choice .btn {
     justify-self: start;
@@ -104,21 +94,15 @@ import { breadcrumbSchema } from '../lib/seo';
   .note a {
     display: block;
     margin-top: 6px;
-    color: var(--accent-bright);
+    color: var(--blue);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
   .note {
-    margin-top: 32px;
+    margin-top: 40px;
   }
   .note a {
     display: inline;
     margin: 0;
-  }
-  @media (max-width: 960px) {
-    .choices {
-      grid-template-columns: 1fr;
-      max-width: 520px;
-    }
   }
 </style>

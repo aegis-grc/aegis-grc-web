@@ -31,13 +31,13 @@ const short: Record<Relevance, string> = { primary: 'Primary', relevant: 'Releva
   ]}
 >
   <PageHero
-    eyebrow="Industries"
+    label="Industries"
     title="Where each Aegis product fits."
     lede="Aegis products are built for specific kinds of work. This page says where each one fits, and where it does not."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Industries' }]}
   />
 
-  <section class="section section--tint" aria-labelledby="glance-title">
+  <section class="section ground-mist" aria-labelledby="glance-title">
     <div class="container">
       <div class="section-head">
         <h2 id="glance-title">At a glance</h2>
@@ -125,9 +125,6 @@ const short: Record<Relevance, string> = { primary: 'Primary', relevant: 'Releva
 <style>
   .table-wrap {
     overflow-x: auto;
-    border: 1px solid var(--line-2);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
   }
   table {
     width: 100%;
@@ -135,69 +132,68 @@ const short: Record<Relevance, string> = { primary: 'Primary', relevant: 'Releva
   }
   th,
   td {
-    padding: 18px 22px;
+    padding: 20px 18px 20px 0;
     text-align: left;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--line-2);
   }
   thead th {
     font-family: var(--font-body);
     font-size: var(--fs-small);
-    font-weight: 500;
-    color: var(--accent-bright);
-    background: var(--surface-2);
+    font-weight: 560;
+    color: var(--accent-text);
+    border-bottom-color: var(--text);
   }
   thead th:first-child {
     color: var(--text-faint);
   }
   tbody th {
-    font-weight: 500;
+    font-weight: 560;
+    font-size: 1.125rem;
+    letter-spacing: -0.015em;
   }
   tbody th a:hover {
-    color: var(--accent-bright);
-  }
-  tr:last-child th,
-  tr:last-child td {
-    border-bottom: 0;
+    color: var(--blue);
   }
   .fit {
-    color: var(--text-dim);
+    color: var(--text-faint);
   }
   .fit--primary {
     color: var(--text);
-    font-weight: 500;
+    font-weight: 560;
   }
   .ind {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: clamp(28px, 6vw, 88px);
-    padding: clamp(32px, 4vw, 52px) 0;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(28px, 6vw, 104px);
+    padding: clamp(32px, 4vw, 56px) 0;
     border-top: 1px solid var(--line-2);
     align-items: start;
   }
   .ind:first-child {
-    padding-top: 0;
     border-top: 0;
+    padding-top: 0;
   }
   .ind h2 {
-    font-size: var(--fs-h3);
+    font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+    letter-spacing: -0.04em;
   }
   .fits {
     display: grid;
-    gap: 10px;
+    gap: 0;
   }
   .fits a {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 14px 18px;
-    border: 1px solid var(--accent-line);
-    border-radius: 12px;
-    background: var(--accent-soft);
-    color: var(--accent-bright);
-    transition: background var(--t-fast) var(--ease);
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    color: var(--accent-text);
   }
-  .fits a:hover {
-    background: var(--accent-line);
+  .fits li:last-child a {
+    border-bottom: 1px solid var(--line);
+  }
+  .fits a:hover strong {
+    color: var(--accent-text);
   }
   .fits span span {
     display: block;
@@ -205,7 +201,7 @@ const short: Record<Relevance, string> = { primary: 'Primary', relevant: 'Releva
     color: var(--text-dim);
   }
   .fits strong {
-    font-weight: 500;
+    font-weight: 560;
     color: var(--text);
   }
   .note {
@@ -214,12 +210,11 @@ const short: Record<Relevance, string> = { primary: 'Primary', relevant: 'Releva
   @media (max-width: 640px) {
     th,
     td {
-      padding: 14px 10px;
+      padding: 14px 8px 14px 0;
       font-size: var(--fs-small);
     }
-    th:first-child,
-    td:first-child {
-      padding-left: 14px;
+    tbody th {
+      font-size: var(--fs-small);
     }
   }
   @media (max-width: 960px) {

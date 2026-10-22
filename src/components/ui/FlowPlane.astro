@@ -1,0 +1,74 @@
+---
+import Plane from './Plane.astro';
+import type { ProductId } from '../../data/products';
+
+/** A vertical lifecycle shown as a plane: nodes on a rail. Illustration of structure, not data. */
+interface Props {
+  product?: ProductId;
+  title: string;
+  steps: { label: string; note: string }[];
+}
+const { product = 'grc', title, steps } = Astro.props;
+---
+
+<Plane product={product} title={title}>
+  <ol class="flow">
+    {steps.map((s, i) => (
+      <li class:list={{ last: i === steps.length - 1 }}>
+        <i aria-hidden="true"></i>
+        <b>{s.label}</b>
+        <span>{s.note}</span>
+      </li>
+    ))}
+  </ol>
+</Plane>
+
+<style>
+  .flow {
+    display: grid;
+  }
+  li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    column-gap: 14px;
+    padding: 13px 0;
+  }
+  li::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--accent-line);
+  }
+  li:first-child::before {
+    top: 50%;
+  }
+  li.last::before {
+    bottom: 50%;
+  }
+  i {
+    position: relative;
+    z-index: 1;
+    grid-row: span 2;
+    align-self: center;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+  }
+  .last i {
+    background: var(--accent);
+  }
+  b {
+    font-weight: 560;
+    letter-spacing: -0.01em;
+  }
+  span {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+</style>

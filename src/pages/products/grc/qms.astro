@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
-import LifecycleFlow from '../../../components/visuals/LifecycleFlow.astro';
+import FlowPlane from '../../../components/ui/FlowPlane.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { productSchema, breadcrumbSchema } from '../../../lib/seo';
@@ -63,7 +63,7 @@ const capabilities = [
 >
   <PageHero
     product="grc"
-    eyebrow="Part of Aegis GRC"
+    label="Aegis QMS · part of Aegis GRC"
     title="Document control that stays audit-ready."
     lede="Aegis QMS gives audit-ready teams one place for SOPs, policies, training records, and approval workflows, version-controlled and always current."
     crumbs={[
@@ -74,26 +74,28 @@ const capabilities = [
     ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=qms">
+      <a class="btn btn--primary" href="/contact/?topic=qms">
         Contact sales
         <Arrow />
       </a>
-      <a class="btn btn--ghost" href="#capabilities">
+      <a class="link-arrow" href="#capabilities">
         What it does
+        <Arrow />
       </a>
     </Fragment>
-    <LifecycleFlow slot="visual" title="Document lifecycle" steps={flow} />
+    <div slot="visual" class="vis">
+      <FlowPlane title="Document lifecycle" steps={flow} />
+    </div>
   </PageHero>
 
   <section
-    class="section section--tint"
+    class="section ground-mist"
     id="capabilities"
     aria-labelledby="cap-title"
     data-product="grc"
   >
     <div class="container split">
       <div class="stack sticky">
-        <span class="eyebrow">What it does</span>
         <h2 id="cap-title">Controlled documents, without the folder archaeology.</h2>
         <p class="lede">
           When an auditor asks which version was in force and who approved it, the answer should be
@@ -114,7 +116,7 @@ const capabilities = [
   <section class="section" id="grc" aria-labelledby="grc-title" data-product="grc">
     <div class="container split split--even">
       <div class="stack">
-        <span class="eyebrow">Part of Aegis GRC</span>
+        <span class="label">Part of Aegis GRC</span>
         <h2 id="grc-title">Quality records connect to the compliance program.</h2>
       </div>
       <div class="stack">
@@ -139,6 +141,7 @@ const capabilities = [
   </section>
 
   <CtaBand
+    product="grc"
     title="See how Aegis QMS would fit your quality process."
     text="Tell us how you manage documents today and we will follow up."
     primary={{ label: 'Contact sales', href: '/contact/?topic=qms' }}
@@ -147,6 +150,9 @@ const capabilities = [
 </BaseLayout>
 
 <style>
+  .vis {
+    max-width: 460px;
+  }
   .links {
     display: flex;
     flex-wrap: wrap;

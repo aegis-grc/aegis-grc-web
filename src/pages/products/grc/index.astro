@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import ProductSubnav from '../../../components/ProductSubnav.astro';
-import GrcVisual from '../../../components/visuals/GrcVisual.astro';
+import GrcPlane from '../../../components/ui/GrcPlane.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { products } from '../../../data/products';
@@ -41,6 +41,58 @@ const after = [
   },
 ];
 
+const capabilities = [
+  {
+    title: 'Contracts',
+    href: '/products/grc/contracts/',
+    cta: 'Explore Aegis Contracts',
+    text: 'AI-powered contract lifecycle from first draft to renewal, driven by your playbook rather than a generic template.',
+    items: [
+      'AI drafting and redlining',
+      'E-signatures',
+      'Obligation tracking',
+      'Renewal alerts',
+      'Contract repository',
+      'Company Playbook',
+    ],
+  },
+  {
+    title: 'Quality management (QMS)',
+    href: '/products/grc/qms/',
+    cta: 'Explore Aegis QMS',
+    text: 'Document control for audit-ready teams: SOPs, policies, training records, and approval workflows that stay version-controlled and current.',
+    items: [
+      'Version-controlled documents',
+      'SOP and policy management',
+      'Approval and review workflows',
+      'Audit trail',
+    ],
+  },
+  {
+    title: 'Risk, audit, and compliance',
+    text: 'From risk identification to audit evidence, with controls mapped to the frameworks your customers ask about.',
+    items: [
+      'Risk register',
+      'Audit management',
+      'Evidence collection',
+      'Control mapping',
+      'Security questionnaire AI',
+    ],
+  },
+  {
+    title: 'Vendors, learning, and trust',
+    text: 'Every third party scored, every employee trained, and a public Trust Center that answers due-diligence questions before they are asked.',
+    items: [
+      'Vendor lifecycle',
+      'Vendor risk portal',
+      'Fourth-party risk',
+      'Learning (LMS)',
+      'Trust Center',
+      'Security awareness',
+    ],
+  },
+];
+
 const frameworks = [
   { name: 'HIPAA', note: 'Protection of health information' },
   { name: 'SOC 2', note: 'Service organization controls' },
@@ -73,10 +125,7 @@ const security = [
     title: 'Tenant isolation',
     text: 'Each workspace is logically isolated, with scoped access to its own data.',
   },
-  {
-    title: 'Encryption',
-    text: 'Data is encrypted in transit and at rest.',
-  },
+  { title: 'Encryption', text: 'Data is encrypted in transit and at rest.' },
   {
     title: 'Tamper-evident audit logging',
     text: 'Actions are recorded to an audit trail designed to show tampering, giving you evidence you can hand to an auditor.',
@@ -103,7 +152,6 @@ const security = [
 >
   <PageHero
     product="grc"
-    lockup
     title="Run governance, risk, and compliance as one connected program."
     lede="Aegis GRC brings compliance, risk, audit, vendor management, contracts, quality management, and learning into one platform, with AI that works from your own policies and playbook."
     crumbs={[
@@ -113,15 +161,18 @@ const security = [
     ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=grc">
+      <a class="btn btn--primary" href="/contact/?topic=grc">
         Contact sales
         <Arrow />
       </a>
-      <a class="btn btn--ghost" href="#how">
+      <a class="link-arrow" href="#how">
         See how it works
+        <Arrow />
       </a>
     </Fragment>
-    <GrcVisual slot="visual" />
+    <div slot="visual" class="hero-vis">
+      <GrcPlane />
+    </div>
   </PageHero>
 
   <ProductSubnav
@@ -134,13 +185,11 @@ const security = [
       { label: 'Who it is for', href: '#audiences' },
       { label: 'Security', href: '#security' },
     ]}
-    cta={{ label: 'Contact sales', href: '/contact/?topic=grc' }}
   />
 
   <section class="section" id="problem" aria-labelledby="problem-title" data-product="grc">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">The problem</span>
+      <div class="split head">
         <h2 id="problem-title">Five tools, zero visibility.</h2>
         <p class="lede">
           Compliance is a coordination problem before it is a documentation problem. When the work
@@ -175,94 +224,48 @@ const security = [
   </section>
 
   <section
-    class="section section--tint"
+    class="section ground-mist"
     id="platform"
     aria-labelledby="platform-title"
     data-product="grc"
   >
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">The platform</span>
+      <div class="split head">
         <h2 id="platform-title">Everything the program needs, in one place.</h2>
         <p class="lede">
           Activate the modules you need today. They share one Company Playbook, so the AI in each
           one works from the same context.
         </p>
       </div>
-      <div class="cols-2">
-        <article class="group">
-          <h3>Contracts</h3>
-          <p>
-            AI-powered contract lifecycle from first draft to renewal, driven by your playbook
-            rather than a generic template.
-          </p>
-          <ul class="tags">
-            <li>AI drafting and redlining</li>
-            <li>E-signatures</li>
-            <li>Obligation tracking</li>
-            <li>Renewal alerts</li>
-            <li>Contract repository</li>
-            <li>Company Playbook</li>
-          </ul>
-          <a class="link-arrow" href="/products/grc/contracts/">
-            Explore Aegis Contracts
-            <Arrow />
-          </a>
-        </article>
-        <article class="group">
-          <h3>Quality management (QMS)</h3>
-          <p>
-            Document control for audit-ready teams: SOPs, policies, training records, and approval
-            workflows that stay version-controlled and current.
-          </p>
-          <ul class="tags">
-            <li>Version-controlled documents</li>
-            <li>SOP and policy management</li>
-            <li>Approval and review workflows</li>
-            <li>Audit trail</li>
-          </ul>
-          <a class="link-arrow" href="/products/grc/qms/">
-            Explore Aegis QMS
-            <Arrow />
-          </a>
-        </article>
-        <article class="group">
-          <h3>Risk, audit, and compliance</h3>
-          <p>
-            From risk identification to audit evidence, with controls mapped to the frameworks your
-            customers ask about.
-          </p>
-          <ul class="tags">
-            <li>Risk register</li>
-            <li>Audit management</li>
-            <li>Evidence collection</li>
-            <li>Control mapping</li>
-            <li>Security questionnaire AI</li>
-          </ul>
-        </article>
-        <article class="group">
-          <h3>Vendors, learning, and trust</h3>
-          <p>
-            Every third party scored, every employee trained, and a public Trust Center that answers
-            due-diligence questions before they are asked.
-          </p>
-          <ul class="tags">
-            <li>Vendor lifecycle</li>
-            <li>Vendor risk portal</li>
-            <li>Fourth-party risk</li>
-            <li>Learning (LMS)</li>
-            <li>Trust Center</li>
-            <li>Security awareness</li>
-          </ul>
-        </article>
-      </div>
+      <ul class="defs">
+        {capabilities.map((c) => (
+          <li>
+            <div class="stack">
+              <h3>{c.title}</h3>
+              {c.href && (
+                <a class="link-arrow" href={c.href}>
+                  {c.cta}
+                  <Arrow />
+                </a>
+              )}
+            </div>
+            <div class="stack">
+              <p>{c.text}</p>
+              <ul class="ticks">
+                {c.items.map((i) => (
+                  <li>{i}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
   <section class="section" id="frameworks" aria-labelledby="frameworks-title" data-product="grc">
     <div class="container split">
       <div class="stack sticky">
-        <span class="eyebrow">Frameworks</span>
         <h2 id="frameworks-title">Map your program to the frameworks your customers ask about.</h2>
         <p class="note">
           Aegis GRC helps you organize and evidence your program. It does not certify compliance:
@@ -280,13 +283,12 @@ const security = [
     </div>
   </section>
 
-  <section class="section section--tint" id="how" aria-labelledby="how-title" data-product="grc">
+  <section class="section ground-mist" id="how" aria-labelledby="how-title" data-product="grc">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">How it works</span>
         <h2 id="how-title">Your whole program, connected in four steps.</h2>
       </div>
-      <ol class="steps">
+      <ol class="sequence">
         {steps.map((s) => (
           <li>
             <h3>{s.title}</h3>
@@ -300,7 +302,6 @@ const security = [
   <section class="section" id="audiences" aria-labelledby="audiences-title" data-product="grc">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Who it is for</span>
         <h2 id="audiences-title">Built for specific teams.</h2>
         <p class="lede">
           Aegis GRC is designed for organizations that need a real program without an enterprise
@@ -308,7 +309,7 @@ const security = [
         </p>
       </div>
       <div class="cols-2">
-        <article class="group">
+        <article class="col">
           <h3>Scale-ups and mid-market teams</h3>
           <p>
             You have outgrown spreadsheets and point tools. Real contracts are being signed and real
@@ -316,7 +317,7 @@ const security = [
             compliance hire.
           </p>
         </article>
-        <article class="group">
+        <article class="col">
           <h3>Healthcare IT and SaaS</h3>
           <p>
             You handle protected health information and need HIPAA documented before the next
@@ -328,10 +329,10 @@ const security = [
     </div>
   </section>
 
-  <section class="section section--tint" id="msp" aria-labelledby="msp-title" data-product="grc">
-    <div class="container split split--even">
+  <section class="section ground-fog" id="msp" aria-labelledby="msp-title" data-product="grc">
+    <div class="container split">
       <div class="stack">
-        <span class="eyebrow">MSPs and vCISOs</span>
+        <span class="label">MSPs and vCISOs</span>
         <h2 id="msp-title">Run every client's program from one platform.</h2>
         <p class="lede">
           If you manage compliance for several clients, you need a multi-tenant platform, not one
@@ -358,14 +359,13 @@ const security = [
   <section class="section" id="security" aria-labelledby="security-title" data-product="grc">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Security</span>
         <h2 id="security-title">
           A platform that holds your compliance data should be built carefully.
         </h2>
       </div>
-      <ul class="cols-3 rows-cols">
+      <ul class="cols-3">
         {security.map((s) => (
-          <li>
+          <li class="col">
             <h3>{s.title}</h3>
             <p>{s.text}</p>
           </li>
@@ -381,6 +381,7 @@ const security = [
   </section>
 
   <CtaBand
+    product="grc"
     title="Talk to us about your program."
     text="Aegis GRC pricing is scaled to your team size and the modules you turn on. Tell us what you need and we will put together a quote."
     primary={{ label: 'Contact sales', href: '/contact/?topic=grc' }}
@@ -389,23 +390,19 @@ const security = [
 </BaseLayout>
 
 <style>
+  .head {
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 72px);
+  }
+  .hero-vis {
+    max-width: 620px;
+  }
   .fw h3 {
-    font-size: 2rem;
-  }
-  .rows-cols {
-    gap: 28px;
-  }
-  .rows-cols li {
-    padding-top: 22px;
-    border-top: 1px solid var(--line-2);
-  }
-  .rows-cols h3 {
-    margin-bottom: 8px;
-  }
-  .rows-cols p {
-    color: var(--text-dim);
+    font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
+    letter-spacing: -0.04em;
+    font-weight: 560;
   }
   .more {
-    margin-top: 36px;
+    margin-top: 40px;
   }
 </style>

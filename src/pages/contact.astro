@@ -21,17 +21,17 @@ import { breadcrumbSchema } from '../lib/seo';
   ]}
 >
   <PageHero
-    eyebrow="Contact"
+    label="Contact"
     title="Talk to Aegis."
     lede="Tell us which product you are interested in and what you are trying to solve, and we will follow up."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Contact' }]}
   />
 
-  <section class="section section--tint" aria-label="Contact form">
+  <section class="section ground-mist" aria-label="Contact form">
     <div class="container split">
       <div class="stack">
-        <h2 class="h3">What helps us help you</h2>
-        <ul class="tips">
+        <h2>What helps us help you</h2>
+        <ul class="ticks ticks--one">
           <li>Which product, or which problem, you have in mind</li>
           <li>The size and shape of your team</li>
           <li>Anything your security or procurement team needs to see</li>
@@ -50,29 +50,12 @@ import { breadcrumbSchema } from '../lib/seo';
 </BaseLayout>
 
 <style>
-  .h3 {
+  h2 {
     font-size: var(--fs-h3);
-  }
-  .tips {
-    display: grid;
-    gap: 10px;
-    color: var(--text-dim);
-  }
-  .tips li {
-    position: relative;
-    padding-left: 20px;
-  }
-  .tips li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.75em;
-    width: 8px;
-    height: 1px;
-    background: var(--accent);
+    letter-spacing: -0.02em;
   }
   .mail {
-    color: var(--accent-bright);
+    color: var(--blue);
     text-decoration: underline;
     text-underline-offset: 3px;
   }

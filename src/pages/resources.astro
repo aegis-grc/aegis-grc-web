@@ -26,13 +26,13 @@ const byArea = areas
   ]}
 >
   <PageHero
-    eyebrow="Resources"
+    label="Resources"
     title="Guides and information for Aegis products."
     lede="Product guides and security information, organized by area. As Aegis publishes articles, case studies, whitepapers, and product updates, they will be listed here by type."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Resources' }]}
   />
 
-  <section class="section section--tint" aria-label="Resource library">
+  <section class="section list" aria-label="Resource library">
     <div class="container">
       {byArea.map((a) => (
         <section class="area" aria-labelledby={`area-${a.id}`}>
@@ -44,7 +44,7 @@ const byArea = areas
             {a.items.map((r) => (
               <li>
                 <a href={r.href}>
-                  <span class="kind">{kindLabels[r.kind]}</span>
+                  <span class="kind mono">{kindLabels[r.kind]}</span>
                   <span class="title">{r.title}</span>
                   <span class="sum">{r.summary}</span>
                   <Arrow />
@@ -66,50 +66,44 @@ const byArea = areas
 </BaseLayout>
 
 <style>
+  .list {
+    padding-top: clamp(24px, 4vw, 56px);
+  }
   .area {
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: clamp(24px, 6vw, 80px);
-    padding: clamp(28px, 4vw, 44px) 0;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(24px, 6vw, 104px);
+    padding: clamp(32px, 4vw, 52px) 0;
     border-top: 1px solid var(--line-2);
   }
   .area:first-child {
-    padding-top: 0;
     border-top: 0;
   }
   h2 {
-    font-size: var(--fs-h3);
-  }
-  .items {
-    display: grid;
-    gap: 10px;
+    font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+    letter-spacing: -0.04em;
   }
   .items a {
     position: relative;
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 4px 16px;
-    padding: 18px 20px;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    background: var(--surface);
-    transition:
-      border-color var(--t-fast) var(--ease),
-      background var(--t-fast) var(--ease);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    transition: background var(--t-fast) var(--ease);
   }
-  .items a:hover {
-    border-color: var(--accent-line);
-    background: var(--surface-2);
+  .items li:first-child a {
+    border-top: 1px solid var(--line-2);
   }
   .kind {
     grid-column: 1;
-    font-family: var(--font-mono);
-    font-size: var(--fs-label);
-    color: var(--accent-bright);
+    color: var(--text-faint);
   }
   .title {
     grid-column: 1;
-    font-weight: 500;
+    font-size: 1.1875rem;
+    font-weight: 560;
+    letter-spacing: -0.015em;
   }
   .sum {
     grid-column: 1;
@@ -122,12 +116,18 @@ const byArea = areas
     align-self: center;
     width: 18px;
     height: 18px;
-    color: var(--accent-bright);
-    transition: transform 160ms var(--ease);
+    color: var(--text-faint);
+    transition:
+      transform 160ms var(--ease),
+      color var(--t-fast) var(--ease);
   }
   @media (hover: hover) {
+    .items a:hover .title {
+      color: var(--blue);
+    }
     .items a:hover :global(svg) {
       transform: translateX(3px);
+      color: var(--blue);
     }
   }
   @media (max-width: 960px) {

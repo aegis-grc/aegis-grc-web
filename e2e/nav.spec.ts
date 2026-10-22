@@ -59,7 +59,7 @@ test.describe('desktop mega-menu', () => {
     await page.locator('#products-trigger').click();
     const products = page.locator('#mega-products .mega-products > li > a.mega-item');
     await expect(products).toHaveText([/Aegis GRC/, /Aegis Amplify/, /Aegis Sentinel/]);
-    await expect(page.locator('#mega-products .aria-link')).toContainText('Meet Aria');
+    await expect(page.locator('#mega-products .aria-card')).toContainText('Meet Aria');
     await expect(page.locator('#mega-products .mega-foot a.link-arrow')).toHaveAttribute(
       'href',
       '/products/',

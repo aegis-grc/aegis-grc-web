@@ -27,27 +27,19 @@ export default defineConfig({
     ? [sitemap({ filter: (page) => !/\/(privacy|terms|404)\/?$/.test(page) })]
     : [],
   fonts: [
+    // One family for display and body (Geist), plus its mono for labels and technical metadata.
     {
       provider: fontProviders.fontsource(),
-      name: 'Cormorant Garamond',
-      cssVariable: '--font-display',
-      weights: [500, 600, 700],
-      styles: ['normal', 'italic'],
-      subsets: ['latin'],
-      fallbacks: ['Georgia', 'serif'],
-    },
-    {
-      provider: fontProviders.fontsource(),
-      name: 'Outfit',
+      name: 'Geist',
       cssVariable: '--font-body',
-      weights: [300, 400, 500, 600],
+      weights: ['100 900'],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['system-ui', 'sans-serif'],
     },
     {
       provider: fontProviders.fontsource(),
-      name: 'DM Mono',
+      name: 'Geist Mono',
       cssVariable: '--font-mono',
       weights: [400, 500],
       styles: ['normal'],

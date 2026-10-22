@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import AmplifyVisual from '../../components/visuals/AmplifyVisual.astro';
+import ProductSubnav from '../../components/ProductSubnav.astro';
+import AmplifyPlane from '../../components/ui/AmplifyPlane.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { products, ariaPath } from '../../data/products';
@@ -15,22 +16,22 @@ const groups = [
   {
     title: 'Win demand',
     text: 'Bring in new customers through acquisition and lead generation, including the Aegis Demand Network.',
-    tags: ['Customer acquisition', 'Demand Network', 'Lead generation'],
+    items: ['Customer acquisition', 'Demand Network', 'Lead generation'],
   },
   {
     title: 'Respond and nurture',
     text: 'Reply to new leads right away, keep them warm until they are ready, book appointments, and follow up on estimates that have gone quiet.',
-    tags: ['Instant lead response', 'Lead nurturing', 'Estimate recovery', 'Appointments'],
+    items: ['Instant lead response', 'Lead nurturing', 'Estimate recovery', 'Appointments'],
   },
   {
     title: 'Run the pipeline',
     text: 'Keep customers, jobs, and opportunities in one CRM and pipeline, with sales automation for the routine steps.',
-    tags: ['CRM', 'Pipeline', 'Sales automation'],
+    items: ['CRM', 'Pipeline', 'Sales automation'],
   },
   {
     title: 'Measure and optimize',
     text: 'Run campaigns, automate marketing, and use attribution to see which sources are producing jobs.',
-    tags: ['Campaigns', 'Attribution', 'Marketing automation', 'Revenue operations'],
+    items: ['Campaigns', 'Attribution', 'Marketing automation', 'Revenue operations'],
   },
 ];
 ---
@@ -54,7 +55,6 @@ const groups = [
 >
   <PageHero
     product="amplify"
-    lockup
     title="Keep every lead moving toward a booked job."
     lede="Aegis Amplify is AI-native sales, marketing, and revenue operations for contractors and home-service businesses, from the first inquiry to the follow-up on an estimate."
     crumbs={[
@@ -64,26 +64,31 @@ const groups = [
     ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=amplify">
+      <a class="btn btn--primary" href="/contact/?topic=amplify">
         Contact sales
         <Arrow />
       </a>
-      <a class="btn btn--ghost" href="#capabilities">
+      <a class="link-arrow" href="#capabilities">
         What it covers
+        <Arrow />
       </a>
     </Fragment>
-    <AmplifyVisual slot="visual" />
+    <div slot="visual" class="vis">
+      <AmplifyPlane variant="wide" />
+    </div>
   </PageHero>
 
-  <section
-    class="section section--tint"
-    id="capabilities"
-    aria-labelledby="cap-title"
-    data-product="amplify"
-  >
+  <ProductSubnav
+    product="amplify"
+    items={[
+      { label: 'What it covers', href: '#capabilities' },
+      { label: 'AI agents', href: '#agents' },
+    ]}
+  />
+
+  <section class="section" id="capabilities" aria-labelledby="cap-title" data-product="amplify">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">What it covers</span>
+      <div class="split head">
         <h2 id="cap-title">One system from demand to job.</h2>
         <p class="lede">
           Home-service work is often won or lost in the gaps: the lead that waits, the estimate
@@ -91,26 +96,32 @@ const groups = [
           came from.
         </p>
       </div>
-      <div class="cols-2">
+      <ul class="defs">
         {groups.map((g) => (
-          <article class="group">
+          <li>
             <h3>{g.title}</h3>
-            <p>{g.text}</p>
-            <ul class="tags">
-              {g.tags.map((t) => (
-                <li>{t}</li>
-              ))}
-            </ul>
-          </article>
+            <div class="stack">
+              <p>{g.text}</p>
+              <ul class="ticks">
+                {g.items.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
-  <section class="section" id="agents" aria-labelledby="agents-title" data-product="amplify">
+  <section
+    class="section ground-fog"
+    id="agents"
+    aria-labelledby="agents-title"
+    data-product="amplify"
+  >
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">AI agents</span>
+      <div class="split head">
         <h2 id="agents-title">AI agents work alongside your team.</h2>
         <p class="lede">
           AI agents handle repeatable work such as first response and follow-up, so your team spends
@@ -153,9 +164,11 @@ const groups = [
           </ul>
         </div>
       </div>
-      <p class="aria-line muted">
-        Aegis Amplify is part of the Aegis family, alongside Aegis GRC and Aegis Sentinel. Aria, the
-        Aegis intelligence layer, brings a consistent approach to AI across all three.
+      <p class="aria-line">
+        <span class="muted">
+          Aegis Amplify is part of the Aegis family, alongside Aegis GRC and Aegis Sentinel. Aria,
+          the Aegis intelligence layer, brings a consistent approach to AI across all three.
+        </span>
         <a class="link-arrow" href={ariaPath}>
           Meet Aria
           <Arrow />
@@ -165,6 +178,7 @@ const groups = [
   </section>
 
   <CtaBand
+    product="amplify"
     title="Talk to us about your pipeline."
     text="Tell us how leads reach you today and where they go quiet, and we will follow up."
     primary={{ label: 'Contact sales', href: '/contact/?topic=amplify' }}
@@ -173,12 +187,19 @@ const groups = [
 </BaseLayout>
 
 <style>
+  .head {
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 72px);
+  }
+  .vis {
+    max-width: 640px;
+  }
   .aria-line {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px 20px;
-    margin-top: 32px;
-    max-width: 62ch;
+    gap: 8px 24px;
+    margin-top: 48px;
+    max-width: 70ch;
   }
 </style>

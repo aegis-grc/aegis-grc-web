@@ -1,21 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroMark from '../components/HeroMark.astro';
-import ProductCard from '../components/ProductCard.astro';
+import HeroSystem from '../components/ui/HeroSystem.astro';
+import GrcPlane from '../components/ui/GrcPlane.astro';
+import AmplifyPlane from '../components/ui/AmplifyPlane.astro';
+import SentinelPlane from '../components/ui/SentinelPlane.astro';
+import AriaSystem from '../components/ui/AriaSystem.astro';
 import ProductGlyph from '../components/ProductGlyph.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Arrow from '../components/Arrow.astro';
-import AriaDiagram from '../components/AriaDiagram.astro';
 import { products, productList, ariaPath } from '../data/products';
 import { solutions } from '../data/solutions';
 import { industries } from '../data/industries';
 import { organizationSchema } from '../lib/seo';
-
-const domains = [
-  { word: 'Revenue', product: products.amplify },
-  { word: 'Risk', product: products.grc },
-  { word: 'Security', product: products.sentinel },
-];
 
 const principles = [
   {
@@ -43,130 +39,209 @@ const principles = [
   <!-- Hero -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="container hero-grid">
-      <div class="hero-copy">
-        <h1 id="hero-title">AI-native platforms for revenue, risk, and security.</h1>
+      <div class="copy">
+        <h1 id="hero-title">
+          AI-native platforms for{' '}
+          <span class="k">
+            <i data-product="amplify" aria-hidden="true"></i>revenue,
+          </span>{' '}
+          <span class="k">
+            <i data-product="grc" aria-hidden="true"></i>risk,
+          </span>{' '}
+          and{' '}
+          <span class="k">
+            <i data-product="sentinel" aria-hidden="true"></i>security.
+          </span>
+        </h1>
         <p class="lede">
           Aegis builds operating platforms for the work businesses can't afford to get wrong. The AI
           does the work; your people stay in control.
         </p>
-        <div class="hero-actions">
+        <div class="cta">
           <a class="btn btn--primary" href="/products/">
             Explore the products
             <Arrow />
           </a>
-          <a class="btn btn--ghost" href="/contact/">
+          <a class="link-arrow ink" href="/contact/">
             Contact sales
+            <Arrow />
           </a>
         </div>
-        <ul class="domains" aria-label="Where Aegis works">
-          {domains.map((d) => (
-            <li data-product={d.product.id}>
-              <a href={d.product.path}>
-                <span class="d-glyph">
-                  <ProductGlyph product={d.product.id} size={20} />
-                </span>
-                <span class="d-word">{d.word}</span>
-                <span class="d-name">{d.product.name}</span>
-              </a>
-            </li>
-          ))}
+        <ul class="legend" aria-label="The three platforms">
+          <li data-product="amplify">
+            <a href={products.amplify.path}>
+              <i></i>Aegis Amplify
+            </a>
+          </li>
+          <li data-product="grc">
+            <a href={products.grc.path}>
+              <i></i>Aegis GRC
+            </a>
+          </li>
+          <li data-product="sentinel">
+            <a href={products.sentinel.path}>
+              <i></i>Aegis Sentinel
+            </a>
+          </li>
         </ul>
       </div>
-      <div class="hero-art">
-        <HeroMark />
+      <div class="vis">
+        <HeroSystem />
       </div>
     </div>
   </section>
 
-  <!-- Product portfolio -->
-  <section class="section section--tint" id="products" aria-labelledby="portfolio-title">
+  <!-- One company, three platforms -->
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="container split">
+      <h2 id="intro-title">Three platforms. One standard for AI you can supervise.</h2>
+      <p class="lede">
+        Each Aegis product is built for its own domain and follows the same rules: automation inside
+        limits, people approving what matters, and a record of what happened.
+      </p>
+    </div>
+  </section>
+
+  <!-- GRC: split, plane right -->
+  <section class="moment grc" data-product="grc" aria-labelledby="grc-title">
+    <div class="container split">
+      <div class="stack">
+        <span class="label">
+          <ProductGlyph product="grc" size={17} />
+          Aegis GRC
+        </span>
+        <h2 class="verb" id="grc-title">
+          Govern risk.
+        </h2>
+        <p class="lede">
+          Compliance, risk, audit, vendors, contracts, and quality as one connected program, with AI
+          that works from your own playbook.
+        </p>
+        <a class="link-arrow" href={products.grc.path}>
+          Explore Aegis GRC
+          <Arrow />
+        </a>
+        <p class="family">
+          Includes <a href="/products/grc/contracts/">Aegis Contracts</a> and{' '}
+          <a href="/products/grc/qms/">Aegis QMS</a>
+        </p>
+      </div>
+      <div class="plane-bleed">
+        <GrcPlane />
+      </div>
+    </div>
+  </section>
+
+  <!-- Amplify: heading row, then a full-width pipeline -->
+  <section class="moment amplify" data-product="amplify" aria-labelledby="amp-title">
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">The Aegis product family</span>
-        <h2 id="portfolio-title">Three platforms, one standard for AI you can supervise.</h2>
-        <p class="lede">
-          Each Aegis product is built for its own domain. All of them follow the same rules:
-          automation works inside limits, people approve what matters, and there is a record of what
-          happened.
-        </p>
+      <div class="amp-head">
+        <div class="stack">
+          <span class="label">
+            <ProductGlyph product="amplify" size={17} />
+            Aegis Amplify
+          </span>
+          <h2 class="verb" id="amp-title">
+            Grow revenue.
+          </h2>
+        </div>
+        <div class="stack">
+          <p class="lede">
+            AI-native sales and marketing operations for contractors and home-service businesses,
+            from the first inquiry to the follow-up on an estimate.
+          </p>
+          <a class="link-arrow" href={products.amplify.path}>
+            Explore Aegis Amplify
+            <Arrow />
+          </a>
+        </div>
       </div>
-      <div class="cards">
-        {productList.map((p) => (
-          <div>
-            <ProductCard
-              product={p}
-              note={p.id === 'grc' ? 'Includes Aegis Contracts and Aegis QMS.' : undefined}
-            />
-          </div>
-        ))}
+      <div class="wide-plane">
+        <AmplifyPlane variant="wide" />
       </div>
     </div>
   </section>
 
-  <!-- Aria -->
-  <section class="section" id="aria" aria-labelledby="aria-title">
-    <div class="container aria">
-      <div class="aria-copy">
-        <span class="eyebrow">Shared intelligence</span>
-        <h2 id="aria-title">Aria, the Aegis intelligence layer.</h2>
+  <!-- Sentinel: the dark moment -->
+  <section
+    class="moment sentinel"
+    data-product="sentinel"
+    data-theme="dark"
+    aria-labelledby="sen-title"
+  >
+    <div class="container split split--wide-left">
+      <div class="plane-left">
+        <SentinelPlane />
+      </div>
+      <div class="stack">
+        <span class="label">
+          <ProductGlyph product="sentinel" size={17} />
+          Aegis Sentinel
+        </span>
+        <h2 class="verb" id="sen-title">
+          Defend operations.
+        </h2>
         <p class="lede">
-          Aria is how Aegis applies AI across its products: reasoning over your context,
-          orchestrating the steps of a workflow, and keeping people in control. Each product puts
-          Aria to work in its own domain.
+          AI-native security operations that bring alerts, correlation, investigation, and cases
+          into one workflow, with people approving every consequential action.
         </p>
-        <a class="link-arrow" href={ariaPath}>
-          Meet Aria
+        <ul class="ticks ticks--one">
+          <li>Deterministic deduplication and correlation</li>
+          <li>Evidence timelines and case management</li>
+          <li>Gated, plan-only containment</li>
+        </ul>
+        <a class="link-arrow" href={products.sentinel.path}>
+          Explore Aegis Sentinel
           <Arrow />
         </a>
       </div>
-      <AriaDiagram />
     </div>
   </section>
 
-  <!-- Governed AI -->
-  <section class="section section--tint" aria-labelledby="governed-title">
-    <div class="container governed">
-      <div class="governed-head">
-        <span class="eyebrow">How we build AI</span>
-        <h2 id="governed-title">AI does the work. People keep control.</h2>
+  <!-- Aria: the system -->
+  <section class="aria ground-fog" aria-labelledby="aria-title">
+    <div class="container">
+      <div class="aria-head split">
+        <div class="stack">
+          <h2 id="aria-title">Aria is how Aegis applies AI. People keep control.</h2>
+        </div>
+        <div class="stack">
+          <p class="lede">
+            One intelligence layer across the family: reasoning over each product's context,
+            orchestrating the steps, and stopping at a human decision before anything consequential
+            happens.
+          </p>
+          <a class="link-arrow" href={ariaPath}>
+            Meet Aria
+            <Arrow />
+          </a>
+        </div>
       </div>
-      <ul class="principles">
+      <AriaSystem />
+      <ul class="cols-3 principles">
         {principles.map((p) => (
-          <li>
+          <li class="col">
             <h3>{p.title}</h3>
             <p>{p.text}</p>
           </li>
         ))}
       </ul>
-    </div>
-  </section>
-
-  <!-- Trust -->
-  <section class="section section--tight trust" aria-labelledby="trust-title">
-    <div class="container trust-grid">
-      <div>
-        <h2 id="trust-title">Built to be reviewed.</h2>
-      </div>
-      <div>
-        <p class="lede">
-          Aegis explains how its products approach identity, data handling, and approval controls,
-          and says plainly what is and is not yet in place.
-        </p>
+      <p class="review">
+        Built to be reviewed.
         <a class="link-arrow" href="/security/">
           How Aegis approaches security
           <Arrow />
         </a>
-      </div>
+      </p>
     </div>
   </section>
 
-  <!-- Solutions / industries -->
-  <section class="section section--tint" aria-labelledby="solutions-title">
-    <div class="container sol">
-      <div>
-        <span class="eyebrow">Solutions</span>
-        <h2 id="solutions-title">Start from the problem.</h2>
-        <ul class="sol-list">
+  <!-- Solutions and industries -->
+  <section class="finder" aria-labelledby="finder-title">
+    <div class="container split">
+      <div class="stack">
+        <h2 id="finder-title">Start from the problem.</h2>
+        <ul class="big-links">
           {solutions.map((s) => (
             <li>
               <a href={`/solutions/#${s.id}`}>
@@ -177,22 +252,19 @@ const principles = [
           ))}
         </ul>
       </div>
-      <div>
-        <span class="eyebrow">Industries</span>
-        <h2 class="h2-sm">Or start from your industry.</h2>
+      <div class="stack">
+        <h3 class="sub">Or start from your industry.</h3>
         <ul class="ind-list">
           {industries.map((i) => {
             const fits = productList.filter((p) => i.relevance[p.id] !== 'none');
             return (
               <li>
                 <a href={`/industries/#${i.id}`}>
-                  <span class="ind-name">{i.name}</span>
-                  <span class="ind-fit">
+                  <span>{i.name}</span>
+                  <span class="fit">
                     <span class="visually-hidden">Fits {fits.map((p) => p.name).join(', ')}</span>
                     {fits.map((p) => (
-                      <span class="fit" data-product={p.id} aria-hidden="true">
-                        <ProductGlyph product={p.id} size={16} />
-                      </span>
+                      <i data-product={p.id} aria-hidden="true" />
                     ))}
                   </span>
                 </a>
@@ -200,29 +272,23 @@ const principles = [
             );
           })}
         </ul>
-        <p class="muted legend">Icons show the Aegis products that fit each industry.</p>
+        <p class="legend-note">Dots show the Aegis products that fit each industry.</p>
       </div>
     </div>
   </section>
 
-  <!-- Resources / company -->
-  <section class="section section--tight" aria-label="Resources and company">
-    <div class="container duo">
-      <a class="duo-card" href="/resources/">
-        <h2 class="h3">Resources</h2>
-        <p>Product guides and security information, kept in one place as the library grows.</p>
-        <span class="link-arrow">
-          Browse resources
-          <Arrow />
-        </span>
+  <!-- What next -->
+  <section class="next" aria-label="Resources and company">
+    <div class="container cols-2">
+      <a class="next-link" href="/resources/">
+        <span class="t">Resources</span>
+        <span class="d">Product guides and security information, as the library grows.</span>
+        <Arrow />
       </a>
-      <a class="duo-card" href="/company/">
-        <h2 class="h3">Company</h2>
-        <p>What Aegis builds, and the principles behind the product family.</p>
-        <span class="link-arrow">
-          About Aegis
-          <Arrow />
-        </span>
+      <a class="next-link" href="/company/">
+        <span class="t">Company</span>
+        <span class="d">What Aegis builds, and the principles behind the product family.</span>
+        <Arrow />
       </a>
     </div>
   </section>
@@ -238,195 +304,229 @@ const principles = [
 <style>
   /* Hero */
   .hero {
-    position: relative;
-    padding: clamp(48px, 7vw, 104px) 0 clamp(64px, 8vw, 120px);
+    background: linear-gradient(180deg, var(--mist) 0%, var(--paper) 100%);
+    padding: clamp(40px, 6vw, 88px) 0 clamp(72px, 9vw, 128px);
     overflow: hidden;
-    background:
-      radial-gradient(ellipse 55% 60% at 78% 30%, rgba(127, 168, 232, 0.16), transparent 70%),
-      var(--bg);
   }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: clamp(32px, 6vw, 80px);
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(32px, 4vw, 64px);
     align-items: center;
   }
-  .hero-copy {
+  .copy {
     display: grid;
-    gap: 26px;
+    gap: 28px;
     justify-items: start;
   }
-  .hero-copy h1 {
-    font-size: var(--fs-h1);
-    max-width: 14ch;
+  .copy h1 {
+    font-size: clamp(2.75rem, 1rem + 5.4vw, 5rem);
+    line-height: 0.99;
+    letter-spacing: -0.048em;
+    font-weight: 580;
   }
-  .hero-actions {
+  /* A small product dot after each keyword ties the headline to the platforms */
+  .k {
+    white-space: nowrap;
+  }
+  .k i {
+    display: inline-block;
+    width: 0.17em;
+    height: 0.17em;
+    margin-right: 0.14em;
+    border-radius: 50%;
+    background: var(--p);
+    vertical-align: 0.26em;
+  }
+  .cta {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    align-items: center;
+    gap: 14px 28px;
   }
-  .domains {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0;
+  .ink {
+    color: var(--text);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 26px;
+    margin-top: 6px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line-2);
     width: 100%;
-    max-width: 38rem;
-    margin-top: 10px;
-    border-top: 1px solid var(--line);
+    max-width: 30rem;
   }
-  .domains li {
-    border-right: 1px solid var(--line);
-  }
-  .domains li:last-child {
-    border-right: 0;
-  }
-  .domains a {
-    display: grid;
-    gap: 2px;
-    padding: 18px 18px 0 0;
-    margin-left: 0;
-  }
-  .domains li + li a {
-    padding-left: 18px;
-  }
-  .d-glyph {
-    color: var(--accent-bright);
-    margin-bottom: 8px;
-  }
-  .d-word {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.1;
-  }
-  .d-name {
+  .legend a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
     font-size: var(--fs-small);
+    font-weight: 500;
     color: var(--text-dim);
     transition: color var(--t-fast) var(--ease);
   }
-  .domains a:hover .d-name {
-    color: var(--accent-bright);
+  .legend a:hover {
+    color: var(--text);
   }
-  .hero-art {
-    display: grid;
-    place-items: center;
+  .legend i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--p);
+  }
+  .vis {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
   }
 
-  /* Portfolio */
-  .cards {
+  /* Intro */
+  .intro {
+    padding: clamp(72px, 9vw, 136px) 0 clamp(40px, 5vw, 72px);
+  }
+  .intro h2 {
+    max-width: 14ch;
+  }
+
+  /* Product moments: each one a different structure and ground */
+  .moment {
+    padding-block: clamp(64px, 8vw, 120px);
+    position: relative;
+  }
+  .verb {
+    font-size: clamp(2.75rem, 1rem + 5.2vw, 5.25rem);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+    font-weight: 580;
+  }
+  .family {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .family a {
+    color: var(--text);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .family a:hover {
+    border-color: var(--text);
+  }
+  .plane-bleed {
+    margin-right: calc(var(--gutter) * -0.9);
+  }
+  .moment.grc {
+    background: var(--paper);
+  }
+  .moment.amplify {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--amplify) 8%, white) 0%,
+      color-mix(in srgb, var(--amplify) 3%, white) 100%
+    );
+  }
+  .amp-head {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(24px, 5vw, 88px);
+    align-items: end;
+    margin-bottom: clamp(36px, 5vw, 64px);
   }
-  .cards > div {
-    display: flex;
+  .wide-plane {
+    max-width: 1100px;
   }
-  .cards > div > :global(article) {
-    flex: 1;
+  .moment.sentinel {
+    background:
+      linear-gradient(
+          to right,
+          color-mix(in srgb, var(--sentinel) 6%, transparent) 1px,
+          transparent 1px
+        )
+        0 0 / 64px 64px,
+      linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--sentinel) 6%, transparent) 1px,
+          transparent 1px
+        )
+        0 0 / 64px 64px,
+      var(--bg);
+    color: var(--text);
+  }
+  .plane-left {
+    margin-left: calc(var(--gutter) * -0.9);
+  }
+  .moment.sentinel .ticks {
+    margin: 4px 0;
+    width: 100%;
+    max-width: 30rem;
   }
 
   /* Aria */
   .aria {
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: clamp(40px, 6vw, 88px);
-    align-items: center;
+    padding-block: clamp(80px, 10vw, 144px);
   }
-  .aria-copy {
-    display: grid;
-    gap: 22px;
-    justify-items: start;
-  }
-  /* Governed AI */
-  .governed {
-    display: grid;
-    gap: clamp(36px, 5vw, 64px);
-  }
-  .governed-head {
-    display: grid;
-    gap: 18px;
-    justify-items: start;
-    max-width: 30rem;
+  .aria-head {
+    margin-bottom: clamp(48px, 6vw, 88px);
+    align-items: end;
   }
   .principles {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(24px, 4vw, 56px);
+    margin-top: clamp(56px, 7vw, 96px);
   }
-  .principles li {
-    padding-top: 22px;
-    border-top: 1px solid var(--line-2);
-  }
-  .principles h3 {
-    margin-bottom: 8px;
-  }
-  .principles p {
-    color: var(--text-dim);
-    max-width: 36ch;
-  }
-
-  /* Trust */
-  .trust-grid {
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: clamp(28px, 6vw, 88px);
+  .review {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-  }
-  .trust-grid > div:last-child {
-    display: grid;
-    gap: 18px;
-    justify-items: start;
+    gap: 8px 24px;
+    margin-top: clamp(36px, 5vw, 56px);
+    font-weight: 500;
+    color: var(--text-dim);
   }
 
-  /* Solutions / industries */
-  .sol {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: clamp(40px, 6vw, 88px);
+  /* Finder */
+  .finder {
+    padding-block: var(--section-y);
   }
-  .sol > div {
-    display: grid;
-    gap: 18px;
-    align-content: start;
+  .sub {
+    margin-bottom: 4px;
   }
-  .h2-sm {
-    font-size: var(--fs-h3);
+  .big-links {
+    width: 100%;
+    margin-top: 16px;
   }
-  .sol-list {
-    margin-top: 10px;
-  }
-  .sol-list a {
+  .big-links a {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    padding: 18px 0;
+    padding: 20px 0;
     border-top: 1px solid var(--line-2);
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem);
+    font-weight: 540;
+    letter-spacing: -0.025em;
     transition: color var(--t-fast) var(--ease);
   }
-  .sol-list li:last-child a {
+  .big-links li:last-child a {
     border-bottom: 1px solid var(--line-2);
   }
-  .sol-list a :global(svg) {
+  .big-links a :global(svg) {
     width: 18px;
     height: 18px;
     flex: none;
-    color: var(--accent-bright);
-    transition: transform 160ms var(--ease);
+    color: var(--text-faint);
+    transition:
+      transform 160ms var(--ease),
+      color var(--t-fast) var(--ease);
   }
   @media (hover: hover) {
-    .sol-list a:hover {
-      color: var(--accent-bright);
+    .big-links a:hover {
+      color: var(--blue);
     }
-    .sol-list a:hover :global(svg) {
+    .big-links a:hover :global(svg) {
       transform: translateX(3px);
+      color: var(--blue);
     }
   }
   .ind-list {
-    margin-top: 10px;
+    width: 100%;
   }
   .ind-list a {
     display: flex;
@@ -434,109 +534,89 @@ const principles = [
     align-items: center;
     gap: 16px;
     min-height: 60px;
-    padding: 14px 0;
+    padding: 12px 0;
     border-top: 1px solid var(--line-2);
-    transition: color var(--t-fast) var(--ease);
+    font-weight: 500;
   }
   .ind-list li:last-child a {
     border-bottom: 1px solid var(--line-2);
   }
-  .legend {
-    font-size: var(--fs-label);
-  }
-  .ind-name {
-    font-size: 1.0625rem;
-  }
-  .ind-fit {
-    display: inline-flex;
-    gap: 8px;
-  }
   .fit {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    border: 1px solid var(--accent-line);
-    background: var(--accent-soft);
-    color: var(--accent-bright);
+    display: inline-flex;
+    gap: 7px;
+  }
+  .fit i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--p);
   }
   @media (hover: hover) {
-    .ind-list a:hover .ind-name {
-      color: var(--accent-bright);
+    .ind-list a:hover span:first-child {
+      color: var(--blue);
     }
   }
+  .legend-note {
+    font-size: var(--fs-label);
+    color: var(--text-faint);
+  }
 
-  /* Resources / company */
-  .duo {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  /* Next */
+  .next {
+    padding-bottom: var(--section-y);
   }
-  .duo-card {
+  .next-link {
     display: grid;
-    gap: 12px;
-    align-content: start;
-    padding: 30px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    transition: border-color var(--t-med) var(--ease);
+    grid-template-columns: 1fr auto;
+    gap: 6px 20px;
+    align-items: center;
+    padding: 28px 0;
+    border-top: 1px solid var(--line-2);
   }
-  .duo-card p {
+  .next-link .t {
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem);
+    font-weight: 560;
+    letter-spacing: -0.03em;
+  }
+  .next-link .d {
+    grid-column: 1;
     color: var(--text-dim);
     max-width: 40ch;
   }
-  .duo-card:hover {
-    border-color: var(--accent-line);
+  .next-link :global(svg) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    width: 22px;
+    height: 22px;
+    transition: transform 160ms var(--ease);
   }
-  .h3 {
-    font-size: var(--fs-h3);
+  @media (hover: hover) {
+    .next-link:hover :global(svg) {
+      transform: translateX(4px);
+    }
+    .next-link:hover .t {
+      color: var(--blue);
+    }
   }
 
-  @media (max-width: 960px) {
-    .hero-grid,
-    .aria,
-    .governed,
-    .trust-grid,
-    .sol,
-    .duo {
+  @media (max-width: 1100px) {
+    .hero-grid {
       grid-template-columns: 1fr;
     }
-    .hero-copy h1 {
-      max-width: 20ch;
+    .vis {
+      justify-content: flex-start;
     }
-    .hero-art :global(.hero-mark) {
-      width: min(54%, 220px);
-    }
-    .cards {
-      grid-template-columns: 1fr;
-      max-width: 520px;
-      margin-inline: auto;
-    }
-    .principles {
-      grid-template-columns: 1fr;
+    .plane-bleed,
+    .plane-left {
+      margin: 0;
     }
   }
-  @media (max-width: 520px) {
-    .domains {
+  @media (max-width: 960px) {
+    .amp-head {
       grid-template-columns: 1fr;
     }
-    .domains li {
-      border-right: 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .domains a,
-    .domains li + li a {
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto auto;
-      column-gap: 14px;
-      padding: 14px 0;
-    }
-    .d-glyph {
-      grid-row: span 2;
-      margin: 0;
-      align-self: center;
+    .plane-left {
+      order: 2;
     }
   }
 </style>

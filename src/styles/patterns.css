@@ -1,163 +1,192 @@
-/* Shared page patterns. Layout only: colour comes from tokens / [data-product]. */
+/* Shared page patterns. Layout only; colour comes from tokens and [data-product] / [data-theme].
+ * Boxes are reserved for product planes: text is organised with whitespace, type and hairlines. */
 
+/* Asymmetric splits (12-column feel) */
 .split {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: clamp(32px, 6vw, 88px);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 6vw, 104px);
   align-items: start;
 }
 .split--even {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.split--wide-left {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
 }
 .split > .sticky {
   position: sticky;
-  top: calc(var(--nav-h) + 24px);
+  top: calc(var(--nav-h) + var(--subnav-h) + 24px);
 }
 .stack {
   display: grid;
-  gap: 18px;
+  gap: 20px;
   justify-items: start;
   align-content: start;
 }
 .cols-2,
 .cols-3 {
   display: grid;
-  gap: 20px;
+  gap: clamp(28px, 4vw, 56px);
 }
 .cols-2 {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .cols-3 {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Hairline row list: the default way to present a set of ideas (not a card grid) */
+/* An open column: a rule on top, then text. Replaces the bordered card. */
+.col {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding-top: 22px;
+  border-top: 1px solid var(--line-2);
+}
+.col h3 {
+  margin: 0;
+}
+.col p {
+  color: var(--text-dim);
+}
+
+/* Definition rows: term on the left, explanation on the right, hairlines between */
+.defs > li {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 8px clamp(24px, 4vw, 64px);
+  padding: 26px 0;
+  border-top: 1px solid var(--line-2);
+}
+.defs > li:last-child {
+  border-bottom: 1px solid var(--line-2);
+}
+.defs h3 {
+  font-size: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+}
+.defs p {
+  color: var(--text-dim);
+  max-width: 52ch;
+}
+
+/* Simple hairline list (one column) */
 .rows > li {
-  padding: 24px 0;
+  padding: 22px 0;
   border-top: 1px solid var(--line-2);
 }
 .rows > li:last-child {
   border-bottom: 1px solid var(--line-2);
 }
 .rows h3 {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .rows p {
   color: var(--text-dim);
   max-width: 52ch;
 }
 
-/* Capability group */
-.group {
+/* Ticked list: capability names without pills */
+.ticks {
   display: grid;
-  gap: 14px;
-  align-content: start;
-  padding: 30px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-}
-.group > p {
-  color: var(--text-dim);
-}
-.group .link-arrow {
-  margin-top: 4px;
-}
-.tags {
-  display: grid;
+  width: 100%;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 24px;
-  margin-top: 4px;
+  gap: 0 28px;
 }
-.tags li {
+.ticks li {
   position: relative;
-  padding: 9px 0 9px 18px;
+  padding: 10px 0 10px 20px;
   border-top: 1px solid var(--line);
   font-size: var(--fs-small);
   color: var(--text-dim);
 }
-.tags li::before {
+.ticks li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 1.15em;
-  width: 8px;
-  height: 1px;
+  top: 1.3em;
+  width: 9px;
+  height: 2px;
+  border-radius: 1px;
   background: var(--accent);
 }
-@media (max-width: 520px) {
-  .tags {
-    grid-template-columns: 1fr;
-  }
+.ticks--one {
+  grid-template-columns: 1fr;
 }
 
-/* Ordered process: numbers are used only because these really are a sequence */
-.steps {
+/* Sequence: a real process, shown as a line with nodes (numbers only where order matters) */
+.sequence {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  counter-reset: step;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 40px);
+  position: relative;
 }
-.steps > li {
-  counter-increment: step;
-  padding: 0 28px 0 0;
+.sequence::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 9px;
+  height: 1px;
+  background: var(--line-2);
 }
-.steps > li::before {
-  content: counter(step);
+.sequence > li {
+  position: relative;
   display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 22px;
-  border: 1px solid var(--accent-line);
+  gap: 10px;
+  padding-top: 40px;
+}
+.sequence > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 19px;
+  height: 19px;
   border-radius: 50%;
-  background: var(--accent-soft);
-  font-family: var(--font-display);
-  font-size: 1.375rem;
-  font-weight: 600;
-  color: var(--accent-bright);
+  background: var(--bg);
+  border: 2px solid var(--accent);
 }
-.steps h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+.sequence > li:last-child::before {
+  background: var(--accent);
 }
-.steps p {
+.sequence h3 {
+  font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.375rem);
+}
+.sequence p {
   color: var(--text-dim);
   font-size: var(--fs-small);
   line-height: 1.6;
 }
 
-/* Before / after contrast */
+/* Before / after, as one open comparison with a single dividing rule */
 .contrast {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--line-2);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
 }
 .contrast > div {
-  padding: clamp(26px, 4vw, 44px);
-  background: var(--surface);
+  padding: 0 clamp(20px, 4vw, 56px) 0 0;
 }
 .contrast > div + div {
-  background: var(--surface-2);
+  padding: 0 0 0 clamp(20px, 4vw, 56px);
   border-left: 1px solid var(--line-2);
 }
 .contrast h3 {
   font-family: var(--font-body);
-  font-size: var(--fs-label);
+  font-size: var(--fs-small);
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
   color: var(--text-faint);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 .contrast > div + div h3 {
-  color: var(--accent-bright);
+  color: var(--accent-text);
 }
 .contrast li {
   display: grid;
   gap: 4px;
-  padding: 16px 0;
+  padding: 18px 0;
   border-top: 1px solid var(--line);
 }
 .contrast li:first-of-type {
@@ -165,7 +194,9 @@
   padding-top: 0;
 }
 .contrast li strong {
-  font-weight: 500;
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  font-size: 1.0625rem;
 }
 .contrast li span {
   color: var(--text-dim);
@@ -175,7 +206,7 @@
 
 /* Quiet note / disclaimer */
 .note {
-  padding: 14px 0 14px 18px;
+  padding: 4px 0 4px 16px;
   border-left: 2px solid var(--accent-line);
   color: var(--text-dim);
   font-size: var(--fs-small);
@@ -185,28 +216,37 @@
 @media (max-width: 960px) {
   .split,
   .split--even,
+  .split--wide-left,
   .cols-2,
   .cols-3,
-  .contrast {
+  .contrast,
+  .defs > li {
     grid-template-columns: 1fr;
   }
   .split > .sticky {
     position: static;
   }
-  .steps {
+  .sequence {
     grid-template-columns: 1fr 1fr;
     gap: 36px 24px;
   }
+  .sequence::before {
+    display: none;
+  }
+  .contrast > div,
   .contrast > div + div {
+    padding: 0;
     border-left: 0;
+  }
+  .contrast > div + div {
+    margin-top: 32px;
+    padding-top: 28px;
     border-top: 1px solid var(--line-2);
   }
 }
 @media (max-width: 560px) {
-  .steps {
+  .sequence,
+  .ticks {
     grid-template-columns: 1fr;
-  }
-  .group {
-    padding: 24px;
   }
 }

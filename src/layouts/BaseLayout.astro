@@ -29,8 +29,8 @@ const fullTitle = rawTitle ? title : `${title} | Aegis`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#070b14" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
       document.documentElement.className = document.documentElement.className.replace(
@@ -39,10 +39,9 @@ const fullTitle = rawTitle ? title : `${title} | Aegis`;
       );
     </script>
     <Font
-      cssVariable="--font-display"
-      preload={[{ weight: 500, style: 'normal', subset: 'latin' }]}
+      cssVariable="--font-body"
+      preload={[{ weight: '100 900', style: 'normal', subset: 'latin' }]}
     />
-    <Font cssVariable="--font-body" preload={[{ weight: 400, style: 'normal', subset: 'latin' }]} />
     <Font cssVariable="--font-mono" />
     <Seo
       title={fullTitle}

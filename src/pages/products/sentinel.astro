@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import SentinelVisual from '../../components/visuals/SentinelVisual.astro';
+import ProductSubnav from '../../components/ProductSubnav.astro';
+import SentinelPlane from '../../components/ui/SentinelPlane.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { products, ariaPath } from '../../data/products';
@@ -57,10 +58,7 @@ const controls = [
     title: 'Bounded autonomy',
     text: 'What automation can do on its own is limited, and the limits are explicit.',
   },
-  {
-    title: 'Kill switch',
-    text: 'A way to halt automated activity when you need to.',
-  },
+  { title: 'Kill switch', text: 'A way to halt automated activity when you need to.' },
   {
     title: 'Entra single sign-on',
     text: 'Sign in with the identity provider your organization already uses.',
@@ -90,8 +88,8 @@ const controls = [
   ]}
 >
   <PageHero
+    dark
     product="sentinel"
-    lockup
     title="AI-native security operations, with people in control."
     lede="Aegis Sentinel brings alert ingestion, correlation, investigation, and case management into one workflow. AI assists the analyst, and consequential actions wait for human approval."
     crumbs={[
@@ -101,26 +99,33 @@ const controls = [
     ]}
   >
     <Fragment slot="actions">
-      <a class="btn btn--accent" href="/contact/?topic=sentinel">
+      <a class="btn btn--primary" href="/contact/?topic=sentinel">
         Request a briefing
         <Arrow />
       </a>
-      <a class="btn btn--ghost" href="#workflow">
+      <a class="link-arrow" href="#workflow">
         See the workflow
+        <Arrow />
       </a>
     </Fragment>
-    <SentinelVisual slot="visual" />
+    <div slot="visual" class="vis">
+      <SentinelPlane />
+    </div>
   </PageHero>
 
-  <section
-    class="section section--tint"
-    id="workflow"
-    aria-labelledby="workflow-title"
-    data-product="sentinel"
-  >
+  <ProductSubnav
+    product="sentinel"
+    items={[
+      { label: 'Workflow', href: '#workflow' },
+      { label: 'Multi-vendor', href: '#sources' },
+      { label: 'Control', href: '#control' },
+      { label: 'AI safeguards', href: '#safeguards' },
+    ]}
+  />
+
+  <section class="section" id="workflow" aria-labelledby="workflow-title" data-product="sentinel">
     <div class="container split">
       <div class="stack sticky">
-        <span class="eyebrow">Workflow</span>
         <h2 id="workflow-title">From alert to a decision a person makes.</h2>
         <p class="lede">
           Sentinel does the assembly work: ingesting, correlating, and organizing evidence. The
@@ -138,18 +143,22 @@ const controls = [
     </div>
   </section>
 
-  <section class="section" id="sources" aria-labelledby="sources-title" data-product="sentinel">
+  <section
+    class="section ground-mist"
+    id="sources"
+    aria-labelledby="sources-title"
+    data-product="sentinel"
+  >
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Multi-vendor hunting</span>
+      <div class="split head">
         <h2 id="sources-title">Hunt across the tools you already run.</h2>
         <p class="lede">
-          Sentinel works across vendors, so an investigation is not limited to one console.
+          Multi-vendor hunting means an investigation is not limited to one console.
         </p>
       </div>
-      <ul class="sources">
+      <ul class="cols-4">
         {sources.map((s) => (
-          <li>
+          <li class="col">
             <h3>{s.name}</h3>
             <p>{s.note}</p>
           </li>
@@ -163,23 +172,23 @@ const controls = [
   </section>
 
   <section
-    class="section section--tint"
+    class="section control"
     id="control"
     aria-labelledby="control-title"
     data-product="sentinel"
+    data-theme="dark"
   >
     <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Control</span>
+      <div class="split head">
         <h2 id="control-title">Autonomy with limits.</h2>
         <p class="lede">
           Sentinel is built so that AI assistance stays inside boundaries your team sets, and every
           consequential step has a person behind it.
         </p>
       </div>
-      <ul class="cols-3 ctrl">
+      <ul class="cols-3">
         {controls.map((c) => (
-          <li>
+          <li class="col">
             <h3>{c.title}</h3>
             <p>{c.text}</p>
           </li>
@@ -196,8 +205,15 @@ const controls = [
   >
     <div class="container split split--even">
       <div class="stack">
-        <span class="eyebrow">AI safeguards</span>
         <h2 id="safeguards-title">Guardrails for the AI itself.</h2>
+        <p class="lede">
+          Aegis Sentinel is part of the Aegis family. Aria, the Aegis intelligence layer, is the
+          shared approach to AI across Aegis products.
+        </p>
+        <a class="link-arrow" href={ariaPath}>
+          Meet Aria
+          <Arrow />
+        </a>
       </div>
       <ul class="rows">
         <li>
@@ -215,20 +231,8 @@ const controls = [
     </div>
   </section>
 
-  <section class="section section--tight aria-note" data-product="sentinel" aria-label="About Aria">
-    <div class="container stack">
-      <p class="lede">
-        Aegis Sentinel is part of the Aegis family. Aria, the Aegis intelligence layer, is the
-        shared approach to AI across Aegis products.
-      </p>
-      <a class="link-arrow" href={ariaPath}>
-        Meet Aria
-        <Arrow />
-      </a>
-    </div>
-  </section>
-
   <CtaBand
+    product="sentinel"
     title="See how Sentinel would work in your security operations."
     text="Request a briefing and tell us which tools your team works in today."
     primary={{ label: 'Request a briefing', href: '/contact/?topic=sentinel' }}
@@ -237,65 +241,50 @@ const controls = [
 </BaseLayout>
 
 <style>
-  /* Control-room treatment: a quiet instrument grid behind the hero */
-  :global([data-product='sentinel'] .page-hero)::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(52, 209, 209, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(52, 209, 209, 0.05) 1px, transparent 1px);
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 80% 20%, #000 10%, transparent 75%);
-    mask-image: radial-gradient(ellipse 70% 80% at 80% 20%, #000 10%, transparent 75%);
-    pointer-events: none;
+  .head {
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 72px);
   }
-  .sources {
+  .vis {
+    max-width: 560px;
+  }
+  .cols-4 {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line-2);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(24px, 3vw, 48px);
   }
-  .sources li {
-    padding: 28px 24px;
-    background: var(--surface);
-  }
-  .sources h3 {
-    font-size: 1.5rem;
-    margin-bottom: 8px;
-  }
-  .sources p {
-    color: var(--text-dim);
-    font-size: var(--fs-small);
+  .cols-4 h3 {
+    font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
   }
   .legal-note {
-    margin-top: 22px;
+    margin-top: 32px;
     font-size: var(--fs-label);
     color: var(--text-faint);
   }
-  .ctrl {
-    gap: 28px;
-  }
-  .ctrl li {
-    padding-top: 22px;
-    border-top: 1px solid var(--line-2);
-  }
-  .ctrl h3 {
-    margin-bottom: 8px;
-  }
-  .ctrl p {
-    color: var(--text-dim);
+  .control {
+    background:
+      linear-gradient(
+          to right,
+          color-mix(in srgb, var(--sentinel) 6%, transparent) 1px,
+          transparent 1px
+        )
+        0 0 / 64px 64px,
+      linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--sentinel) 6%, transparent) 1px,
+          transparent 1px
+        )
+        0 0 / 64px 64px,
+      var(--bg);
+    color: var(--text);
   }
   @media (max-width: 960px) {
-    .sources {
+    .cols-4 {
       grid-template-columns: 1fr 1fr;
     }
   }
   @media (max-width: 520px) {
-    .sources {
+    .cols-4 {
       grid-template-columns: 1fr;
     }
   }

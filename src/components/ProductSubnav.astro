@@ -1,19 +1,19 @@
 ---
 import ProductGlyph from './ProductGlyph.astro';
 import { products, type ProductId } from '../data/products';
+/** A quiet in-page anchor row. No second CTA: the header already carries it. */
 interface Props {
   product: ProductId;
   items: { label: string; href: string }[];
-  cta: { label: string; href: string };
 }
-const { product, items, cta } = Astro.props;
+const { product, items } = Astro.props;
 const name = products[product].name;
 ---
 
 <div class="subnav" data-product={product}>
   <div class="container inner">
     <span class="who">
-      <ProductGlyph product={product} size={18} />
+      <ProductGlyph product={product} size={16} />
       {name}
     </span>
     <nav aria-label="On this page">
@@ -25,9 +25,6 @@ const name = products[product].name;
         ))}
       </ul>
     </nav>
-    <a class="btn btn--accent" href={cta.href}>
-      {cta.label}
-    </a>
   </div>
 </div>
 
@@ -36,28 +33,28 @@ const name = products[product].name;
     position: sticky;
     top: var(--nav-h);
     z-index: 900;
-    background: var(--bg);
-    border-block: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
   }
   .inner {
     display: flex;
     align-items: center;
-    gap: 28px;
-    min-height: 48px;
+    gap: 24px;
+    min-height: 46px;
   }
   .who {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     flex: none;
-    font-weight: 500;
+    font-weight: 560;
     font-size: var(--fs-small);
-    color: var(--accent-bright);
-    padding-right: 20px;
-    border-right: 1px solid var(--line-2);
+    letter-spacing: -0.01em;
+    color: var(--accent-text);
   }
   nav {
-    flex: 1;
     min-width: 0;
   }
   ul {
@@ -69,7 +66,7 @@ const name = products[product].name;
   ul::-webkit-scrollbar {
     display: none;
   }
-  a:not(.btn) {
+  a {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
@@ -80,19 +77,7 @@ const name = products[product].name;
     color: var(--text-dim);
     border-radius: 8px;
   }
-  a:not(.btn):hover {
+  a:hover {
     color: var(--text);
-  }
-  .btn {
-    min-height: 38px;
-    padding: 6px 16px;
-  }
-  @media (max-width: 960px) {
-    .inner {
-      gap: 14px;
-    }
-    .btn {
-      display: none;
-    }
   }
 </style>
