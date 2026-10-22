@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import IndustriesLens from '../components/ui/IndustriesLens.astro';
 import ProductGlyph from '../components/ProductGlyph.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { industries, type Relevance } from '../data/industries';
@@ -35,7 +36,11 @@ const short: Record<Relevance, string> = { primary: 'Primary', relevant: 'Releva
     title="Where each Aegis product fits."
     lede="Aegis products are built for specific kinds of work. This page says where each one fits, and where it does not."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Industries' }]}
-  />
+  >
+    <div slot="visual">
+      <IndustriesLens />
+    </div>
+  </PageHero>
 
   <section class="section ground-mist" aria-labelledby="glance-title">
     <div class="container">

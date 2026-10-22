@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ProductSubnav from '../../components/ProductSubnav.astro';
-import SentinelPlane from '../../components/ui/SentinelPlane.astro';
+import SentinelWorkspace from '../../components/ui/SentinelWorkspace.astro';
+import SentinelRail from '../../components/ui/SentinelRail.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { products, ariaPath } from '../../data/products';
@@ -11,29 +12,6 @@ import { productSchema, breadcrumbSchema } from '../../lib/seo';
 const p = products.sentinel;
 const description =
   'Aegis Sentinel is AI-native security operations: alert ingestion, correlation, investigation, and case management, with human approval for consequential actions.';
-
-const workflow = [
-  {
-    title: 'Alert ingestion',
-    text: 'Bring alerts from your security tools into one place to work from.',
-  },
-  {
-    title: 'Deterministic deduplication and correlation',
-    text: 'Duplicate alerts are collapsed and related alerts are grouped by explicit rules, so the same input gives the same result.',
-  },
-  {
-    title: 'Investigation workflows',
-    text: 'Work each investigation through a defined workflow rather than an ad hoc set of tabs.',
-  },
-  {
-    title: 'Case management and evidence timelines',
-    text: 'Every finding lands in a case, with an evidence timeline that shows how the investigation unfolded.',
-  },
-  {
-    title: 'Gated, plan-only containment',
-    text: 'Sentinel prepares containment plans for people to review. Consequential actions wait for human approval.',
-  },
-];
 
 const sources = [
   { name: 'CrowdStrike', note: 'Endpoint and identity detections' },
@@ -89,6 +67,7 @@ const controls = [
 >
   <PageHero
     dark
+    layout="mirror"
     product="sentinel"
     title="AI-native security operations, with people in control."
     lede="Aegis Sentinel brings alert ingestion, correlation, investigation, and case management into one workflow. AI assists the analyst, and consequential actions wait for human approval."
@@ -109,7 +88,7 @@ const controls = [
       </a>
     </Fragment>
     <div slot="visual" class="vis">
-      <SentinelPlane />
+      <SentinelWorkspace />
     </div>
   </PageHero>
 
@@ -124,22 +103,15 @@ const controls = [
   />
 
   <section class="section" id="workflow" aria-labelledby="workflow-title" data-product="sentinel">
-    <div class="container split">
-      <div class="stack sticky">
+    <div class="container">
+      <div class="split head">
         <h2 id="workflow-title">From alert to a decision a person makes.</h2>
         <p class="lede">
           Sentinel does the assembly work: ingesting, correlating, and organizing evidence. The
           decisions that matter stay with your team.
         </p>
       </div>
-      <ul class="rows">
-        {workflow.map((w) => (
-          <li>
-            <h3>{w.title}</h3>
-            <p>{w.text}</p>
-          </li>
-        ))}
-      </ul>
+      <SentinelRail />
     </div>
   </section>
 

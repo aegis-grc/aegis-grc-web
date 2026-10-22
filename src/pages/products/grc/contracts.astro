@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
-import FlowPlane from '../../../components/ui/FlowPlane.astro';
+import ContractsCycle from '../../../components/ui/ContractsCycle.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { productSchema, breadcrumbSchema } from '../../../lib/seo';
@@ -60,6 +60,7 @@ const capabilities = [
 >
   <PageHero
     product="grc"
+    layout="wide"
     label="Aegis Contracts · part of Aegis GRC"
     title="Manage contracts from first draft to renewal."
     lede="Aegis Contracts is AI-native contract lifecycle management inside Aegis GRC. Draft, redline, negotiate, and e-sign with an AI copilot that works from your playbook."
@@ -81,7 +82,7 @@ const capabilities = [
       </a>
     </Fragment>
     <div slot="visual" class="vis">
-      <FlowPlane title="Contract lifecycle" steps={flow} />
+      <ContractsCycle steps={flow} />
     </div>
   </PageHero>
 
@@ -149,7 +150,7 @@ const capabilities = [
 
 <style>
   .vis {
-    max-width: 460px;
+    max-width: 720px;
   }
   .links {
     display: flex;

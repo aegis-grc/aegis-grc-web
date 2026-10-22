@@ -66,6 +66,12 @@ const name = products[product].name;
   ul::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 720px) {
+    ul {
+      -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent);
+      mask-image: linear-gradient(90deg, #000 86%, transparent);
+    }
+  }
   a {
     display: inline-flex;
     align-items: center;

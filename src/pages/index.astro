@@ -395,16 +395,47 @@ const principles = [
 
   /* Intro */
   .intro {
-    padding: clamp(72px, 9vw, 136px) 0 clamp(40px, 5vw, 72px);
+    padding: clamp(80px, 10vw, 152px) 0 clamp(72px, 9vw, 128px);
+    background:
+      radial-gradient(ellipse 60% 90% at 100% 100%, rgba(30, 107, 255, 0.1), transparent 70%),
+      linear-gradient(180deg, var(--paper) 0%, var(--mist) 100%);
+  }
+  .intro .split {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    align-items: end;
+  }
+  .intro .lede {
+    max-width: 40ch;
+  }
+  @media (max-width: 960px) {
+    .intro .split {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
   .intro h2 {
-    max-width: 14ch;
+    max-width: 18ch;
+    font-size: clamp(2.5rem, 1.2rem + 4.6vw, 4.75rem);
+    letter-spacing: -0.045em;
+    line-height: 1;
   }
 
   /* Product moments: each one a different structure and ground */
   .moment {
     padding-block: clamp(64px, 8vw, 120px);
     position: relative;
+  }
+  .moment::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--accent-line) 30%,
+      var(--accent-line) 70%,
+      transparent
+    );
   }
   .verb {
     font-size: clamp(2.75rem, 1rem + 5.2vw, 5.25rem);
@@ -424,16 +455,20 @@ const principles = [
     border-color: var(--text);
   }
   .plane-bleed {
-    margin-right: calc(var(--gutter) * -0.9);
+    margin-right: 0;
   }
   .moment.grc {
-    background: var(--paper);
+    /* silver band: the planes lift off it */
+    background:
+      radial-gradient(ellipse 55% 80% at 90% 0%, rgba(30, 107, 255, 0.12), transparent 70%),
+      radial-gradient(ellipse 50% 70% at 0% 100%, rgba(255, 255, 255, 0.8), transparent 70%),
+      linear-gradient(180deg, #eaf0f8 0%, #d3deec 100%);
   }
   .moment.amplify {
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--amplify) 8%, white) 0%,
-      color-mix(in srgb, var(--amplify) 3%, white) 100%
+      color-mix(in srgb, var(--amplify) 16%, white) 0%,
+      color-mix(in srgb, var(--amplify) 5%, white) 100%
     );
   }
   .amp-head {
@@ -464,7 +499,7 @@ const principles = [
     color: var(--text);
   }
   .plane-left {
-    margin-left: calc(var(--gutter) * -0.9);
+    margin-left: 0;
   }
   .moment.sentinel .ticks {
     margin: 4px 0;
@@ -475,6 +510,10 @@ const principles = [
   /* Aria */
   .aria {
     padding-block: clamp(80px, 10vw, 144px);
+    background:
+      radial-gradient(ellipse 70% 60% at 85% 0%, rgba(30, 107, 255, 0.16), transparent 70%),
+      radial-gradient(ellipse 50% 50% at 0% 100%, rgba(186, 195, 210, 0.5), transparent 70%),
+      linear-gradient(180deg, var(--mist) 0%, #dbe4f1 100%);
   }
   .aria-head {
     margin-bottom: clamp(48px, 6vw, 88px);

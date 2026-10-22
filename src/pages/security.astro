@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SecurityStack from '../components/ui/SecurityStack.astro';
 import CtaBand from '../components/CtaBand.astro';
 import ProductGlyph from '../components/ProductGlyph.astro';
 import Arrow from '../components/Arrow.astro';
@@ -83,7 +84,11 @@ const productDetail = [
     title="How Aegis approaches security."
     lede="The principles that apply across Aegis products, and where to find product-level detail. This page says plainly what it does and does not cover."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Security' }]}
-  />
+  >
+    <div slot="visual">
+      <SecurityStack titles={principles.map((p) => p.title)} />
+    </div>
+  </PageHero>
 
   <section class="section" aria-labelledby="principles-title">
     <div class="container split">

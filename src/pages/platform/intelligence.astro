@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import AriaSystem from '../../components/ui/AriaSystem.astro';
+import AriaCore from '../../components/ui/AriaCore.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { breadcrumbSchema } from '../../lib/seo';
@@ -56,6 +57,9 @@ const concept = [
   ]}
 >
   <PageHero
+    dark
+    tone="aria"
+    layout="stacked"
     label="Aegis intelligence"
     title="Aria, the Aegis intelligence layer."
     lede="Aria is the shared approach to AI across Aegis products: reasoning over context, orchestrating the steps of a workflow, and keeping people in control."
@@ -71,6 +75,9 @@ const concept = [
         <Arrow />
       </a>
     </Fragment>
+    <div slot="visual">
+      <AriaCore />
+    </div>
   </PageHero>
 
   <section class="section ground-fog" aria-labelledby="system-title">

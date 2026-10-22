@@ -1,0 +1,267 @@
+---
+/**
+ * GRC hero: three ruled layers (frameworks, controls, evidence) joined by a vertical thread.
+ * Structure only: generic control names, no data. One control has a visible evidence gap.
+ * Slot for real screenshots: replace the Evidence layer with an evidence-view crop when one exists.
+ */
+const frameworks = ['HIPAA', 'SOC 2', 'ISO 27001', 'GDPR', 'NIST CSF'];
+const controls = ['Access control', 'Vendor review', 'Incident response', 'Data retention'];
+const evidence = [
+  { kind: 'Policy', ok: true },
+  { kind: 'Evidence', ok: false },
+  { kind: 'Policy', ok: true },
+  { kind: 'Evidence', ok: true },
+];
+---
+
+<div class="gl" data-product="grc" aria-hidden="true">
+  <div class="thread"></div>
+
+  <section class="layer l1">
+    <span class="tag">Frameworks</span>
+    <div class="chips">
+      {frameworks.map((f) => (
+        <em>{f}</em>
+      ))}
+    </div>
+  </section>
+
+  <section class="layer l2">
+    <span class="tag">Controls</span>
+    <ul class="ctl">
+      {controls.map((c, i) => (
+        <li class:list={{ cur: i === 1 }}>
+          <i class="port"></i>
+          <span>{c}</span>
+          <b class="own"></b>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="layer l3">
+    <span class="tag">Policy and evidence</span>
+    <ul class="ev">
+      {evidence.map((e, i) => (
+        <li class:list={{ gap: !e.ok, cur: i === 1 }}>
+          {e.ok ? (
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path
+                d="m2.5 6.2 2.3 2.3 4.7-5"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          ) : (
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path
+                d="M6 3v3.4M6 8.6v.1"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              ></path>
+            </svg>
+          )}
+          <span>{e.kind}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <p class="ready">
+    <span>Illustrative readiness</span>
+    <span class="seg">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i class="gapseg"></i>
+      <i></i>
+      <i></i>
+    </span>
+  </p>
+</div>
+
+<style>
+  .gl {
+    position: relative;
+    display: grid;
+    gap: 18px;
+    padding-left: 22px;
+    max-width: 660px;
+  }
+  .thread {
+    position: absolute;
+    left: 5px;
+    top: 24px;
+    bottom: 56px;
+    width: 2px;
+    border-radius: 1px;
+    background: linear-gradient(var(--grc), color-mix(in srgb, var(--grc) 20%, transparent));
+  }
+  .layer {
+    position: relative;
+    display: grid;
+    gap: 12px;
+    padding: 16px 18px 18px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-plane);
+    box-shadow: var(--shadow-soft);
+  }
+  .layer::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 22px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--grc);
+  }
+  .l2 {
+    margin-left: 26px;
+    box-shadow: var(--shadow-plane);
+  }
+  .l3 {
+    margin-left: 52px;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--grc-text);
+    font-weight: 500;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chips em {
+    font-style: normal;
+    font-size: var(--fs-label);
+    font-weight: 500;
+    color: var(--text);
+    padding: 5px 11px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    background: var(--mist);
+  }
+  .ctl {
+    display: grid;
+  }
+  .ctl li {
+    display: grid;
+    grid-template-columns: 14px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--text);
+  }
+  .ctl li:first-child {
+    border-top: 0;
+  }
+  .port {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--silver);
+  }
+  .own {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 36%, var(--steel) 0 21%, transparent 23%),
+      radial-gradient(ellipse 60% 48% at 50% 104%, var(--steel) 0 90%, transparent 94%),
+      var(--silver-wash);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--line-2);
+  }
+  .ctl .cur {
+    margin-inline: -10px;
+    padding-inline: 10px;
+    background: color-mix(in srgb, var(--grc) 9%, transparent);
+    border-radius: 8px;
+    border-top-color: transparent;
+  }
+  .cur .port {
+    background: var(--grc);
+  }
+  .ev {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .ev li {
+    display: grid;
+    justify-items: start;
+    gap: 6px;
+    padding: 10px;
+    border: 1px solid var(--line-2);
+    border-radius: 9px;
+    font-size: var(--fs-label);
+    color: var(--text-dim);
+    background: var(--mist);
+  }
+  .ev svg {
+    width: 14px;
+    height: 14px;
+    color: var(--grc);
+  }
+  .ev .gap {
+    border: 1.5px dashed var(--grc);
+    background: color-mix(in srgb, var(--grc) 6%, transparent);
+    color: var(--grc-text);
+  }
+  .ready {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 4px 0 0 52px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .seg {
+    display: flex;
+    flex: 1;
+    gap: 4px;
+    max-width: 260px;
+  }
+  .seg i {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--grc);
+  }
+  .seg .gapseg {
+    background: transparent;
+    border: 1px dashed var(--grc);
+  }
+  @media (max-width: 560px) {
+    .gl {
+      padding-left: 16px;
+    }
+    .layer::before {
+      left: -16px;
+    }
+    .l2 {
+      margin-left: 14px;
+    }
+    .l3 {
+      margin-left: 28px;
+    }
+    .ev {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ready {
+      margin-left: 28px;
+    }
+  }
+</style>

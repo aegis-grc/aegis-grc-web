@@ -1,0 +1,355 @@
+---
+/**
+ * GRC signature section: frameworks -> controls -> policy / evidence / owner.
+ * An illustration of structure (generic controls, no data). Not a spreadsheet: the relationships are the
+ * picture. Real-screenshot slot: an evidence-view crop can replace the right-hand columns.
+ * Desktop: five framework ports are joined to six controls by curves. Mobile: each control becomes a card
+ * that carries its own framework tags, so nothing is a shrunken diagram.
+ */
+const frameworks = ['HIPAA', 'SOC 2', 'ISO 27001', 'GDPR', 'NIST CSF'];
+const controls = [
+  { name: 'Access control', fw: [0, 1, 2], evidence: true },
+  { name: 'Vendor review', fw: [1, 3], evidence: false },
+  { name: 'Incident response', fw: [0, 2, 4], evidence: true },
+  { name: 'Data retention', fw: [0, 3], evidence: true },
+  { name: 'Security training', fw: [1, 2], evidence: true },
+  { name: 'Change management', fw: [1, 4], evidence: true },
+];
+const ROW = 64;
+const H = controls.length * ROW;
+const fy = (i: number) => ((i + 0.5) * H) / frameworks.length;
+const cy = (j: number) => (j + 0.5) * ROW;
+const links = controls.flatMap((c, j) =>
+  c.fw.map((f) => ({
+    d: `M0 ${fy(f).toFixed(1)} C 50 ${fy(f).toFixed(1)}, 50 ${cy(j)}, 100 ${cy(j)}`,
+    gap: !c.evidence,
+  })),
+);
+---
+
+<div class="map" data-product="grc" aria-hidden="true">
+  <div class="cols-head">
+    <span>Frameworks</span>
+    <span></span>
+    <span>Controls</span>
+    <span class="c">Policy</span>
+    <span class="c">Evidence</span>
+    <span class="c">Owner</span>
+  </div>
+  <div class="body" style={`--row:${ROW}px; --rows:${controls.length}`}>
+    <ul class="fw">
+      {frameworks.map((f) => (
+        <li>
+          <span>{f}</span>
+          <i></i>
+        </li>
+      ))}
+    </ul>
+    <svg class="links" viewBox={`0 0 100 ${H}`} preserveAspectRatio="none" aria-hidden="true">
+      {links.map((l) => (
+        <path d={l.d} class:list={{ gap: l.gap }} vector-effect="non-scaling-stroke"></path>
+      ))}
+    </svg>
+    <ul class="ctl">
+      {controls.map((c) => (
+        <li class:list={{ gap: !c.evidence }}>
+          <div class="nm">
+            <strong>{c.name}</strong>
+            <span class="tags">
+              {c.fw.map((f) => (
+                <em>{frameworks[f]}</em>
+              ))}
+            </span>
+          </div>
+          <span class="st c" data-l="Policy">
+            <b class="ok">
+              <svg viewBox="0 0 12 12" fill="none">
+                <path
+                  d="m2.5 6.2 2.3 2.3 4.7-5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </b>
+          </span>
+          <span class="st c" data-l="Evidence">
+            {c.evidence ? (
+              <b class="ok">
+                <svg viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="m2.5 6.2 2.3 2.3 4.7-5"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </b>
+            ) : (
+              <b class="miss"></b>
+            )}
+          </span>
+          <span class="st c" data-l="Owner">
+            <b class="own"></b>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <p class="foot">
+    <span>Illustrative structure, not customer data.</span>
+    <span class="read">
+      <b>Illustrative readiness</b>
+      <span class="seg">
+        {controls.map((c) => (
+          <i class:list={{ miss: !c.evidence }}></i>
+        ))}
+      </span>
+    </span>
+  </p>
+</div>
+
+<style>
+  .map {
+    --cols: 132px minmax(56px, 150px) minmax(0, 1fr) 76px 76px 76px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--paper);
+    box-shadow: var(--shadow-plane);
+    padding: clamp(18px, 2.4vw, 32px);
+  }
+  .cols-head {
+    display: grid;
+    grid-template-columns: var(--cols);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .c {
+    text-align: center;
+  }
+  .body {
+    display: grid;
+    grid-template-columns: var(--cols);
+    grid-template-rows: repeat(var(--rows), var(--row));
+  }
+  .fw {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+  }
+  .fw li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--text);
+  }
+  .fw i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--grc);
+  }
+  .links {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .links path {
+    fill: none;
+    stroke: color-mix(in srgb, var(--grc) 38%, var(--silver));
+    stroke-width: 1.25;
+  }
+  .links path.gap {
+    stroke: var(--grc);
+    stroke-dasharray: 3 4;
+  }
+  .ctl {
+    grid-column: 3 / -1;
+    grid-row: 1 / -1;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-template-columns: subgrid;
+  }
+  .ctl li {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .ctl li:last-child {
+    border-bottom: 0;
+  }
+  .nm {
+    display: grid;
+    gap: 2px;
+    padding-left: 14px;
+  }
+  .nm strong {
+    font-size: var(--fs-body);
+    font-weight: 600;
+    color: var(--text);
+  }
+  .tags {
+    display: none;
+  }
+  .ctl li.gap {
+    background: color-mix(in srgb, var(--grc) 7%, transparent);
+    border-radius: 10px;
+    border-bottom-color: transparent;
+  }
+  .st {
+    display: grid;
+    place-items: center;
+  }
+  .ok,
+  .miss,
+  .own {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+  .ok {
+    background: var(--grc);
+    color: #04140d;
+  }
+  .ok svg {
+    width: 12px;
+    height: 12px;
+  }
+  .miss {
+    border: 1.5px dashed var(--grc);
+  }
+  .own {
+    background:
+      radial-gradient(circle at 50% 36%, var(--steel) 0 21%, transparent 23%),
+      radial-gradient(ellipse 60% 48% at 50% 104%, var(--steel) 0 90%, transparent 94%),
+      var(--silver-wash);
+    box-shadow: 0 0 0 1px var(--line-2);
+  }
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px 24px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line-2);
+    font-size: var(--fs-label);
+    color: var(--text-faint);
+  }
+  .read {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+  }
+  .read b {
+    font-weight: 500;
+  }
+  .seg {
+    display: inline-flex;
+    gap: 4px;
+  }
+  .seg i {
+    width: 28px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--grc);
+  }
+  .seg i.miss {
+    width: 28px;
+    height: 6px;
+    background: transparent;
+    border: 1px dashed var(--grc);
+    border-radius: 3px;
+  }
+
+  /* Mobile: no miniature diagram. Each control is a card carrying its own framework tags. */
+  @media (max-width: 760px) {
+    .map {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .cols-head,
+    .fw,
+    .links {
+      display: none;
+    }
+    .body {
+      display: block;
+    }
+    .ctl {
+      display: grid;
+      grid-template-rows: none;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+    .ctl li {
+      grid-template-columns: repeat(3, auto);
+      justify-content: space-between;
+      column-gap: 14px;
+      row-gap: 10px;
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow-soft);
+    }
+    .ctl li.gap {
+      border: 1.5px dashed var(--grc);
+      background: color-mix(in srgb, var(--grc) 6%, var(--paper));
+    }
+    .nm {
+      grid-column: 1 / -1;
+      padding-left: 0;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tags em {
+      font-style: normal;
+      font-size: var(--fs-mono);
+      font-family: var(--font-mono);
+      color: var(--grc-text);
+      padding: 3px 8px;
+      border: 1px solid var(--accent-line);
+      border-radius: 999px;
+    }
+    .st {
+      grid-auto-flow: column;
+      justify-content: start;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--fs-label);
+      color: var(--text-dim);
+    }
+    .st::after {
+      content: attr(data-l);
+    }
+    .foot {
+      margin-top: 16px;
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+</style>

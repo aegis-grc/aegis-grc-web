@@ -2,7 +2,8 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import ProductSubnav from '../../../components/ProductSubnav.astro';
-import GrcPlane from '../../../components/ui/GrcPlane.astro';
+import GrcLayers from '../../../components/ui/GrcLayers.astro';
+import GrcMap from '../../../components/ui/GrcMap.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { products } from '../../../data/products';
@@ -152,6 +153,7 @@ const security = [
 >
   <PageHero
     product="grc"
+    layout="wide"
     title="Run governance, risk, and compliance as one connected program."
     lede="Aegis GRC brings compliance, risk, audit, vendor management, contracts, quality management, and learning into one platform, with AI that works from your own policies and playbook."
     crumbs={[
@@ -171,7 +173,7 @@ const security = [
       </a>
     </Fragment>
     <div slot="visual" class="hero-vis">
-      <GrcPlane />
+      <GrcLayers />
     </div>
   </PageHero>
 
@@ -264,15 +266,16 @@ const security = [
   </section>
 
   <section class="section" id="frameworks" aria-labelledby="frameworks-title" data-product="grc">
-    <div class="container split">
-      <div class="stack sticky">
+    <div class="container">
+      <div class="split head">
         <h2 id="frameworks-title">Map your program to the frameworks your customers ask about.</h2>
         <p class="note">
           Aegis GRC helps you organize and evidence your program. It does not certify compliance:
           certification and attestation come from auditors and regulators.
         </p>
       </div>
-      <ul class="rows fw">
+      <GrcMap />
+      <ul class="fw-notes">
         {frameworks.map((f) => (
           <li>
             <h3>{f.name}</h3>
@@ -395,12 +398,23 @@ const security = [
     margin-bottom: clamp(40px, 5vw, 72px);
   }
   .hero-vis {
-    max-width: 620px;
+    max-width: 700px;
   }
-  .fw h3 {
-    font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
-    letter-spacing: -0.04em;
+  .fw-notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 28px clamp(20px, 3vw, 40px);
+    margin-top: clamp(36px, 5vw, 64px);
+  }
+  .fw-notes h3 {
+    font-size: var(--fs-h3);
+    letter-spacing: -0.03em;
     font-weight: 560;
+    margin-bottom: 6px;
+  }
+  .fw-notes p {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
   }
   .more {
     margin-top: 40px;

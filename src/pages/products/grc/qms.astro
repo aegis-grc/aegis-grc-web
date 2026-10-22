@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
-import FlowPlane from '../../../components/ui/FlowPlane.astro';
+import QmsStack from '../../../components/ui/QmsStack.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { productSchema, breadcrumbSchema } from '../../../lib/seo';
@@ -63,6 +63,7 @@ const capabilities = [
 >
   <PageHero
     product="grc"
+    layout="wide"
     label="Aegis QMS · part of Aegis GRC"
     title="Document control that stays audit-ready."
     lede="Aegis QMS gives audit-ready teams one place for SOPs, policies, training records, and approval workflows, version-controlled and always current."
@@ -84,7 +85,7 @@ const capabilities = [
       </a>
     </Fragment>
     <div slot="visual" class="vis">
-      <FlowPlane title="Document lifecycle" steps={flow} />
+      <QmsStack steps={flow} />
     </div>
   </PageHero>
 
@@ -151,7 +152,7 @@ const capabilities = [
 
 <style>
   .vis {
-    max-width: 460px;
+    max-width: 720px;
   }
   .links {
     display: flex;

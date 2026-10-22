@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import SolutionsRoute from '../components/ui/SolutionsRoute.astro';
 import ProductGlyph from '../components/ProductGlyph.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Arrow from '../components/Arrow.astro';
@@ -28,7 +29,11 @@ import { breadcrumbSchema } from '../lib/seo';
     title="Start from the problem, not the product."
     lede="Aegis products are built for specific domains. Find the work you need to improve, then see which product fits."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Solutions' }]}
-  />
+  >
+    <div slot="visual">
+      <SolutionsRoute />
+    </div>
+  </PageHero>
 
   <section class="section list" aria-label="Solutions">
     <div class="container">

@@ -142,7 +142,10 @@ const frameworks = ['HIPAA', 'SOC 2', 'ISO 27001', 'GDPR', 'NIST CSF'];
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: var(--silver-wash);
+    background:
+      radial-gradient(circle at 50% 36%, var(--steel) 0 21%, transparent 23%),
+      radial-gradient(ellipse 60% 48% at 50% 104%, var(--steel) 0 90%, transparent 94%),
+      var(--silver-wash);
   }
   .map {
     display: flex;

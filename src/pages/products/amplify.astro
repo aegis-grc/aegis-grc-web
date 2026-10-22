@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ProductSubnav from '../../components/ProductSubnav.astro';
-import AmplifyPlane from '../../components/ui/AmplifyPlane.astro';
+import AmplifyFlow from '../../components/ui/AmplifyFlow.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { products, ariaPath } from '../../data/products';
@@ -55,6 +55,7 @@ const groups = [
 >
   <PageHero
     product="amplify"
+    layout="stacked"
     title="Keep every lead moving toward a booked job."
     lede="Aegis Amplify is AI-native sales, marketing, and revenue operations for contractors and home-service businesses, from the first inquiry to the follow-up on an estimate."
     crumbs={[
@@ -74,7 +75,7 @@ const groups = [
       </a>
     </Fragment>
     <div slot="visual" class="vis">
-      <AmplifyPlane variant="wide" />
+      <AmplifyFlow />
     </div>
   </PageHero>
 
@@ -96,21 +97,22 @@ const groups = [
           came from.
         </p>
       </div>
-      <ul class="defs">
-        {groups.map((g) => (
+      <ol class="route">
+        {groups.map((g, i) => (
           <li>
+            <span class="stn" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
             <h3>{g.title}</h3>
-            <div class="stack">
-              <p>{g.text}</p>
-              <ul class="ticks">
-                {g.items.map((t) => (
-                  <li>{t}</li>
-                ))}
-              </ul>
-            </div>
+            <p>{g.text}</p>
+            <ul class="ticks">
+              {g.items.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   </section>
 
@@ -191,8 +193,74 @@ const groups = [
     align-items: end;
     margin-bottom: clamp(40px, 5vw, 72px);
   }
-  .vis {
-    max-width: 640px;
+  .route {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 44px);
+    counter-reset: none;
+  }
+  .route::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 19px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--amplify), var(--blue-lum) 70%, transparent);
+  }
+  .route > li {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 14px;
+  }
+  .stn {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--amplify);
+    color: #031327;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    font-weight: 500;
+    box-shadow: 0 0 0 6px var(--paper);
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .route h3 {
+    font-size: var(--fs-h3);
+  }
+  .route p {
+    color: var(--text-dim);
+    font-size: var(--fs-small);
+  }
+  @media (max-width: 960px) {
+    .route {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+      padding-left: 0;
+    }
+    .route::before {
+      left: 19px;
+      right: auto;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      height: auto;
+      background: linear-gradient(180deg, var(--amplify), var(--blue-lum) 85%, transparent);
+    }
+    .route > li {
+      padding-left: 64px;
+    }
+    .stn {
+      position: absolute;
+      left: 0;
+      top: -4px;
+      margin: 0;
+    }
   }
   .aria-line {
     display: flex;
