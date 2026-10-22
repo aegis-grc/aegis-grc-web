@@ -1,0 +1,574 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroMark from '../components/HeroMark.astro';
+import ProductCard from '../components/ProductCard.astro';
+import ProductGlyph from '../components/ProductGlyph.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Arrow from '../components/Arrow.astro';
+import { products, productList, ariaPath } from '../data/products';
+import { solutions } from '../data/solutions';
+import { industries } from '../data/industries';
+import { organizationSchema } from '../lib/seo';
+
+const domains = [
+  { word: 'Revenue', product: products.amplify },
+  { word: 'Risk', product: products.grc },
+  { word: 'Security', product: products.sentinel },
+];
+
+const ariaRows = [
+  {
+    product: products.grc,
+    text: 'Drafts contracts, prepares questionnaire answers, and scores vendors from your own Company Playbook.',
+  },
+  {
+    product: products.amplify,
+    text: 'Responds to new leads, keeps nurturing them, and follows up on stalled estimates.',
+  },
+  {
+    product: products.sentinel,
+    text: 'Correlates alerts, supports investigations, and prepares response plans for approval.',
+  },
+];
+
+const principles = [
+  {
+    title: 'Automation within limits',
+    text: 'Automated work runs inside boundaries that people can see, and it can be stopped.',
+  },
+  {
+    title: 'Approval where it matters',
+    text: 'Consequential actions wait for a person to decide. Routine work does not.',
+  },
+  {
+    title: 'A record you can review',
+    text: 'What the system did, and who approved it, is logged so teams can explain it later.',
+  },
+];
+---
+
+<BaseLayout
+  rawTitle
+  title="Aegis | AI-native platforms for revenue, risk, and security"
+  description="Aegis builds AI-native platforms for revenue, risk, and security: Aegis Amplify, Aegis GRC, and Aegis Sentinel, with human approval where it matters."
+  path="/"
+  schema={[organizationSchema(Astro.site)]}
+>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 id="hero-title">AI-native platforms for revenue, risk, and security.</h1>
+        <p class="lede">
+          Aegis builds operating platforms for the work businesses can't afford to get wrong. The AI
+          does the work; your people stay in control.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="/products/">Explore the products<Arrow /></a>
+          <a class="btn btn--ghost" href="/contact/">Contact sales</a>
+        </div>
+        <ul class="domains" aria-label="Where Aegis works">
+          {
+            domains.map((d) => (
+              <li data-product={d.product.id}>
+                <a href={d.product.path}>
+                  <span class="d-glyph"><ProductGlyph product={d.product.id} size={20} /></span>
+                  <span class="d-word">{d.word}</span>
+                  <span class="d-name">{d.product.name}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="hero-art">
+        <HeroMark />
+      </div>
+    </div>
+  </section>
+
+  <!-- Product portfolio -->
+  <section class="section section--tint" id="products" aria-labelledby="portfolio-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">The Aegis product family</span>
+        <h2 id="portfolio-title">Three platforms, one standard for AI you can supervise.</h2>
+        <p class="lede">
+          Each Aegis product is built for its own domain. All of them follow the same rules:
+          automation works inside limits, people approve what matters, and there is a record of what
+          happened.
+        </p>
+      </div>
+      <div class="cards">
+        {
+          productList.map((p, i) => (
+            <div>
+              <ProductCard
+                product={p}
+                note={p.id === 'grc' ? 'Includes Aegis Contracts and Aegis QMS.' : undefined}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Aria -->
+  <section class="section" id="aria" aria-labelledby="aria-title">
+    <div class="container aria">
+      <div class="aria-copy">
+        <span class="eyebrow">Shared intelligence</span>
+        <h2 id="aria-title">Aria, the Aegis intelligence layer.</h2>
+        <p class="lede">
+          Aria is how Aegis applies AI across its products: reasoning over your context,
+          orchestrating the steps of a workflow, and keeping people in control. Each product puts
+          Aria to work in its own domain.
+        </p>
+        <a class="link-arrow" href={ariaPath}>Meet Aria<Arrow /></a>
+      </div>
+      <div class="aria-diagram">
+        <div class="aria-core">
+          <span class="aria-name">Aria</span>
+          <span class="aria-sub">Reasoning · orchestration · context · human control</span>
+        </div>
+        <ul class="aria-rows">
+          {
+            ariaRows.map((r) => (
+              <li data-product={r.product.id}>
+                <span class="ar-head">
+                  <ProductGlyph product={r.product.id} size={18} />
+                  {r.product.name}
+                </span>
+                <span class="ar-text">{r.text}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Governed AI -->
+  <section class="section section--tint" aria-labelledby="governed-title">
+    <div class="container governed">
+      <div>
+        <span class="eyebrow">How we build AI</span>
+        <h2 id="governed-title">AI does the work. People keep control.</h2>
+      </div>
+      <ul class="principles">
+        {
+          principles.map((p, i) => (
+            <li>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="section section--tight trust" aria-labelledby="trust-title">
+    <div class="container trust-grid">
+      <div>
+        <h2 id="trust-title">Built to be reviewed.</h2>
+      </div>
+      <div>
+        <p class="lede">
+          Aegis explains how its products approach identity, data handling, and approval controls,
+          and says plainly what is and is not yet in place.
+        </p>
+        <a class="link-arrow" href="/security/">How Aegis approaches security<Arrow /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions / industries -->
+  <section class="section section--tint" aria-labelledby="solutions-title">
+    <div class="container sol">
+      <div>
+        <span class="eyebrow">Solutions</span>
+        <h2 id="solutions-title">Start from the problem.</h2>
+        <ul class="sol-list">
+          {
+            solutions.map((s) => (
+              <li>
+                <a href={`/solutions/#${s.id}`}>
+                  {s.title}
+                  <Arrow />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <span class="eyebrow">Industries</span>
+        <h2 class="h2-sm">Or start from your industry.</h2>
+        <ul class="chips">
+          {industries.map((i) => <li><a href={`/industries/#${i.id}`}>{i.name}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources / company -->
+  <section class="section section--tight" aria-label="Resources and company">
+    <div class="container duo">
+      <a class="duo-card" href="/resources/">
+        <h2 class="h3">Resources</h2>
+        <p>Product guides and security information, kept in one place as the library grows.</p>
+        <span class="link-arrow">Browse resources<Arrow /></span>
+      </a>
+      <a class="duo-card" href="/company/">
+        <h2 class="h3">Company</h2>
+        <p>What Aegis builds, and the principles behind the product family.</p>
+        <span class="link-arrow">About Aegis<Arrow /></span>
+      </a>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Talk to Aegis about the work you can't afford to get wrong."
+    text="Tell us which product you're interested in and we'll follow up."
+    primary={{ label: 'Contact sales', href: '/contact/' }}
+    secondary={{ label: 'Explore the products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: clamp(48px, 7vw, 104px) 0 clamp(64px, 8vw, 120px);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 55% 60% at 78% 30%, rgba(127, 168, 232, 0.16), transparent 70%),
+      var(--bg);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  .hero-copy {
+    display: grid;
+    gap: 26px;
+    justify-items: start;
+  }
+  .hero-copy h1 {
+    max-width: 14ch;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .domains {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    width: 100%;
+    max-width: 38rem;
+    margin-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+  .domains li {
+    border-right: 1px solid var(--line);
+  }
+  .domains li:last-child {
+    border-right: 0;
+  }
+  .domains a {
+    display: grid;
+    gap: 2px;
+    padding: 18px 18px 0 0;
+    margin-left: 0;
+  }
+  .domains li + li a {
+    padding-left: 18px;
+  }
+  .d-glyph {
+    color: var(--accent-bright);
+    margin-bottom: 8px;
+  }
+  .d-word {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .d-name {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+    transition: color var(--t-fast) var(--ease);
+  }
+  .domains a:hover .d-name {
+    color: var(--accent-bright);
+  }
+  .hero-art {
+    display: grid;
+    place-items: center;
+  }
+
+  /* Portfolio */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .cards > div {
+    display: flex;
+  }
+  .cards > div > :global(article) {
+    flex: 1;
+  }
+
+  /* Aria */
+  .aria {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(40px, 6vw, 88px);
+    align-items: center;
+  }
+  .aria-copy {
+    display: grid;
+    gap: 22px;
+    justify-items: start;
+  }
+  .aria-diagram {
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .aria-core {
+    display: grid;
+    gap: 4px;
+    padding: 24px 28px;
+    background: linear-gradient(180deg, var(--surface-hi), var(--surface));
+    border-bottom: 1px solid var(--line-2);
+  }
+  .aria-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.25rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .aria-sub {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    color: var(--silver-2);
+  }
+  .aria-rows li {
+    display: grid;
+    gap: 6px;
+    padding: 20px 28px;
+    border-top: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+  }
+  .aria-rows li:first-child {
+    border-top: 0;
+  }
+  .ar-head {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--accent-bright);
+  }
+  .ar-text {
+    color: var(--text-dim);
+  }
+
+  /* Governed AI */
+  .governed {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(40px, 6vw, 88px);
+    align-items: start;
+  }
+  .governed > div {
+    display: grid;
+    gap: 18px;
+    justify-items: start;
+    position: sticky;
+    top: calc(var(--nav-h) + 24px);
+  }
+  .principles li {
+    padding: 26px 0;
+    border-top: 1px solid var(--line-2);
+  }
+  .principles li:last-child {
+    border-bottom: 1px solid var(--line-2);
+  }
+  .principles h3 {
+    margin-bottom: 8px;
+  }
+  .principles p {
+    color: var(--text-dim);
+    max-width: 44ch;
+  }
+
+  /* Trust */
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(28px, 6vw, 88px);
+    align-items: center;
+  }
+  .trust-grid > div:last-child {
+    display: grid;
+    gap: 18px;
+    justify-items: start;
+  }
+
+  /* Solutions / industries */
+  .sol {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(40px, 6vw, 88px);
+  }
+  .sol > div {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+  }
+  .h2-sm {
+    font-size: var(--fs-h3);
+  }
+  .sol-list {
+    margin-top: 10px;
+  }
+  .sol-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line-2);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: color var(--t-fast) var(--ease);
+  }
+  .sol-list li:last-child a {
+    border-bottom: 1px solid var(--line-2);
+  }
+  .sol-list a :global(svg) {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    color: var(--accent-bright);
+    transition: transform var(--t-med) var(--ease);
+  }
+  @media (hover: hover) {
+    .sol-list a:hover {
+      color: var(--accent-bright);
+    }
+    .sol-list a:hover :global(svg) {
+      transform: translateX(4px);
+    }
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .chips a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    color: var(--text-dim);
+    transition:
+      color var(--t-fast) var(--ease),
+      border-color var(--t-fast) var(--ease),
+      background var(--t-fast) var(--ease);
+  }
+  .chips a:hover {
+    color: var(--text);
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+  }
+
+  /* Resources / company */
+  .duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .duo-card {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    padding: 30px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--t-med) var(--ease);
+  }
+  .duo-card p {
+    color: var(--text-dim);
+    max-width: 40ch;
+  }
+  .duo-card:hover {
+    border-color: var(--accent-line);
+  }
+  .h3 {
+    font-size: var(--fs-h3);
+  }
+
+  @media (max-width: 960px) {
+    .hero-grid,
+    .aria,
+    .governed,
+    .trust-grid,
+    .sol,
+    .duo {
+      grid-template-columns: 1fr;
+    }
+    .hero-art {
+      order: -1;
+    }
+    .hero-art :global(.hero-mark) {
+      width: min(62%, 260px);
+    }
+    .cards {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+    .governed > div {
+      position: static;
+    }
+  }
+  @media (max-width: 520px) {
+    .domains {
+      grid-template-columns: 1fr;
+    }
+    .domains li {
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .domains a,
+    .domains li + li a {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 14px;
+      padding: 14px 0;
+    }
+    .d-glyph {
+      grid-row: span 2;
+      margin: 0;
+      align-self: center;
+    }
+  }
+</style>

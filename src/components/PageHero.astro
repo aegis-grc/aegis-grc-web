@@ -1,0 +1,82 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+import Logo from './Logo.astro';
+import type { ProductId } from '../data/products';
+
+interface Props {
+  title: string;
+  lede: string;
+  product?: ProductId;
+  /** Eyebrow text for non-product pages */
+  eyebrow?: string;
+  crumbs?: { name: string; href?: string }[];
+  /** Render the product lockup above the title */
+  lockup?: boolean;
+}
+const { title, lede, product, eyebrow, crumbs, lockup } = Astro.props;
+const hasVisual = Astro.slots.has('visual');
+---
+
+<header class:list={['page-hero', { 'has-visual': hasVisual }]} data-product={product}>
+  <div class="container inner">
+    <div class="copy">
+      {crumbs && <Breadcrumbs items={crumbs} />}
+      {lockup && product && <Logo product={product} size="lg" />}
+      {eyebrow && !lockup && <span class="eyebrow">{eyebrow}</span>}
+      <h1>{title}</h1>
+      <p class="lede">{lede}</p>
+      <div class="actions"><slot name="actions" /></div>
+      <slot />
+    </div>
+    {hasVisual && <div class="visual"><slot name="visual" /></div>}
+  </div>
+</header>
+
+<style>
+  .page-hero {
+    position: relative;
+    padding: clamp(44px, 6vw, 88px) 0 clamp(56px, 7vw, 104px);
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 70% at 85% 10%,
+      var(--accent-glow),
+      transparent 70%
+    );
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .inner {
+    position: relative;
+    display: grid;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .has-visual .inner {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+  .copy {
+    display: grid;
+    gap: 22px;
+    justify-items: start;
+    max-width: 44rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .actions:empty {
+    display: none;
+  }
+  @media (max-width: 960px) {
+    .has-visual .inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

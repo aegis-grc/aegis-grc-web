@@ -1,0 +1,51 @@
+---
+import Arrow from './Arrow.astro';
+interface Props {
+  title: string;
+  text?: string;
+  primary: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+const { title, text, primary, secondary } = Astro.props;
+---
+
+<section class="cta" aria-labelledby="cta-title">
+  <div class="container">
+    <div class="box">
+      <h2 id="cta-title">{title}</h2>
+      {text && <p class="lede">{text}</p>}
+      <div class="actions">
+        <a class="btn btn--accent" href={primary.href}>{primary.label}<Arrow /></a>
+        {secondary && <a class="btn btn--ghost" href={secondary.href}>{secondary.label}</a>}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding-block: var(--section-y);
+    border-top: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 50% 90% at 50% 120%, var(--accent-glow), transparent 70%), var(--bg);
+  }
+  .box {
+    display: grid;
+    gap: 22px;
+    justify-items: center;
+    text-align: center;
+  }
+  h2 {
+    max-width: 18ch;
+  }
+  .lede {
+    max-width: 38em;
+  }
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+</style>

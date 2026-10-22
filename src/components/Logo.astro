@@ -1,0 +1,72 @@
+---
+import Mark from './Mark.astro';
+import ProductGlyph from './ProductGlyph.astro';
+import { products, type ProductId } from '../data/products';
+
+interface Props {
+  /** Show a product lockup: AEGIS | glyph PRODUCT */
+  product?: ProductId;
+  size?: 'sm' | 'md' | 'lg';
+}
+const { product, size = 'md' } = Astro.props;
+const p = product ? products[product] : undefined;
+const markSize = { sm: 24, md: 30, lg: 40 }[size];
+---
+
+<span class:list={['lockup', `lockup--${size}`]} data-product={product}>
+  <Mark size={markSize} />
+  <span class="word">Aegis</span>
+  {
+    p && (
+      <>
+        <span class="sep" aria-hidden="true" />
+        <span class="prod">
+          <ProductGlyph product={p.id} size={size === 'lg' ? 22 : 18} />
+          {p.short}
+        </span>
+      </>
+    )
+  }
+</span>
+
+<style>
+  .lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1;
+  }
+  .word {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    color: var(--text);
+    /* optical correction: tracked caps sit slightly right of centre */
+    margin-right: -0.2em;
+  }
+  .lockup--sm .word {
+    font-size: 1.1rem;
+  }
+  .lockup--lg .word {
+    font-size: 1.75rem;
+  }
+  .sep {
+    width: 1px;
+    align-self: stretch;
+    min-height: 1.1em;
+    background: var(--line-2);
+    margin-inline: 2px;
+  }
+  .prod {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-bright);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>

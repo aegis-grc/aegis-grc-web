@@ -1,0 +1,454 @@
+---
+import Logo from './Logo.astro';
+import ProductGlyph from './ProductGlyph.astro';
+import Arrow from './Arrow.astro';
+import { nav } from '../data/site';
+
+const path = Astro.url.pathname;
+const inProducts = path.startsWith('/products');
+const current = (href: string) => (path === href || path.startsWith(href) ? 'page' : undefined);
+---
+
+<header class="site-header" id="site-header">
+  <div class="container bar">
+    <a class="home" href="/" aria-label="Aegis home"><Logo size="md" /></a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      id="menu-toggle"
+    >
+      <span class="visually-hidden">Menu</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path class="l1" d="M4 8h16" stroke-linecap="round"></path>
+        <path class="l2" d="M4 16h16" stroke-linecap="round"></path>
+      </svg>
+    </button>
+
+    <div class="drawer" id="site-nav">
+      <nav aria-label="Primary">
+        <ul class="primary">
+          <li class="has-mega" id="products-item">
+            <a class="top nav-fallback" href="/products/" aria-current={inProducts ? 'page' : undefined}>
+              {nav.products.label}
+            </a>
+            <button
+              class="top nav-trigger"
+              type="button"
+              aria-expanded="false"
+              aria-controls="mega-products"
+              id="products-trigger"
+              data-current={inProducts ? 'true' : undefined}
+            >
+              {nav.products.label}
+              <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+
+            <div class="mega" id="mega-products" role="group" aria-label="Products">
+              <ul class="mega-products">
+                {
+                  nav.products.items.map((p) => (
+                    <li data-product={p.id}>
+                      <a class="mega-item" href={p.href}>
+                        <span class="mega-glyph">
+                          <ProductGlyph product={p.id} size={22} />
+                        </span>
+                        <span class="mega-text">
+                          <span class="mega-name">{p.name}</span>
+                          <span class="mega-desc">{p.description}</span>
+                        </span>
+                      </a>
+                      {p.children.length > 0 && (
+                        <ul class="mega-sub">
+                          {p.children.map((c) => (
+                            <li><a href={c.href}>{c.name}</a></li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))
+                }
+              </ul>
+              <div class="mega-foot">
+                <a class="link-arrow" href={nav.products.all.href}>
+                  {nav.products.all.label}
+                  <Arrow />
+                </a>
+                <a class="aria-link" href={nav.products.aria.href}>
+                  <strong>{nav.products.aria.label}</strong> — {nav.products.aria.note}
+                </a>
+              </div>
+            </div>
+          </li>
+          {
+            nav.links.map((l) => (
+              <li>
+                <a class="top" href={l.href} aria-current={current(l.href)}>
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="actions">
+        <a class="signin" href={nav.actions.signIn.href} aria-current={current(nav.actions.signIn.href)}>
+          {nav.actions.signIn.label}
+        </a>
+        <a class="btn btn--primary" href={nav.actions.contact.href}>{nav.actions.contact.label}</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(7, 11, 20, 0.92);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: var(--nav-h);
+    position: relative;
+  }
+  .home {
+    display: inline-flex;
+    border-radius: 6px;
+  }
+  .drawer {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 24px;
+    justify-content: space-between;
+    margin-left: 32px;
+  }
+  .primary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 0;
+    background: none;
+    border-radius: 8px;
+    color: var(--text-dim);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    cursor: pointer;
+    transition: color var(--t-fast) var(--ease);
+  }
+  .top:hover,
+  .top[aria-expanded='true'],
+  .top[aria-current='page'],
+  .top[data-current='true'] {
+    color: var(--text);
+  }
+  .top[aria-current='page']::after,
+  .top[data-current='true']::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 6px;
+    height: 1px;
+    background: var(--accent);
+  }
+  li {
+    position: relative;
+  }
+  .chev {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--t-med) var(--ease);
+  }
+  .nav-trigger[aria-expanded='true'] .chev {
+    transform: rotate(180deg);
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .signin {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 10px;
+    color: var(--text-dim);
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+  .signin:hover {
+    color: var(--text);
+  }
+
+  /* Without JS the trigger is a plain link to /products/; with JS it is a disclosure button */
+  :global(.js) .nav-fallback {
+    display: none;
+  }
+  :global(.no-js) .nav-trigger {
+    display: none;
+  }
+  :global(.no-js) .mega {
+    display: none;
+  }
+
+  /* Mega-menu (desktop) */
+  .mega {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -16px;
+    width: min(880px, calc(100vw - 2 * var(--gutter)));
+    padding: 26px;
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--t-med) var(--ease),
+      transform var(--t-med) var(--ease),
+      visibility 0s linear var(--t-med);
+  }
+  .has-mega.is-open .mega {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .mega-products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .mega-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition:
+      background var(--t-fast) var(--ease),
+      border-color var(--t-fast) var(--ease);
+  }
+  .mega-item:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent-line);
+  }
+  .mega-glyph {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    color: var(--accent-bright);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+  }
+  .mega-text {
+    display: grid;
+    gap: 3px;
+  }
+  .mega-name {
+    font-weight: 500;
+    color: var(--text);
+  }
+  .mega-desc {
+    font-size: var(--fs-small);
+    line-height: 1.45;
+    color: var(--text-dim);
+  }
+  .mega-sub {
+    display: flex;
+    gap: 6px;
+    padding: 2px 0 0 68px;
+    flex-wrap: wrap;
+  }
+  .mega-sub a {
+    display: inline-flex;
+    min-height: 32px;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: var(--fs-label);
+    color: var(--text-dim);
+  }
+  .mega-sub a:hover {
+    color: var(--text);
+    border-color: var(--accent-line);
+  }
+  .mega-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .aria-link {
+    color: var(--text-dim);
+    font-size: var(--fs-small);
+  }
+  .aria-link strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .aria-link:hover strong {
+    color: var(--accent-bright);
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .menu-toggle svg {
+    width: 22px;
+    height: 22px;
+  }
+  .menu-toggle path {
+    transform-origin: 12px 12px;
+    transition:
+      transform var(--t-med) var(--ease),
+      opacity var(--t-fast) var(--ease);
+  }
+  .menu-toggle[aria-expanded='true'] .l1 {
+    transform: translateY(4px) rotate(45deg);
+  }
+  .menu-toggle[aria-expanded='true'] .l2 {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  /* Tablet and mobile: drawer with Products expanded inline */
+  @media (max-width: 960px) {
+    .menu-toggle {
+      display: inline-flex;
+    }
+    .drawer {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      max-height: calc(100dvh - var(--nav-h));
+      overflow-y: auto;
+      padding: 8px var(--gutter) 28px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header.menu-open .drawer,
+    :global(.no-js) .drawer {
+      display: flex;
+    }
+    :global(.no-js) .menu-toggle {
+      display: none;
+    }
+    .primary {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+    .primary > li {
+      border-bottom: 1px solid var(--line);
+    }
+    .top {
+      width: 100%;
+      min-height: 52px;
+      padding: 0;
+      font-size: 1.0625rem;
+    }
+    .top[aria-current='page']::after,
+    .top[data-current='true']::after {
+      display: none;
+    }
+    /* Products group: heading + always-visible list */
+    .nav-trigger {
+      display: none;
+    }
+    :global(.js) .nav-fallback {
+      display: inline-flex;
+    }
+    :global(.no-js) .mega {
+      display: block;
+    }
+    .mega {
+      position: static;
+      width: auto;
+      padding: 0 0 14px;
+      background: none;
+      border: 0;
+      box-shadow: none;
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+    }
+    .mega-products {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    .mega-item {
+      padding: 10px 0;
+    }
+    .mega-sub {
+      padding-left: 54px;
+    }
+    .mega-foot {
+      margin-top: 8px;
+      padding-top: 12px;
+    }
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+      margin-top: 18px;
+    }
+    .actions .btn {
+      width: 100%;
+    }
+    .signin {
+      justify-content: center;
+      min-height: 48px;
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+    }
+  }
+  @media (max-width: 960px) {
+    /* The Products heading link on mobile just labels the list below it */
+    .nav-fallback {
+      color: var(--text);
+    }
+  }
+</style>

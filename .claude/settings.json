@@ -4,9 +4,13 @@
     "impeccable@impeccable": true
   },
   "env": {
-    "IMPECCABLE_NO_TELEMETRY": "1"
+    "IMPECCABLE_NO_TELEMETRY": "1",
+    "ASTRO_TELEMETRY_DISABLED": "1"
   },
   "permissions": {
-    "deny": ["Read(./.env)", "Read(./.env.*)"]
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
   }
 }
