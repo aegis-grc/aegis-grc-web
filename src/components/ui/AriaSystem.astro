@@ -22,7 +22,7 @@ const lanes = [products.amplify, products.grc, products.sentinel];
   <ol class="visually-hidden">
     {stages.map((s) => (
       <li>
-        {s.name}: {s.text}
+        <b>{s.name}</b> <span>{s.text}</span>
       </li>
     ))}
   </ol>
@@ -221,10 +221,30 @@ const lanes = [products.amplify, products.grc, products.sentinel];
       display: grid;
       gap: 0;
     }
+    .visually-hidden {
+      counter-reset: step;
+    }
     .visually-hidden li {
-      padding: 14px 0;
+      position: relative;
+      display: grid;
+      gap: 4px;
+      padding: 16px 0 16px 44px;
       border-top: 1px solid var(--line-2);
       color: var(--text-dim);
+      counter-increment: step;
+    }
+    .visually-hidden li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 18px;
+      font-family: var(--font-mono);
+      font-size: var(--fs-mono);
+      color: var(--blue-text);
+    }
+    .visually-hidden b {
+      font-weight: 600;
+      color: var(--text);
     }
   }
 </style>

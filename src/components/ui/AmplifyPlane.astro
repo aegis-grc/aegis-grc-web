@@ -60,6 +60,17 @@ const lanes = variant === 'wide' ? wide : compact;
     grid-template-columns: repeat(var(--n), minmax(0, 1fr));
     gap: 10px;
   }
+  @media (max-width: 520px) {
+    .lanes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .lane:nth-child(n + 4) {
+      display: none;
+    }
+    .tag {
+      white-space: nowrap;
+    }
+  }
   .lane {
     display: grid;
     gap: 8px;
