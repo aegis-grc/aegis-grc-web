@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard.astro';
 import ProductGlyph from '../components/ProductGlyph.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Arrow from '../components/Arrow.astro';
+import AriaDiagram from '../components/AriaDiagram.astro';
 import { products, productList, ariaPath } from '../data/products';
 import { solutions } from '../data/solutions';
 import { industries } from '../data/industries';
@@ -14,21 +15,6 @@ const domains = [
   { word: 'Revenue', product: products.amplify },
   { word: 'Risk', product: products.grc },
   { word: 'Security', product: products.sentinel },
-];
-
-const ariaRows = [
-  {
-    product: products.grc,
-    text: 'Drafts contracts, prepares questionnaire answers, and scores vendors from your own Company Playbook.',
-  },
-  {
-    product: products.amplify,
-    text: 'Responds to new leads, keeps nurturing them, and follows up on stalled estimates.',
-  },
-  {
-    product: products.sentinel,
-    text: 'Correlates alerts, supports investigations, and prepares response plans for approval.',
-  },
 ];
 
 const principles = [
@@ -101,7 +87,7 @@ const principles = [
       </div>
       <div class="cards">
         {
-          productList.map((p, i) => (
+          productList.map((p) => (
             <div>
               <ProductCard
                 product={p}
@@ -127,25 +113,7 @@ const principles = [
         </p>
         <a class="link-arrow" href={ariaPath}>Meet Aria<Arrow /></a>
       </div>
-      <div class="aria-diagram">
-        <div class="aria-core">
-          <span class="aria-name">Aria</span>
-          <span class="aria-sub">Reasoning · orchestration · context · human control</span>
-        </div>
-        <ul class="aria-rows">
-          {
-            ariaRows.map((r) => (
-              <li data-product={r.product.id}>
-                <span class="ar-head">
-                  <ProductGlyph product={r.product.id} size={18} />
-                  {r.product.name}
-                </span>
-                <span class="ar-text">{r.text}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      <AriaDiagram />
     </div>
   </section>
 
@@ -158,7 +126,7 @@ const principles = [
       </div>
       <ul class="principles">
         {
-          principles.map((p, i) => (
+          principles.map((p) => (
             <li>
               <h3>{p.title}</h3>
               <p>{p.text}</p>
@@ -339,52 +307,6 @@ const principles = [
     gap: 22px;
     justify-items: start;
   }
-  .aria-diagram {
-    border: 1px solid var(--line-2);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    overflow: hidden;
-  }
-  .aria-core {
-    display: grid;
-    gap: 4px;
-    padding: 24px 28px;
-    background: linear-gradient(180deg, var(--surface-hi), var(--surface));
-    border-bottom: 1px solid var(--line-2);
-  }
-  .aria-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 2.25rem;
-    line-height: 1;
-    letter-spacing: 0.02em;
-  }
-  .aria-sub {
-    font-family: var(--font-mono);
-    font-size: var(--fs-label);
-    color: var(--silver-2);
-  }
-  .aria-rows li {
-    display: grid;
-    gap: 6px;
-    padding: 20px 28px;
-    border-top: 1px solid var(--line);
-    border-left: 3px solid var(--accent);
-  }
-  .aria-rows li:first-child {
-    border-top: 0;
-  }
-  .ar-head {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-    color: var(--accent-bright);
-  }
-  .ar-text {
-    color: var(--text-dim);
-  }
-
   /* Governed AI */
   .governed {
     display: grid;

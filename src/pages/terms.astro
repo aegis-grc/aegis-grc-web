@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { contactEmail } from '../data/site';
+---
+
+<BaseLayout title="Terms" description="Terms for the Aegis website." path="/terms/" noindex>
+  <PageHero
+    title="Terms"
+    lede="Aegis has not yet published terms for this website. If you have a question about the terms that apply to your use of an Aegis product, contact us."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Terms' }]}
+  >
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href={`mailto:${contactEmail}`}>Email {contactEmail}</a>
+      <a class="btn btn--ghost" href="/contact/">Contact us</a>
+    </Fragment>
+  </PageHero>
+</BaseLayout>

@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import LifecycleFlow from '../../../components/visuals/LifecycleFlow.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import Arrow from '../../../components/Arrow.astro';
+import { productSchema, breadcrumbSchema } from '../../../lib/seo';
+import { products } from '../../../data/products';
+
+const path = '/products/grc/qms/';
+const description =
+  'Aegis QMS is document control and quality management inside Aegis GRC: version-controlled SOPs and policies, approval workflows, training records, and an audit trail.';
+
+const flow = [
+  { label: 'Draft', note: 'Write or import a controlled document.' },
+  { label: 'Review', note: 'Route it to the right reviewers.' },
+  { label: 'Approve', note: 'Record who approved which version.' },
+  { label: 'Current version', note: 'The approved version is the one people see.' },
+  { label: 'Audit trail', note: 'Every change and approval is logged.' },
+];
+
+const capabilities = [
+  {
+    title: 'Version-controlled documents',
+    text: 'One repository where every document has a history, so there is never a question about which version is current.',
+  },
+  {
+    title: 'SOPs and policies',
+    text: 'Manage standard operating procedures and policies as controlled documents, not files in a shared folder.',
+  },
+  {
+    title: 'Approval and review workflows',
+    text: 'Send documents through review and approval, and keep a record of who signed off on what.',
+  },
+  {
+    title: 'Training records',
+    text: 'Keep training records with the documents they relate to, in the same system.',
+  },
+  {
+    title: 'An audit trail',
+    text: 'Changes and approvals are recorded, so you can show an auditor how a document got to its current state.',
+  },
+];
+---
+
+<BaseLayout
+  title="Aegis QMS: document control and quality management"
+  description={description}
+  path={path}
+  product="grc"
+  schema={[
+    productSchema({ ...products.grc, name: 'Aegis QMS', path }, description, Astro.site),
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Products', path: '/products/' },
+        { name: 'Aegis GRC', path: products.grc.path },
+        { name: 'Aegis QMS', path },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    product="grc"
+    eyebrow="Part of Aegis GRC"
+    title="Document control that stays audit-ready."
+    lede="Aegis QMS gives audit-ready teams one place for SOPs, policies, training records, and approval workflows, version-controlled and always current."
+    crumbs={[
+      { name: 'Aegis', href: '/' },
+      { name: 'Products', href: '/products/' },
+      { name: 'Aegis GRC', href: '/products/grc/' },
+      { name: 'Aegis QMS' },
+    ]}
+  >
+    <Fragment slot="actions">
+      <a class="btn btn--accent" href="/contact/?topic=qms">Contact sales<Arrow /></a>
+      <a class="btn btn--ghost" href="#capabilities">What it does</a>
+    </Fragment>
+    <LifecycleFlow slot="visual" title="Document lifecycle" steps={flow} />
+  </PageHero>
+
+  <section class="section section--tint" id="capabilities" aria-labelledby="cap-title" data-product="grc">
+    <div class="container split">
+      <div class="stack sticky">
+        <span class="eyebrow">What it does</span>
+        <h2 id="cap-title">Controlled documents, without the folder archaeology.</h2>
+        <p class="lede">
+          When an auditor asks which version was in force and who approved it, the answer should be
+          a lookup, not an investigation.
+        </p>
+      </div>
+      <ul class="rows">
+        {
+          capabilities.map((c) => (
+            <li>
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="grc" aria-labelledby="grc-title" data-product="grc">
+    <div class="container split split--even">
+      <div class="stack">
+        <span class="eyebrow">Part of Aegis GRC</span>
+        <h2 id="grc-title">Quality records connect to the compliance program.</h2>
+      </div>
+      <div class="stack">
+        <p class="lede">
+          In Aegis GRC, controlled documents sit alongside control mapping, audit management, and
+          learning, so the documents your program depends on are part of the same record as the
+          evidence behind it.
+        </p>
+        <p class="muted">Use Aegis QMS on its own, or as part of the full Aegis GRC platform.</p>
+        <div class="links">
+          <a class="link-arrow" href="/products/grc/">Explore Aegis GRC<Arrow /></a>
+          <a class="link-arrow" href="/products/grc/contracts/">Explore Aegis Contracts<Arrow /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="See how Aegis QMS would fit your quality process."
+    text="Tell us how you manage documents today and we will follow up."
+    primary={{ label: 'Contact sales', href: '/contact/?topic=qms' }}
+    secondary={{ label: 'Explore Aegis GRC', href: '/products/grc/' }}
+  />
+</BaseLayout>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    margin-top: 6px;
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+import ProductGlyph from './ProductGlyph.astro';
+import { products } from '../data/products';
+
+const rows = [
+  {
+    product: products.grc,
+    text: 'Drafts contracts, prepares questionnaire answers, and scores vendors from your own Company Playbook.',
+  },
+  {
+    product: products.amplify,
+    text: 'Responds to new leads, keeps nurturing them, and follows up on stalled estimates.',
+  },
+  {
+    product: products.sentinel,
+    text: 'Correlates alerts, supports investigations, and prepares response plans for approval.',
+  },
+];
+---
+
+<div class="aria-diagram">
+  <div class="core">
+    <span class="name">Aria</span>
+    <span class="sub">Reasoning · orchestration · context · human control</span>
+  </div>
+  <ul>
+    {
+      rows.map((r) => (
+        <li data-product={r.product.id}>
+          <span class="head">
+            <ProductGlyph product={r.product.id} size={18} />
+            {r.product.name}
+          </span>
+          <span class="text">{r.text}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .aria-diagram {
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.7);
+  }
+  .core {
+    display: grid;
+    gap: 4px;
+    padding: 24px 28px;
+    background: linear-gradient(180deg, var(--surface-hi), var(--surface));
+    border-bottom: 1px solid var(--line-2);
+  }
+  .name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.25rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .sub {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    color: var(--silver-2);
+  }
+  li {
+    display: grid;
+    gap: 6px;
+    padding: 20px 28px;
+    border-top: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+  }
+  li:first-child {
+    border-top: 0;
+  }
+  .head {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--accent-bright);
+  }
+  .text {
+    color: var(--text-dim);
+  }
+</style>

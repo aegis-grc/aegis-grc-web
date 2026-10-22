@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProductGlyph from '../components/ProductGlyph.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { industries, type Relevance } from '../data/industries';
+import { productList, products } from '../data/products';
+import { breadcrumbSchema } from '../lib/seo';
+
+const label: Record<Relevance, string> = {
+  primary: 'Primary fit',
+  relevant: 'Relevant',
+  none: 'Not a focus',
+};
+---
+
+<BaseLayout
+  title="Industries"
+  description="Where each Aegis product fits: healthcare, SaaS, professional services, home services and contractors, and MSPs and vCISOs."
+  path="/industries/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Industries', path: '/industries/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    eyebrow="Industries"
+    title="Where each Aegis product fits."
+    lede="Aegis products are built for specific kinds of work. This page says where each one fits, and where it does not."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Industries' }]}
+  />
+
+  <section class="section section--tint" aria-labelledby="glance-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="glance-title">At a glance</h2>
+      </div>
+      <div class="table-wrap" role="region" aria-label="Industry and product fit" tabindex="0">
+        <table>
+          <caption class="visually-hidden">Fit of each Aegis product by industry</caption>
+          <thead>
+            <tr>
+              <th scope="col">Industry</th>
+              {productList.map((p) => <th scope="col" data-product={p.id}>{p.name}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              industries.map((i) => (
+                <tr>
+                  <th scope="row"><a href={`#${i.id}`}>{i.name}</a></th>
+                  {productList.map((p) => (
+                    <td class={`fit fit--${i.relevance[p.id]}`}>
+                      {i.relevance[p.id] === 'none' ? (
+                        <span aria-label="Not a focus">&mdash;</span>
+                      ) : (
+                        label[i.relevance[p.id]]
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Industries">
+    <div class="container">
+      {
+        industries.map((i) => (
+          <article class="ind" id={i.id}>
+            <div class="stack">
+              <h2>{i.name}</h2>
+              <p class="lede">{i.matters}</p>
+            </div>
+            <ul class="fits">
+              {productList
+                .filter((p) => i.relevance[p.id] !== 'none')
+                .map((p) => (
+                  <li data-product={p.id}>
+                    <a href={p.path}>
+                      <ProductGlyph product={p.id} size={20} />
+                      <span>
+                        <strong>{products[p.id].name}</strong>
+                        <span>{label[i.relevance[p.id]]}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </article>
+        ))
+      }
+      <p class="note">
+        Aegis products help teams organize and run their programs. They do not make an organization
+        compliant or certified, and nothing on this page implies an industry certification.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Don't see your industry?"
+    text="Tell us what your team does and we will say plainly whether an Aegis product fits."
+    primary={{ label: 'Contact sales', href: '/contact/' }}
+    secondary={{ label: 'Explore the products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+  table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    padding: 18px 22px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  thead th {
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--accent-bright);
+    background: var(--surface-2);
+  }
+  thead th:first-child {
+    color: var(--text-faint);
+  }
+  tbody th {
+    font-weight: 500;
+  }
+  tbody th a:hover {
+    color: var(--accent-bright);
+  }
+  tr:last-child th,
+  tr:last-child td {
+    border-bottom: 0;
+  }
+  .fit {
+    color: var(--text-dim);
+  }
+  .fit--primary {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .ind {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(28px, 6vw, 88px);
+    padding: clamp(32px, 4vw, 52px) 0;
+    border-top: 1px solid var(--line-2);
+    align-items: start;
+  }
+  .ind:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .ind h2 {
+    font-size: var(--fs-h3);
+  }
+  .fits {
+    display: grid;
+    gap: 10px;
+  }
+  .fits a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--accent-line);
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent-bright);
+    transition: background var(--t-fast) var(--ease);
+  }
+  .fits a:hover {
+    background: var(--accent-line);
+  }
+  .fits span span {
+    display: block;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .fits strong {
+    font-weight: 500;
+    color: var(--text);
+  }
+  .note {
+    margin-top: 40px;
+  }
+  @media (max-width: 960px) {
+    .ind {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

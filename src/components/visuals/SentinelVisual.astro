@@ -1,0 +1,138 @@
+---
+// Case timeline ending at an approval gate. Illustration only: no alerts, counts or product UI.
+const steps = [
+  { label: 'Alerts ingested', note: 'From your connected security tools' },
+  { label: 'Deduplicated and correlated', note: 'Explicit rules, repeatable results' },
+  { label: 'Investigation opened', note: 'Worked as a case' },
+  { label: 'Evidence timeline built', note: 'Findings and context in one record' },
+  { label: 'Containment plan prepared', note: 'A plan for people to review' },
+];
+---
+
+<figure class="case" data-product="sentinel">
+  <figcaption>
+    <span>Case</span>
+    <span class="chip">Awaiting approval</span>
+  </figcaption>
+  <ol>
+    {
+      steps.map((s) => (
+        <li>
+          <span class="node" aria-hidden="true"></span>
+          <span class="label">{s.label}</span>
+          <span class="note">{s.note}</span>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="gate">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6 20V10a6 6 0 0 1 12 0v10M4 20h16M12 11v5" />
+    </svg>
+    <span>
+      <strong>Approval gate</strong>
+      <span>Consequential actions wait for human approval.</span>
+    </span>
+  </div>
+</figure>
+
+<style>
+  .case {
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    background: var(--ink-0);
+    overflow: hidden;
+    box-shadow:
+      0 40px 80px -40px rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(52, 209, 209, 0.05);
+  }
+  figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line-2);
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    color: var(--text-dim);
+  }
+  .chip {
+    padding: 4px 12px;
+    border: 1px solid var(--accent-line);
+    border-radius: 999px;
+    color: var(--accent-bright);
+    background: var(--accent-soft);
+  }
+  ol {
+    padding: 14px 22px 6px;
+  }
+  li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    column-gap: 16px;
+    padding: 12px 0;
+  }
+  li::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--accent-line);
+  }
+  li:first-child::before {
+    top: 50%;
+  }
+  .node {
+    position: relative;
+    z-index: 1;
+    grid-row: span 2;
+    align-self: center;
+    width: 9px;
+    height: 9px;
+    margin-left: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .label {
+    font-weight: 500;
+    color: var(--text);
+  }
+  .note {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .gate {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 6px 22px 22px;
+    padding: 16px 18px;
+    border: 1px dashed var(--accent-line);
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent-bright);
+  }
+  .gate svg {
+    width: 26px;
+    height: 26px;
+    flex: none;
+  }
+  .gate span {
+    display: grid;
+    gap: 2px;
+  }
+  .gate strong {
+    font-weight: 500;
+    color: var(--text);
+  }
+  .gate span span {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+</style>

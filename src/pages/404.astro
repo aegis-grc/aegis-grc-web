@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout title="Page not found" description="This page could not be found." path="/404/" noindex>
+  <PageHero title="That page isn't here." lede="The link may be out of date. Try the products, or tell us what you were looking for.">
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href="/products/">Explore the products</a>
+      <a class="btn btn--ghost" href="/contact/">Contact us</a>
+    </Fragment>
+  </PageHero>
+</BaseLayout>

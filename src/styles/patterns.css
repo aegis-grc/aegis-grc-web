@@ -1,0 +1,196 @@
+/* Shared page patterns. Layout only: colour comes from tokens / [data-product]. */
+
+.split {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+.split--even {
+  grid-template-columns: 1fr 1fr;
+}
+.split > .sticky {
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+}
+.stack {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+.cols-2,
+.cols-3 {
+  display: grid;
+  gap: 20px;
+}
+.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Hairline row list: the default way to present a set of ideas (not a card grid) */
+.rows > li {
+  padding: 24px 0;
+  border-top: 1px solid var(--line-2);
+}
+.rows > li:last-child {
+  border-bottom: 1px solid var(--line-2);
+}
+.rows h3 {
+  margin-bottom: 8px;
+}
+.rows p {
+  color: var(--text-dim);
+  max-width: 52ch;
+}
+
+/* Capability group */
+.group {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 30px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+.group > p {
+  color: var(--text-dim);
+}
+.group .link-arrow {
+  margin-top: 4px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tags li {
+  padding: 6px 13px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+}
+
+/* Ordered process: numbers are used only because these really are a sequence */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  counter-reset: step;
+}
+.steps > li {
+  counter-increment: step;
+  padding: 0 28px 0 0;
+}
+.steps > li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 22px;
+  border: 1px solid var(--accent-line);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--accent-bright);
+}
+.steps h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.steps p {
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+/* Before / after contrast */
+.contrast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.contrast > div {
+  padding: clamp(26px, 4vw, 44px);
+  background: var(--surface);
+}
+.contrast > div + div {
+  background: var(--surface-2);
+  border-left: 1px solid var(--line-2);
+}
+.contrast h3 {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  margin-bottom: 22px;
+}
+.contrast > div + div h3 {
+  color: var(--accent-bright);
+}
+.contrast li {
+  display: grid;
+  gap: 4px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.contrast li:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+.contrast li strong {
+  font-weight: 500;
+}
+.contrast li span {
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+/* Quiet note / disclaimer */
+.note {
+  padding: 14px 0 14px 18px;
+  border-left: 2px solid var(--accent-line);
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  max-width: 60ch;
+}
+
+@media (max-width: 960px) {
+  .split,
+  .split--even,
+  .cols-2,
+  .cols-3,
+  .contrast {
+    grid-template-columns: 1fr;
+  }
+  .split > .sticky {
+    position: static;
+  }
+  .steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 24px;
+  }
+  .contrast > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--line-2);
+  }
+}
+@media (max-width: 560px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  .group {
+    padding: 24px;
+  }
+}

@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Arrow from '../components/Arrow.astro';
+import { areas, resources, kindLabels } from '../data/resources';
+import { breadcrumbSchema } from '../lib/seo';
+
+const byArea = areas
+  .map((a) => ({ ...a, items: resources.filter((r) => r.area === a.id) }))
+  .filter((a) => a.items.length > 0);
+---
+
+<BaseLayout
+  title="Resources"
+  description="Product guides and security information for Aegis products, organized by area so the library can grow."
+  path="/resources/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Resources', path: '/resources/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    eyebrow="Resources"
+    title="Guides and information for Aegis products."
+    lede="Product guides and security information, organized by area. As Aegis publishes articles, case studies, whitepapers, and product updates, they will be listed here by type."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Resources' }]}
+  />
+
+  <section class="section section--tint" aria-label="Resource library">
+    <div class="container">
+      {
+        byArea.map((a) => (
+          <section class="area" aria-labelledby={`area-${a.id}`}>
+            <div class="stack">
+              <h2 id={`area-${a.id}`}>{a.title}</h2>
+              <p class="muted">{a.blurb}</p>
+            </div>
+            <ul class="items">
+              {a.items.map((r) => (
+                <li>
+                  <a href={r.href}>
+                    <span class="kind">{kindLabels[r.kind]}</span>
+                    <span class="title">{r.title}</span>
+                    <span class="sum">{r.summary}</span>
+                    <Arrow />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand
+    title="Looking for something specific?"
+    text="Ask us for product materials and we will tell you what is available for your use case."
+    primary={{ label: 'Ask for materials', href: '/contact/?topic=resources' }}
+    secondary={{ label: 'Explore the products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  .area {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(24px, 6vw, 80px);
+    padding: clamp(28px, 4vw, 44px) 0;
+    border-top: 1px solid var(--line-2);
+  }
+  .area:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+  h2 {
+    font-size: var(--fs-h3);
+  }
+  .items {
+    display: grid;
+    gap: 10px;
+  }
+  .items a {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 16px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    transition:
+      border-color var(--t-fast) var(--ease),
+      background var(--t-fast) var(--ease);
+  }
+  .items a:hover {
+    border-color: var(--accent-line);
+    background: var(--surface-2);
+  }
+  .kind {
+    grid-column: 1;
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    color: var(--accent-bright);
+  }
+  .title {
+    grid-column: 1;
+    font-weight: 500;
+  }
+  .sum {
+    grid-column: 1;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .items a :global(svg) {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+    width: 18px;
+    height: 18px;
+    color: var(--accent-bright);
+    transition: transform var(--t-med) var(--ease);
+  }
+  .items a:hover :global(svg) {
+    transform: translateX(3px);
+  }
+  @media (max-width: 960px) {
+    .area {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

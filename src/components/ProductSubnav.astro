@@ -1,0 +1,77 @@
+---
+import Logo from './Logo.astro';
+import type { ProductId } from '../data/products';
+interface Props {
+  product: ProductId;
+  items: { label: string; href: string }[];
+  cta: { label: string; href: string };
+}
+const { product, items, cta } = Astro.props;
+---
+
+<div class="subnav" data-product={product}>
+  <div class="container inner">
+    <Logo product={product} size="sm" />
+    <nav aria-label="On this page">
+      <ul>
+        {items.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+      </ul>
+    </nav>
+    <a class="btn btn--accent" href={cta.href}>{cta.label}</a>
+  </div>
+</div>
+
+<style>
+  .subnav {
+    position: sticky;
+    top: var(--nav-h);
+    z-index: 900;
+    background: rgba(7, 11, 20, 0.94);
+    border-block: 1px solid var(--line);
+  }
+  .inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    min-height: 58px;
+  }
+  nav {
+    flex: 1;
+    min-width: 0;
+  }
+  ul {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  ul::-webkit-scrollbar {
+    display: none;
+  }
+  a:not(.btn) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 12px;
+    white-space: nowrap;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--text-dim);
+    border-radius: 8px;
+  }
+  a:not(.btn):hover {
+    color: var(--text);
+  }
+  .btn {
+    min-height: 40px;
+    padding: 8px 18px;
+  }
+  @media (max-width: 960px) {
+    .inner {
+      gap: 14px;
+    }
+    .btn {
+      display: none;
+    }
+  }
+</style>

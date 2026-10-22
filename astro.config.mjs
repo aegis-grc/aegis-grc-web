@@ -21,7 +21,11 @@ export default defineConfig({
   // Directory output with trailing slashes is served identically by every static host.
   trailingSlash: 'always',
   build: { format: 'directory' },
-  integrations: [sitemap()],
+  // The sitemap is only generated when a real origin is configured, and it leaves out
+  // the noindex pages (privacy/terms holding pages and the 404).
+  integrations: configured
+    ? [sitemap({ filter: (page) => !/\/(privacy|terms|404)\/?$/.test(page) })]
+    : [],
   fonts: [
     {
       provider: fontProviders.fontsource(),

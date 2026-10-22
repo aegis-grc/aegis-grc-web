@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import LifecycleFlow from '../../../components/visuals/LifecycleFlow.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import Arrow from '../../../components/Arrow.astro';
+import { productSchema, breadcrumbSchema } from '../../../lib/seo';
+import { products } from '../../../data/products';
+
+const path = '/products/grc/contracts/';
+const description =
+  'Aegis Contracts is AI-native contract lifecycle management inside Aegis GRC: draft, redline, negotiate, e-sign, and track obligations and renewals.';
+
+const flow = [
+  { label: 'Draft', note: 'Start from your playbook, not a blank page.' },
+  { label: 'Redline', note: 'AI flags risk before you sign.' },
+  { label: 'Negotiate', note: 'Work through changes with the other side.' },
+  { label: 'Sign', note: 'Built-in e-signatures.' },
+  { label: 'Track', note: 'Obligations and renewals after signature.' },
+];
+
+const capabilities = [
+  {
+    title: 'AI drafting and redlining',
+    text: 'An AI copilot drafts and redlines using your Company Playbook, and flags risk before you sign.',
+  },
+  {
+    title: 'Built-in e-signatures',
+    text: 'Collect signatures without leaving the platform.',
+  },
+  {
+    title: 'Obligation and renewal tracking',
+    text: 'Keep track of what each contract commits you to, with renewal alerts so dates do not slip past.',
+  },
+  {
+    title: 'One contract repository',
+    text: 'Every contract in one searchable place, instead of scattered across inboxes and shared drives.',
+  },
+  {
+    title: 'Your Company Playbook',
+    text: 'Your standard positions and language give the AI its context, so its suggestions reflect how your company actually contracts.',
+  },
+];
+---
+
+<BaseLayout
+  title="Aegis Contracts: AI-native contract lifecycle management"
+  description={description}
+  path={path}
+  product="grc"
+  schema={[
+    productSchema(
+      { ...products.grc, name: 'Aegis Contracts', path },
+      description,
+      Astro.site,
+    ),
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Products', path: '/products/' },
+        { name: 'Aegis GRC', path: products.grc.path },
+        { name: 'Aegis Contracts', path },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    product="grc"
+    eyebrow="Part of Aegis GRC"
+    title="Manage contracts from first draft to renewal."
+    lede="Aegis Contracts is AI-native contract lifecycle management inside Aegis GRC. Draft, redline, negotiate, and e-sign with an AI copilot that works from your playbook."
+    crumbs={[
+      { name: 'Aegis', href: '/' },
+      { name: 'Products', href: '/products/' },
+      { name: 'Aegis GRC', href: '/products/grc/' },
+      { name: 'Aegis Contracts' },
+    ]}
+  >
+    <Fragment slot="actions">
+      <a class="btn btn--accent" href="/contact/?topic=contracts">Contact sales<Arrow /></a>
+      <a class="btn btn--ghost" href="#capabilities">What it does</a>
+    </Fragment>
+    <LifecycleFlow slot="visual" title="Contract lifecycle" steps={flow} />
+  </PageHero>
+
+  <section class="section section--tint" id="capabilities" aria-labelledby="cap-title" data-product="grc">
+    <div class="container split">
+      <div class="stack sticky">
+        <span class="eyebrow">What it does</span>
+        <h2 id="cap-title">One place for every contract, from the first draft on.</h2>
+        <p class="lede">
+          Contracts are scattered across inboxes, drives, and signing tools. Aegis Contracts gives
+          them one home and one lifecycle.
+        </p>
+      </div>
+      <ul class="rows">
+        {
+          capabilities.map((c) => (
+            <li>
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="grc" aria-labelledby="grc-title" data-product="grc">
+    <div class="container split split--even">
+      <div class="stack">
+        <span class="eyebrow">Part of Aegis GRC</span>
+        <h2 id="grc-title">Contracts sit beside the rest of the program.</h2>
+      </div>
+      <div class="stack">
+        <p class="lede">
+          Vendor reviews, policies, and training records live in the same platform, so the context
+          around a contract stays connected. Every vendor can be scored and every contract tracked.
+        </p>
+        <p class="muted">
+          Use Aegis Contracts on its own, or as part of the full Aegis GRC platform.
+        </p>
+        <div class="links">
+          <a class="link-arrow" href="/products/grc/">Explore Aegis GRC<Arrow /></a>
+          <a class="link-arrow" href="/products/grc/qms/">Explore Aegis QMS<Arrow /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="See how Aegis Contracts would fit your process."
+    text="Tell us how you handle contracts today and we will follow up."
+    primary={{ label: 'Contact sales', href: '/contact/?topic=contracts' }}
+    secondary={{ label: 'Explore Aegis GRC', href: '/products/grc/' }}
+  />
+</BaseLayout>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    margin-top: 6px;
+  }
+</style>

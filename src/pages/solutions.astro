@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProductGlyph from '../components/ProductGlyph.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Arrow from '../components/Arrow.astro';
+import { solutions } from '../data/solutions';
+import { products } from '../data/products';
+import { breadcrumbSchema } from '../lib/seo';
+---
+
+<BaseLayout
+  title="Solutions"
+  description="Find the Aegis product for the problem you are solving: governing risk and compliance, automating revenue operations, modernizing security operations, and governing AI-assisted work."
+  path="/solutions/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Solutions', path: '/solutions/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    eyebrow="Solutions"
+    title="Start from the problem, not the product."
+    lede="Aegis products are built for specific domains. Find the work you need to improve, then see which product fits."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Solutions' }]}
+  />
+
+  <section class="section section--tint" aria-label="Solutions">
+    <div class="container">
+      {
+        solutions.map((s) => (
+          <article class="sol" id={s.id}>
+            <div class="stack">
+              <h2>{s.title}</h2>
+              <p class="problem">{s.problem}</p>
+            </div>
+            <div class="stack">
+              <p class="lede">{s.change}</p>
+              <ul class="prods">
+                {s.products.map((id) => (
+                  <li data-product={id}>
+                    <a href={products[id].path}>
+                      <ProductGlyph product={id} size={18} />
+                      {products[id].name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              {s.links && (
+                <ul class="extra">
+                  {s.links.map((l) => (
+                    <li>
+                      <a class="link-arrow" href={l.href}>
+                        {l.label}
+                        <Arrow />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand
+    title="Tell us the problem."
+    text="If it does not fit neatly into one of these, describe it and we will tell you whether Aegis is the right fit."
+    primary={{ label: 'Contact sales', href: '/contact/' }}
+    secondary={{ label: 'Explore the products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  .sol {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(28px, 6vw, 88px);
+    padding: clamp(32px, 4vw, 52px) 0;
+    border-top: 1px solid var(--line-2);
+  }
+  .sol:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+  h2 {
+    font-size: var(--fs-h3);
+  }
+  .problem {
+    color: var(--text-dim);
+    max-width: 42ch;
+  }
+  .prods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .prods a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--accent-line);
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-bright);
+    font-weight: 500;
+    transition: background var(--t-fast) var(--ease);
+  }
+  .prods a:hover {
+    background: var(--accent-line);
+    color: var(--text);
+  }
+  .extra {
+    display: grid;
+    gap: 6px;
+  }
+  @media (max-width: 960px) {
+    .sol {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

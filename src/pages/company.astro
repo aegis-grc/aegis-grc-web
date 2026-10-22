@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ProductGlyph from '../components/ProductGlyph.astro';
+import Arrow from '../components/Arrow.astro';
+import { productList } from '../data/products';
+import { breadcrumbSchema } from '../lib/seo';
+
+const beliefs = [
+  {
+    title: 'Operational intelligence',
+    text: 'AI is only useful when it understands the context of the work it is doing. Our products are built around that context.',
+  },
+  {
+    title: 'Governed automation',
+    text: 'Automation should run inside limits that people can see, and those limits should be easy to review.',
+  },
+  {
+    title: 'Human control',
+    text: 'The AI does the work; people keep control of the decisions that matter.',
+  },
+  {
+    title: 'Products that stand on their own',
+    text: 'Each Aegis product is its own application, built for its own domain. They share principles, not a single catch-all interface.',
+  },
+];
+---
+
+<BaseLayout
+  title="Company"
+  description="Aegis builds AI-native operating platforms for the work businesses can't afford to get wrong: Aegis GRC, Aegis Amplify, and Aegis Sentinel."
+  path="/company/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Company', path: '/company/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    eyebrow="Company"
+    title="We build platforms for the work businesses can't afford to get wrong."
+    lede="Aegis makes AI-native operating platforms for high-stakes business operations. Each product is built for its own domain, on shared principles."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Company' }]}
+  />
+
+  <section class="section section--tint" aria-labelledby="build-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What we build</span>
+        <h2 id="build-title">Three products across revenue, risk, and security.</h2>
+      </div>
+      <ul class="prods">
+        {
+          productList.map((p) => (
+            <li data-product={p.id}>
+              <a href={p.path}>
+                <span class="g"><ProductGlyph product={p.id} size={22} /></span>
+                <span>
+                  <strong>{p.name}</strong>
+                  <span>{p.category}</span>
+                </span>
+                <Arrow />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="why-title">
+    <div class="container split split--even">
+      <div class="stack">
+        <span class="eyebrow">Why a product family</span>
+        <h2 id="why-title">Different domains, the same problem.</h2>
+      </div>
+      <div class="stack">
+        <p class="lede">
+          Revenue, risk, and security look like different worlds. They share a problem: important
+          work done under pressure, with AI that has to be trusted before it is useful.
+        </p>
+        <p class="muted">
+          Building them as a family means one standard for how AI is governed, even though each
+          product is shaped by its own domain.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="beliefs-title">
+    <div class="container split">
+      <div class="stack sticky">
+        <span class="eyebrow">How we think</span>
+        <h2 id="beliefs-title">Product philosophy.</h2>
+      </div>
+      <ul class="rows">
+        {
+          beliefs.map((b) => (
+            <li>
+              <h3>{b.title}</h3>
+              <p>{b.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Talk to us."
+    text="Tell us what you are working on and we will follow up."
+    primary={{ label: 'Contact sales', href: '/contact/' }}
+    secondary={{ label: 'Explore the products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  .prods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .prods a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px;
+    border: 1px solid var(--accent-line);
+    border-radius: var(--radius-lg);
+    background: var(--accent-soft);
+    transition: background var(--t-fast) var(--ease);
+  }
+  .prods a:hover {
+    background: var(--accent-line);
+  }
+  .g {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex: none;
+    border-radius: 10px;
+    border: 1px solid var(--accent-line);
+    color: var(--accent-bright);
+  }
+  .prods strong {
+    display: block;
+    font-weight: 500;
+  }
+  .prods a > span:nth-child(2) span {
+    display: block;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .prods a :global(svg:last-child) {
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
+    flex: none;
+    color: var(--accent-bright);
+  }
+  @media (max-width: 960px) {
+    .prods {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

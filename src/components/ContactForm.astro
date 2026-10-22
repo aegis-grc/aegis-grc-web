@@ -1,0 +1,168 @@
+---
+import Arrow from './Arrow.astro';
+import { contactEmail } from '../data/site';
+
+/**
+ * Contact form. With no endpoint configured it composes a pre-filled email in the
+ * visitor's email app (and works as a plain mailto form without JS). Set
+ * PUBLIC_FORM_ENDPOINT to an approved form service and it becomes a normal POST form.
+ */
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT?.trim() || undefined;
+
+const interests = [
+  { value: 'general', label: 'General enquiry' },
+  { value: 'grc', label: 'Aegis GRC' },
+  { value: 'contracts', label: 'Aegis Contracts' },
+  { value: 'qms', label: 'Aegis QMS' },
+  { value: 'amplify', label: 'Aegis Amplify' },
+  { value: 'sentinel', label: 'Aegis Sentinel' },
+  { value: 'security', label: 'A security question' },
+  { value: 'resources', label: 'Product materials' },
+];
+---
+
+<form
+  id="contact-form"
+  class="form"
+  method="post"
+  action={endpoint ?? `mailto:${contactEmail}`}
+  enctype={endpoint ? undefined : 'text/plain'}
+  data-mode={endpoint ? 'endpoint' : 'mailto'}
+  data-email={contactEmail}
+>
+  <div class="row">
+    <div class="field">
+      <label for="cf-name">Name</label>
+      <input id="cf-name" name="name" type="text" autocomplete="name" required />
+    </div>
+    <div class="field">
+      <label for="cf-email">Work email</label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" required />
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label for="cf-company">Company</label>
+      <input id="cf-company" name="company" type="text" autocomplete="organization" />
+    </div>
+    <div class="field">
+      <label for="cf-topic">I'm interested in</label>
+      <select id="cf-topic" name="topic">
+        {interests.map((i) => <option value={i.value}>{i.label}</option>)}
+      </select>
+    </div>
+  </div>
+  <div class="field">
+    <label for="cf-message">How can we help?</label>
+    <textarea id="cf-message" name="message" rows="6" required></textarea>
+  </div>
+  <div class="submit">
+    <button class="btn btn--accent" type="submit">
+      {endpoint ? 'Send message' : 'Open as an email'}<Arrow />
+    </button>
+    {
+      !endpoint && (
+        <p class="hint">
+          This opens a pre-filled email to <a href={`mailto:${contactEmail}`}>{contactEmail}</a> in
+          your email app.
+        </p>
+      )
+    }
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const topic = form.elements.namedItem('topic') as HTMLSelectElement;
+    const wanted = new URLSearchParams(location.search).get('topic');
+    if (wanted && [...topic.options].some((o) => o.value === wanted)) topic.value = wanted;
+
+    if (form.dataset.mode === 'mailto') {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const label = topic.selectedOptions[0]?.textContent ?? 'General enquiry';
+        const subject = `Aegis enquiry: ${label}`;
+        const body = [
+          String(data.get('message') ?? ''),
+          '',
+          `Name: ${data.get('name') ?? ''}`,
+          `Work email: ${data.get('email') ?? ''}`,
+          `Company: ${data.get('company') ?? ''}`,
+        ].join('\n');
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    }
+  }
+</script>
+
+<style>
+  .form {
+    display: grid;
+    gap: 20px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .field {
+    display: grid;
+    gap: 8px;
+  }
+  label {
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--text);
+  }
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    font: inherit;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    transition: border-color var(--t-fast) var(--ease);
+  }
+  textarea {
+    resize: vertical;
+  }
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--silver-2);
+  }
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+    border-color: var(--accent-bright);
+  }
+  .submit {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+  }
+  .hint {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+    max-width: 38ch;
+  }
+  .hint a {
+    color: var(--accent-bright);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 640px) {
+    .row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
