@@ -17,6 +17,7 @@
   display: grid;
   gap: 18px;
   justify-items: start;
+  align-content: start;
 }
 .cols-2,
 .cols-3 {
