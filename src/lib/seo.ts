@@ -17,7 +17,7 @@ export function organizationSchema(site: URL | undefined) {
     name: siteName,
     description:
       'Aegis builds AI-native operating platforms for high-stakes business operations: revenue, risk, and security.',
-    ...(abs('/', site) && { url: abs('/', site), logo: abs('/favicon.svg', site) }),
+    ...(abs('/', site) && { url: abs('/', site), logo: abs('/brand/aegis-mark-512.png', site) }),
   };
 }
 

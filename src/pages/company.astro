@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import BrandMoment from '../components/brand/BrandMoment.astro';
 import ProductGlyph from '../components/ProductGlyph.astro';
 import Arrow from '../components/Arrow.astro';
 import { productList } from '../data/products';
@@ -47,6 +48,8 @@ const beliefs = [
     lede="Aegis makes AI-native operating platforms for high-stakes business operations. Each product is built for its own domain, on shared principles."
     crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Company' }]}
   />
+
+  <BrandMoment />
 
   <section class="section ground-mist" aria-labelledby="build-title">
     <div class="container">

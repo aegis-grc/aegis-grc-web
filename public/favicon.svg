@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 36" fill="none">
-  <path d="M16 1.6 29 6.6v11.4c0 8.7-5.7 13.9-13 16.6C8.7 31.9 3 26.7 3 18V6.6L16 1.6Z" fill="#0b1220"/>
-  <path d="M16 1.6 3 6.6v11.4c0 8.7 5.7 13.9 13 16.6Z" fill="#fff" opacity=".18"/>
-  <path d="m10 24.2 6-13.7 6 13.7M12.8 19.4h6.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="234 142 484 484" width="64" height="64" fill="none" role="img" aria-label="Aegis"><title>Aegis</title><defs>
+  <linearGradient id="ag-sf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2F5FA"/><stop offset="1" stop-color="#8E98AA"/></linearGradient>
+  <linearGradient id="ag-sl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0A2A5B"/><stop offset=".6" stop-color="#1E66E6"/><stop offset="1" stop-color="#0A3A8A"/></linearGradient>
+  <linearGradient id="ag-ss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#B7C0CE"/></linearGradient>
+</defs><path d="M240 220 L487 150 L710 215 C707 310 690 405 640 487 C600 545 535 590 463 618 L343 505 L333 495 C296 430 256 330 240 220 Z" fill="url(#ag-sf)"/><path d="M455 203 L497 200 C566 268 602 365 597 452 C592 522 545 578 467 614 L466 606 C492 545 497 440 473 331 L333 495 C316 440 330 335 455 203 Z" fill="url(#ag-sl)"/><path d="M343 505 L453 357 C482 396 495 465 489 522 C485 562 474 594 465 614 C420 585 372 548 343 505 Z" fill="url(#ag-ss)"/><path d="M456 359 C482 396 495 465 489 522 C485 562 474 594 465 614" stroke="#00D9A5" stroke-width="12" fill="none" stroke-linecap="round"/></svg>

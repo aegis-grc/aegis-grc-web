@@ -1,0 +1,78 @@
+---
+import { MARK_VIEWBOX, LOCKUP, WORD, markBody, markMono } from '../../brand/aegis.mjs';
+
+/**
+ * The approved Aegis identity.
+ *  - lockup: shield + AEGIS wordmark (default; the header and footer use this)
+ *  - mark:   the shield alone (favicon-style use, tiny spaces, mobile fallback)
+ * The wordmark's light/dark gradient treatment follows the nearest data-theme.
+ * Decorative: the surrounding link or heading carries the accessible name.
+ */
+interface Props {
+  variant?: 'lockup' | 'mark';
+  /** Rendered height in px */
+  height?: number;
+  /** Single-colour version in the current text colour (print/monochrome/reversed contexts) */
+  mono?: boolean;
+  class?: string;
+}
+const { variant = 'lockup', height = 40, mono = false, class: className } = Astro.props;
+const [, , lw, lh] = LOCKUP.viewBox.split(' ').map(Number);
+const width = variant === 'lockup' ? Math.round((height * lw) / lh) : height;
+const viewBox = variant === 'lockup' ? LOCKUP.viewBox : MARK_VIEWBOX;
+const markHtml = mono ? markMono : markBody;
+---
+
+<svg
+  class:list={['aegis-logo', className]}
+  {viewBox}
+  {width}
+  {height}
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g set:html={markHtml} />
+  {variant === 'lockup' && (
+    <g transform={`translate(${LOCKUP.wordX} ${LOCKUP.wordY})`}>
+      {mono ? (
+        <path d={WORD.d} fill="currentColor" fill-rule="evenodd" />
+      ) : (
+        <>
+          <g class="wm-light">
+            <path
+              d={WORD.d}
+              fill="url(#ag-wl)"
+              stroke="#3E4C68"
+              stroke-opacity=".5"
+              stroke-width="5"
+              stroke-linejoin="round"
+              fill-rule="evenodd"
+            />
+            <path d={WORD.d} fill="url(#ag-ws)" fill-rule="evenodd" />
+          </g>
+          <g class="wm-dark">
+            <path d={WORD.d} fill="url(#ag-wd)" fill-rule="evenodd" />
+          </g>
+        </>
+      )}
+    </g>
+  )}
+</svg>
+
+<style>
+  .aegis-logo {
+    display: block;
+    flex: none;
+    overflow: visible;
+  }
+  .wm-dark {
+    display: none;
+  }
+  :global([data-theme='dark']) .wm-light {
+    display: none;
+  }
+  :global([data-theme='dark']) .wm-dark {
+    display: inline;
+  }
+</style>

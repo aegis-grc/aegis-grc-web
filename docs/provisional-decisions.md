@@ -79,3 +79,10 @@ was fixed by renaming the component classes. Avoid generic names (`.note`, `.gro
 - `npm run verify` = type check, build, link check, SEO check, Playwright (including axe). `npm run lhci`
   builds with a placeholder origin so Lighthouse's SEO audit can run; it writes reports to `.lighthouseci/` (ignored)
   and never uploads them.
+
+## Update: approved brand adopted
+
+The owner-approved logo and brand board replaced the provisional mark and serif wordmark; palette tokens now follow
+the board (Navy `#0A2A5B`, Blue `#1E6BFF`, Green `#00C896`, Light `#F4F7FB`, Charcoal `#2B2F36`, sampled Silver). Typography
+is Geist + Geist Mono. See `docs/brand.md` for what is traced versus approximated. The "final master shield" owner
+decision is resolved by the approved artwork; exact master vectors would still improve fidelity.

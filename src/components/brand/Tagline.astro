@@ -1,0 +1,59 @@
+---
+/**
+ * Approved reference tagline: INTELLIGENCE FOR / A STRONGER TOMORROW.
+ * Use selectively: the corporate brand moment, the Company page, the footer. Never beside every
+ * logo, in every header or on product pages. "Stronger" carries the blue-to-green accent.
+ */
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  align?: 'start' | 'center';
+}
+const { size = 'md', align = 'start' } = Astro.props;
+---
+
+<p class:list={['tagline', size, align]}>
+  <span class="l1">Intelligence for</span>
+  <span class="l2">
+    A <em>Stronger</em> Tomorrow
+  </span>
+</p>
+
+<style>
+  .tagline {
+    display: grid;
+    gap: 0.5em;
+    margin: 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    line-height: 1.2;
+    color: var(--text-dim);
+    font-size: 0.8125rem;
+  }
+  .tagline.md {
+    font-size: 1rem;
+  }
+  .tagline.lg {
+    font-size: clamp(1rem, 0.8rem + 0.9vw, 1.5rem);
+  }
+  .tagline.center {
+    text-align: center;
+    justify-items: center;
+  }
+  .tagline span {
+    margin-right: -0.4em; /* optical: tracking adds trailing space */
+  }
+  em {
+    font-style: normal;
+    font-weight: 600;
+    background: linear-gradient(90deg, var(--blue-text), #00a37b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  :global([data-theme='dark']) em {
+    background: linear-gradient(90deg, var(--blue-lum), var(--brand-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+</style>

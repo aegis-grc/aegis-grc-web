@@ -201,7 +201,7 @@ p {
   color: var(--paper);
 }
 .btn--primary:hover {
-  background: #1b2740;
+  background: #143c7d;
 }
 [data-theme='dark'] .btn--primary {
   background: var(--paper);

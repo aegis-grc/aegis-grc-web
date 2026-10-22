@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import Tagline from './brand/Tagline.astro';
 import Arrow from './Arrow.astro';
 import { footer } from '../data/site';
 
@@ -23,6 +24,7 @@ const productOf = (href: string) =>
         <a href="/" aria-label="Aegis home">
           <Logo size="lg" />
         </a>
+        <Tagline size="sm" />
         <p class="big">The AI does the work. People keep control.</p>
         <a class="btn btn--primary" href="/contact/">
           Contact sales

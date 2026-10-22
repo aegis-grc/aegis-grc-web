@@ -6,6 +6,7 @@ import { Font } from 'astro:assets';
 import Seo from '../components/Seo.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BrandDefs from '../components/brand/BrandDefs.astro';
 import type { ProductId } from '../data/products';
 
 interface Props {
@@ -32,6 +33,8 @@ const fullTitle = rawTitle ? title : `${title} | Aegis`;
     <meta name="theme-color" content="#ffffff" />
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script is:inline>
       document.documentElement.className = document.documentElement.className.replace(
         'no-js',
@@ -52,6 +55,7 @@ const fullTitle = rawTitle ? title : `${title} | Aegis`;
     />
   </head>
   <body data-product={product}>
+    <BrandDefs />
     <a class="skip-link" href="#main">
       Skip to main content
     </a>

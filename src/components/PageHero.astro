@@ -1,6 +1,7 @@
 ---
 import Breadcrumbs from './Breadcrumbs.astro';
 import ProductGlyph from './ProductGlyph.astro';
+import Logo from './Logo.astro';
 import { products, type ProductId } from '../data/products';
 
 interface Props {
@@ -26,11 +27,15 @@ const productName = label ?? (product ? products[product].name : undefined);
   <div class="container inner">
     <div class="copy">
       {crumbs && <Breadcrumbs items={crumbs} />}
-      {productName && (
-        <span class="label">
-          {product && <ProductGlyph product={product} size={17} />}
-          {productName}
-        </span>
+      {product && !label ? (
+        <Logo product={product} size="md" />
+      ) : (
+        productName && (
+          <span class="label">
+            {product && <ProductGlyph product={product} size={17} />}
+            {productName}
+          </span>
+        )
       )}
       <h1>{title}</h1>
       <p class="lede">{lede}</p>
