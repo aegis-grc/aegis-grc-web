@@ -10,9 +10,13 @@
       "args": [
         "@playwright/mcp@0.0.83",
         "--headless",
-        "--isolated"
+        "--isolated",
+        "--allowed-origins",
+        "http://localhost:4321;http://127.0.0.1:4321"
       ],
-      "env": {}
+      "env": {
+        "CONTEXT7_API_KEY": ""
+      }
     }
   }
 }

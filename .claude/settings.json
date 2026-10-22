@@ -5,5 +5,8 @@
   },
   "env": {
     "IMPECCABLE_NO_TELEMETRY": "1"
+  },
+  "permissions": {
+    "deny": ["Read(./.env)", "Read(./.env.*)"]
   }
 }
