@@ -1,0 +1,205 @@
+---
+import LockGlyph from './LockGlyph.astro';
+/**
+ * Sentinel signature section: the gated investigation sequence.
+ * Steps come from the approved capability list only (ingestion, correlation, investigation workflows,
+ * case and evidence timeline, plan-only containment, human approval). No agents, counts or live data.
+ * Desktop: one rail with a distinct gate at the end. Mobile: a vertical sequence ending in a gate card.
+ */
+const steps = [
+  { name: 'Signal', note: 'Alerts from your security tools, in one place.' },
+  { name: 'Correlation', note: 'Duplicates collapsed, related alerts grouped by explicit rules.' },
+  { name: 'Investigation', note: 'Worked through a defined workflow, not a set of tabs.' },
+  { name: 'Evidence timeline', note: 'Every finding lands in a case with its timeline.' },
+  { name: 'Response plan', note: 'Containment is prepared as a plan for people to review.' },
+];
+---
+
+<div class="rail" data-product="sentinel" data-theme="dark">
+  <div class="lanes" aria-hidden="true">
+    <span class="l-a">Sentinel assembles the case</span>
+    <span class="l-b">Prepared</span>
+    <span class="l-c">A person decides</span>
+  </div>
+  <ol class="steps">
+    {steps.map((s, i) => (
+      <li class:list={{ plan: i === 4 }}>
+        <span class="node">{String(i + 1).padStart(2, '0')}</span>
+        <h3>{s.name}</h3>
+        <p>{s.note}</p>
+      </li>
+    ))}
+    <li class="gate">
+      <span class="node">
+        <LockGlyph />
+      </span>
+      <h3>Human approval</h3>
+      <p>Consequential actions wait for a person to decide.</p>
+    </li>
+  </ol>
+</div>
+
+<style>
+  .rail {
+    position: relative;
+    padding: clamp(24px, 3.4vw, 44px) clamp(20px, 3.4vw, 44px) clamp(28px, 3.6vw, 48px);
+    border-radius: 22px;
+    background:
+      radial-gradient(
+        ellipse 50% 70% at 0% 0%,
+        color-mix(in srgb, var(--sentinel) 16%, transparent),
+        transparent 70%
+      ),
+      var(--navy);
+    color: var(--text);
+    box-shadow: 0 34px 70px -40px rgba(6, 27, 63, 0.8);
+  }
+  .lanes {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    margin-bottom: 26px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .lanes span {
+    padding-top: 10px;
+    border-top: 1px solid var(--line-2);
+    margin-right: 14px;
+  }
+  .lanes .l-a {
+    border-top-color: var(--sentinel);
+    color: var(--sentinel-lum);
+  }
+  .lanes .l-c {
+    margin-right: 0;
+    border-top-color: #fff;
+    color: #fff;
+  }
+  .steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0 clamp(12px, 1.6vw, 24px);
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 24px;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--sentinel),
+      color-mix(in srgb, var(--sentinel) 30%, transparent) 80%,
+      #fff
+    );
+  }
+  .steps li {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 8px;
+  }
+  .node {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--navy-panel);
+    border: 1.5px solid var(--sentinel);
+    color: var(--sentinel-lum);
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    font-weight: 500;
+  }
+  .plan .node {
+    border-style: dashed;
+  }
+  .gate .node {
+    background: #fff;
+    border-color: #fff;
+    color: var(--navy);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--sentinel) 28%, transparent);
+    animation: ring 2.4s var(--ease) 0.8s 1 both;
+  }
+  .gate .node :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  @keyframes ring {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--sentinel) 55%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--sentinel) 28%, transparent);
+    }
+  }
+  .steps h3 {
+    margin-top: 10px;
+    font-size: var(--fs-h4);
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .gate h3 {
+    color: #fff;
+  }
+  .steps p {
+    font-size: var(--fs-label);
+    line-height: 1.5;
+    color: var(--text-dim);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gate .node {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .lanes {
+      display: none;
+    }
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 22px;
+    }
+    .steps::before {
+      left: 23px;
+      right: auto;
+      top: 24px;
+      bottom: 60px;
+      width: 2px;
+      height: auto;
+      background: linear-gradient(
+        180deg,
+        var(--sentinel),
+        color-mix(in srgb, var(--sentinel) 30%, transparent)
+      );
+    }
+    .steps li {
+      grid-template-columns: 48px 1fr;
+      column-gap: 18px;
+      row-gap: 2px;
+    }
+    .node {
+      grid-row: 1 / span 2;
+    }
+    .steps h3 {
+      margin-top: 0;
+      align-self: end;
+    }
+    .steps p {
+      grid-column: 2;
+    }
+    .steps .gate {
+      margin-top: 10px;
+      padding: 18px;
+      border: 1px solid var(--sentinel);
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--sentinel) 10%, transparent);
+    }
+  }
+</style>

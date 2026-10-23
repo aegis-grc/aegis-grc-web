@@ -1,0 +1,251 @@
+---
+/**
+ * QMS hero motif: controlled documents. A stack of versions with one approved, current sheet on top, and
+ * the controlled process (draft, review, approve, current, audit trail) as a rail beside it.
+ * Structure only: no document names, dates or people.
+ */
+interface Props {
+  steps: { label: string; note: string }[];
+}
+const { steps } = Astro.props;
+---
+
+<div class="qs" data-product="grc" aria-hidden="true">
+  <div class="stack">
+    <div class="sheet s3"></div>
+    <div class="sheet s2"></div>
+    <div class="sheet s1">
+      <div class="top">
+        <span class="ver">Current version</span>
+        <span class="ok">
+          <svg viewBox="0 0 12 12" fill="none">
+            <path
+              d="m2.5 6.2 2.3 2.3 4.7-5"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+          Approved
+        </span>
+      </div>
+      <p class="dt">Standard operating procedure</p>
+      <ol class="secs">
+        <li>Purpose</li>
+        <li>Scope</li>
+        <li>Procedure</li>
+        <li>Records</li>
+      </ol>
+      <div class="chain">
+        <b></b>
+        <b></b>
+        <b></b>
+        <em>Reviewed and approved</em>
+      </div>
+    </div>
+  </div>
+  <ol class="proc">
+    {steps.map((s, i) => (
+      <li class:list={{ cur: i === 3 }}>
+        <i></i>
+        <b>{s.label}</b>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .qs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 190px;
+    gap: clamp(20px, 3vw, 40px);
+    align-items: center;
+    max-width: none;
+    padding: 8px 0;
+  }
+  .stack {
+    position: relative;
+    padding: 0 0 38px 38px;
+  }
+  .sheet {
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+    background: var(--paper);
+    box-shadow: var(--shadow-soft);
+  }
+  .s2,
+  .s3 {
+    position: absolute;
+    left: 0;
+    right: 38px;
+    top: 0;
+    bottom: 38px;
+    background: var(--mist);
+  }
+  .s2 {
+    left: 19px;
+    top: 19px;
+    right: 19px;
+    bottom: 19px;
+    background: color-mix(in srgb, var(--mist) 60%, var(--paper));
+  }
+  .sheet > span {
+    position: absolute;
+    left: 14px;
+    top: 10px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .s1 {
+    position: relative;
+    display: grid;
+    gap: 11px;
+    padding: 26px 28px 28px;
+    gap: 14px;
+    box-shadow: var(--shadow-plane);
+  }
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .ver {
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--grc-text);
+    font-weight: 500;
+  }
+  .ok {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: var(--fs-label);
+    font-weight: 500;
+    color: #04140d;
+    background: var(--grc);
+  }
+  .ok svg {
+    width: 12px;
+    height: 12px;
+  }
+  .dt {
+    font-weight: 600;
+    font-size: var(--fs-small);
+    color: var(--ink);
+  }
+  .secs {
+    display: grid;
+    gap: 0;
+    counter-reset: sec;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .secs li {
+    counter-increment: sec;
+    padding: 5px 0;
+    border-top: 1px solid var(--line);
+  }
+  .secs li::before {
+    content: counter(sec, decimal-leading-zero);
+    margin-right: 12px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--grc-text);
+  }
+  .chain {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .chain b {
+    width: 22px;
+    height: 22px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid var(--paper);
+    background:
+      radial-gradient(circle at 50% 36%, var(--steel) 0 21%, transparent 23%),
+      radial-gradient(ellipse 60% 48% at 50% 104%, var(--steel) 0 90%, transparent 94%),
+      var(--silver-wash);
+  }
+  .chain b:first-child {
+    margin-left: 0;
+  }
+  .chain em {
+    margin-left: 8px;
+    font-style: normal;
+    font-size: var(--fs-label);
+    color: var(--text-dim);
+  }
+  .proc {
+    position: relative;
+    display: grid;
+    gap: 18px;
+  }
+  .proc::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: color-mix(in srgb, var(--grc) 35%, var(--silver));
+  }
+  .proc li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: var(--fs-body);
+    color: var(--text-dim);
+  }
+  .proc i {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--grc);
+  }
+  .proc .cur {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .proc .cur i {
+    background: var(--grc);
+  }
+  @media (max-width: 560px) {
+    .qs {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .stack {
+      padding: 0 0 30px 24px;
+    }
+    .s2,
+    .s3 {
+      right: 24px;
+      bottom: 30px;
+    }
+    .s2 {
+      left: 12px;
+      top: 14px;
+      right: 12px;
+      bottom: 14px;
+    }
+    .proc {
+      gap: 16px;
+      padding-left: 4px;
+    }
+  }
+</style>

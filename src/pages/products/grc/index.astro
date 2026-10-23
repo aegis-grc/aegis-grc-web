@@ -1,0 +1,476 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import ProductSubnav from '../../../components/ProductSubnav.astro';
+import GrcLayers from '../../../components/ui/GrcLayers.astro';
+import GrcMap from '../../../components/ui/GrcMap.astro';
+import GrcModuleDiagram from '../../../components/ui/GrcModuleDiagram.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import Arrow from '../../../components/Arrow.astro';
+import { products } from '../../../data/products';
+import { productSchema, breadcrumbSchema } from '../../../lib/seo';
+
+const p = products.grc;
+const description =
+  'Aegis GRC brings compliance, risk, audit, vendor management, contracts, quality management, and learning into one connected, AI-assisted platform.';
+
+const before = [
+  {
+    title: 'Contracts, policies, vendor risk, and training in separate places',
+    text: 'Contracts sit in an e-signature tool, policies in a shared drive, vendor risk in a spreadsheet, training in a separate system, and audit prep in email threads.',
+  },
+  {
+    title: 'Audit prep is a scramble',
+    text: 'Evidence is collected by hand, controls are not mapped to anything, and every security questionnaire starts from scratch.',
+  },
+  {
+    title: 'Vendor risk is a blind spot',
+    text: 'Vendors are onboarded with a PDF and reviewed once a year, if at all, and their sub-processors go unseen.',
+  },
+];
+const after = [
+  {
+    title: 'One platform, one audit trail',
+    text: 'Contracts, policies, vendor reviews, and training records live in one place: connected, searchable, and ready for an audit.',
+  },
+  {
+    title: 'A program that stays current',
+    text: 'Controls are mapped to frameworks, evidence is collected as work happens, and questionnaire answers are drafted by AI for your team to review.',
+  },
+  {
+    title: 'Vendors you can see',
+    text: 'Every vendor is scored and every contract tracked, with fourth-party risk surfaced between reviews.',
+  },
+];
+
+const capabilities: {
+  kind: 'contracts' | 'qms' | 'risk' | 'vendors';
+  title: string;
+  href?: string;
+  cta?: string;
+  text: string;
+  items: string[];
+}[] = [
+  {
+    kind: 'contracts',
+    title: 'Contracts',
+    href: '/products/grc/contracts/',
+    cta: 'Explore Aegis Contracts',
+    text: 'AI-powered contract lifecycle from first draft to renewal, driven by your playbook rather than a generic template.',
+    items: [
+      'AI drafting and redlining',
+      'E-signatures',
+      'Obligation tracking',
+      'Renewal alerts',
+      'Contract repository',
+      'Company Playbook',
+    ],
+  },
+  {
+    kind: 'qms',
+    title: 'Quality management (QMS)',
+    href: '/products/grc/qms/',
+    cta: 'Explore Aegis QMS',
+    text: 'Document control for audit-ready teams: SOPs, policies, training records, and approval workflows that stay version-controlled and current.',
+    items: [
+      'Version-controlled documents',
+      'SOP and policy management',
+      'Approval and review workflows',
+      'Audit trail',
+    ],
+  },
+  {
+    kind: 'risk',
+    title: 'Risk, audit, and compliance',
+    text: 'From risk identification to audit evidence, with controls mapped to the frameworks your customers ask about.',
+    items: [
+      'Risk register',
+      'Audit management',
+      'Evidence collection',
+      'Control mapping',
+      'Security questionnaire AI',
+    ],
+  },
+  {
+    kind: 'vendors',
+    title: 'Vendors, learning, and trust',
+    text: 'Every third party scored, every employee trained, and a public Trust Center that answers due-diligence questions before they are asked.',
+    items: [
+      'Vendor lifecycle',
+      'Vendor risk portal',
+      'Fourth-party risk',
+      'Learning (LMS)',
+      'Trust Center',
+      'Security awareness',
+    ],
+  },
+];
+
+const frameworks = [
+  { name: 'HIPAA', note: 'Protection of health information' },
+  { name: 'SOC 2', note: 'Service organization controls' },
+  { name: 'ISO 27001', note: 'Information security management' },
+  { name: 'GDPR', note: 'Personal data protection in the EU' },
+  { name: 'NIST CSF', note: 'Cybersecurity framework' },
+];
+
+const steps = [
+  {
+    title: 'Connect and configure',
+    text: 'Choose your product, activate the modules you need, and connect your existing tools.',
+  },
+  {
+    title: 'Build your Playbook',
+    text: 'Import your policies and standard answers once. Drafting, questionnaire answers, and risk scoring all draw on the same shared context.',
+  },
+  {
+    title: 'Automate the work',
+    text: 'Draft contracts, prepare security questionnaire answers, score vendors, map controls, and assign training. People approve; they do not chase.',
+  },
+  {
+    title: 'Prove trust continuously',
+    text: 'Publish your Trust Center, generate audit evidence on demand, and keep your posture current between reviews.',
+  },
+];
+
+const security = [
+  {
+    title: 'Tenant isolation',
+    text: 'Each workspace is logically isolated, with scoped access to its own data.',
+  },
+  { title: 'Encryption', text: 'Data is encrypted in transit and at rest.' },
+  {
+    title: 'Tamper-evident audit logging',
+    text: 'Actions are recorded to an audit trail designed to show tampering, giving you evidence you can hand to an auditor.',
+  },
+];
+---
+
+<BaseLayout
+  title="Aegis GRC: governance, risk, and compliance"
+  description={description}
+  path={p.path}
+  product="grc"
+  schema={[
+    productSchema(p, description, Astro.site),
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Products', path: '/products/' },
+        { name: 'Aegis GRC', path: p.path },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    product="grc"
+    layout="wide"
+    title="Run governance, risk, and compliance as one connected program."
+    lede="Aegis GRC brings compliance, risk, audit, vendor management, contracts, quality management, and learning into one platform, with AI that works from your own policies and playbook."
+    crumbs={[
+      { name: 'Aegis', href: '/' },
+      { name: 'Products', href: '/products/' },
+      { name: 'Aegis GRC' },
+    ]}
+  >
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href="/contact/?topic=grc">
+        Contact sales
+        <Arrow />
+      </a>
+      <a class="link-arrow" href="#how">
+        See how it works
+        <Arrow />
+      </a>
+    </Fragment>
+    <div slot="visual" class="hero-vis">
+      <GrcLayers />
+    </div>
+  </PageHero>
+
+  <ProductSubnav
+    product="grc"
+    items={[
+      { label: 'The problem', href: '#problem' },
+      { label: 'Platform', href: '#platform' },
+      { label: 'Frameworks', href: '#frameworks' },
+      { label: 'How it works', href: '#how' },
+      { label: 'Who it is for', href: '#audiences' },
+      { label: 'Security', href: '#security' },
+    ]}
+  />
+
+  <section class="section" id="problem" aria-labelledby="problem-title" data-product="grc">
+    <div class="container">
+      <div class="split head">
+        <h2 id="problem-title">Five tools, zero visibility.</h2>
+        <p class="lede">
+          Compliance is a coordination problem before it is a documentation problem. When the work
+          is scattered, so is the evidence.
+        </p>
+      </div>
+      <div class="contrast">
+        <div>
+          <h3>Before</h3>
+          <ul>
+            {before.map((b) => (
+              <li>
+                <strong>{b.title}</strong>
+                <span>{b.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>With Aegis GRC</h3>
+          <ul>
+            {after.map((a) => (
+              <li>
+                <strong>{a.title}</strong>
+                <span>{a.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="section ground-mist"
+    id="platform"
+    aria-labelledby="platform-title"
+    data-product="grc"
+  >
+    <div class="container">
+      <div class="split head">
+        <h2 id="platform-title">Everything the program needs, in one place.</h2>
+        <p class="lede">
+          Activate the modules you need today. They share one Company Playbook, so the AI in each
+          one works from the same context.
+        </p>
+      </div>
+      <ol class="modules">
+        {capabilities.map((c, i) => (
+          <li>
+            <div class="m-head">
+              <span class="m-num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3>{c.title}</h3>
+              {c.href && (
+                <a class="link-arrow" href={c.href}>
+                  {c.cta}
+                  <Arrow />
+                </a>
+              )}
+            </div>
+            <GrcModuleDiagram kind={c.kind} />
+            <div class="m-body">
+              <p>{c.text}</p>
+              <ul class="ticks">
+                {c.items.map((it) => (
+                  <li>{it}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="frameworks" aria-labelledby="frameworks-title" data-product="grc">
+    <div class="container">
+      <div class="split head">
+        <h2 id="frameworks-title">Map your program to the frameworks your customers ask about.</h2>
+        <p class="note">
+          Aegis GRC helps you organize and evidence your program. It does not certify compliance:
+          certification and attestation come from auditors and regulators.
+        </p>
+      </div>
+      <GrcMap />
+      <ul class="fw-notes">
+        {frameworks.map((f) => (
+          <li>
+            <h3>{f.name}</h3>
+            <p>{f.note}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section ground-mist" id="how" aria-labelledby="how-title" data-product="grc">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="how-title">Your whole program, connected in four steps.</h2>
+      </div>
+      <ol class="sequence">
+        {steps.map((s) => (
+          <li>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="audiences" aria-labelledby="audiences-title" data-product="grc">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="audiences-title">Built for specific teams.</h2>
+        <p class="lede">
+          Aegis GRC is designed for organizations that need a real program without an enterprise
+          implementation.
+        </p>
+      </div>
+      <div class="cols-2">
+        <article class="col">
+          <h3>Scale-ups and mid-market teams</h3>
+          <p>
+            You have outgrown spreadsheets and point tools. Real contracts are being signed and real
+            vendor exposure is accumulating, and you need an actual GRC program without a dedicated
+            compliance hire.
+          </p>
+        </article>
+        <article class="col">
+          <h3>Healthcare IT and SaaS</h3>
+          <p>
+            You handle protected health information and need HIPAA documented before the next
+            enterprise deal closes. Your program lives in a shared drive and security reviews are
+            scrambles.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-fog" id="msp" aria-labelledby="msp-title" data-product="grc">
+    <div class="container split">
+      <div class="stack">
+        <span class="label">MSPs and vCISOs</span>
+        <h2 id="msp-title">Run every client's program from one platform.</h2>
+        <p class="lede">
+          If you manage compliance for several clients, you need a multi-tenant platform, not one
+          tool per client.
+        </p>
+      </div>
+      <ul class="rows">
+        <li>
+          <h3>Super admin controls</h3>
+          <p>Manage all of your client workspaces from a single administrative view.</p>
+        </li>
+        <li>
+          <h3>Tenant isolation</h3>
+          <p>Each client's workspace and data are kept separate.</p>
+        </li>
+        <li>
+          <h3>Per-client module configuration</h3>
+          <p>Turn on only the modules each client needs.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="security" aria-labelledby="security-title" data-product="grc">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="security-title">
+          A platform that holds your compliance data should be built carefully.
+        </h2>
+      </div>
+      <ul class="cols-3">
+        {security.map((s) => (
+          <li class="col">
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="more">
+        <a class="link-arrow" href="/security/">
+          How Aegis approaches security
+          <Arrow />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    product="grc"
+    title="Talk to us about your program."
+    text="Aegis GRC pricing is scaled to your team size and the modules you turn on. Tell us what you need and we will put together a quote."
+    primary={{ label: 'Contact sales', href: '/contact/?topic=grc' }}
+    secondary={{ label: 'Explore Aegis Contracts', href: '/products/grc/contracts/' }}
+  />
+</BaseLayout>
+
+<style>
+  .head {
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 72px);
+  }
+  .hero-vis {
+    max-width: 700px;
+  }
+  .fw-notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 28px clamp(20px, 3vw, 40px);
+    margin-top: clamp(36px, 5vw, 64px);
+  }
+  .fw-notes h3 {
+    font-size: var(--fs-h3);
+    letter-spacing: -0.03em;
+    font-weight: 560;
+    margin-bottom: 6px;
+  }
+  .fw-notes p {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .modules {
+    border-top: 1px solid var(--line-2);
+  }
+  .modules > li {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 5fr);
+    gap: clamp(20px, 3.4vw, 56px);
+    align-items: center;
+    padding: clamp(28px, 3.6vw, 48px) 0;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .m-head {
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+  }
+  .m-num {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--grc-text);
+  }
+  .m-head h3 {
+    font-size: clamp(1.4rem, 1.15rem + 1vw, 2rem);
+    letter-spacing: -0.03em;
+  }
+  .m-body {
+    display: grid;
+    gap: 14px;
+  }
+  .m-body p {
+    color: var(--text-dim);
+  }
+  @media (max-width: 960px) {
+    .modules > li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+  }
+  .more {
+    margin-top: 40px;
+  }
+</style>

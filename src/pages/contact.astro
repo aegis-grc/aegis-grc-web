@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { contactEmail } from '../data/site';
+import { breadcrumbSchema } from '../lib/seo';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact Aegis about Aegis GRC, Aegis Amplify, Aegis Sentinel, security questions, or product materials."
+  path="/contact/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Contact', path: '/contact/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    label="Contact"
+    title="Talk to Aegis."
+    lede="Tell us which product you are interested in and what you are trying to solve, and we will follow up."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Contact' }]}
+  />
+
+  <section class="section ground-mist" aria-label="Contact form">
+    <div class="container split">
+      <div class="stack">
+        <h2>What helps us help you</h2>
+        <ul class="ticks ticks--one">
+          <li>Which product, or which problem, you have in mind</li>
+          <li>The size and shape of your team</li>
+          <li>Anything your security or procurement team needs to see</li>
+        </ul>
+        <p class="muted">
+          Prefer email? Write to{' '}
+          <a class="mail" href={`mailto:${contactEmail}`}>
+            {contactEmail}
+          </a>
+          .
+        </p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h2 {
+    font-size: var(--fs-h3);
+    letter-spacing: -0.02em;
+  }
+  .mail {
+    color: var(--blue-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

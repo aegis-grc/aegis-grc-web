@@ -1,0 +1,188 @@
+---
+import GrcPlane from './GrcPlane.astro';
+import AmplifyPlane from './AmplifyPlane.astro';
+import SentinelPlane from './SentinelPlane.astro';
+
+/**
+ * The ecosystem: three product planes arranged around one vertical Aria spine.
+ * Each plane draws its own port and tick to the spine, so alignment holds at any size.
+ * Nothing overlaps and nothing is hidden. Decorative: the headline and links carry the meaning.
+ */
+---
+
+<div
+  class="sys"
+  role="img"
+  aria-label="Aegis Amplify, Aegis GRC and Aegis Sentinel product views connected by Aria"
+>
+  <div class="side side-l">
+    <div class="slot amp" data-product="amplify">
+      <AmplifyPlane />
+    </div>
+    <div class="slot grc" data-product="grc">
+      <GrcPlane />
+    </div>
+  </div>
+  <div class="spine" aria-hidden="true">
+    <i class="line"></i>
+  </div>
+  <div class="side side-r">
+    <p class="cap">
+      <b class="mono">Aria</b>
+      Connects context across every product, with a person approving what matters.
+    </p>
+    <div class="slot sen" data-product="sentinel">
+      <SentinelPlane />
+    </div>
+  </div>
+</div>
+
+<style>
+  .sys {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) 44px minmax(0, 0.92fr);
+    align-items: start;
+    width: 100%;
+    max-width: 720px;
+  }
+  .side {
+    display: grid;
+    gap: 28px;
+  }
+  .cap {
+    max-width: 22ch;
+    margin: 6px 0 34px;
+    padding-top: 8px;
+    font-size: var(--fs-small);
+    line-height: 1.5;
+    color: var(--text-dim);
+  }
+  .cap b {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--blue-text);
+    letter-spacing: 0.02em;
+  }
+  .spine {
+    position: relative;
+    height: 100%;
+    justify-self: center;
+    width: 2px;
+  }
+  .line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 14px;
+    bottom: 14px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--amplify), var(--sentinel) 50%, var(--grc));
+    transform-origin: top;
+    animation: grow 900ms var(--ease) 200ms both;
+  }
+  @keyframes grow {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  .slot {
+    position: relative;
+    transition: transform var(--t-med) var(--ease);
+    animation: rise 520ms var(--ease) both;
+  }
+  .amp {
+    animation-delay: 60ms;
+  }
+  .sen {
+    animation-delay: 160ms;
+  }
+  .grc {
+    animation-delay: 260ms;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (hover: hover) {
+    .slot:hover {
+      transform: translateY(-3px);
+    }
+  }
+  /* Port and tick from each plane to the spine */
+  .slot::before,
+  .slot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+  }
+  .slot::before {
+    width: 22px;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--p);
+  }
+  .slot::after {
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--p);
+  }
+  .side-l .slot::before {
+    right: -22px;
+  }
+  .side-l .slot::after {
+    right: -27px;
+  }
+  .side-r .slot::before {
+    left: -22px;
+  }
+  .side-r .slot::after {
+    left: -27px;
+  }
+  /* Compact planes so the cluster stays within the first screen */
+  .sys :global(.plane .body) {
+    padding: 13px;
+  }
+  .sys :global(.grc .grid > *:nth-last-child(-n + 4)),
+  .sys :global(.grc .map) {
+    /* keep every control row; the framework line is dropped in the hero */
+  }
+  .sys :global(.map) {
+    display: none;
+  }
+  @media (max-width: 1100px) {
+    .sys {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 560px;
+      gap: 20px;
+    }
+    .spine,
+    .cap {
+      display: none;
+    }
+    .side {
+      display: contents;
+    }
+    .slot::before,
+    .slot::after {
+      display: none;
+    }
+    .amp,
+    .sen,
+    .grc {
+      margin-inline: 0;
+    }
+  }
+</style>

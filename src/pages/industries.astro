@@ -1,0 +1,230 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import IndustriesLens from '../components/ui/IndustriesLens.astro';
+import ProductGlyph from '../components/ProductGlyph.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { industries, type Relevance } from '../data/industries';
+import { productList, products } from '../data/products';
+import { breadcrumbSchema } from '../lib/seo';
+
+const label: Record<Relevance, string> = {
+  primary: 'Primary fit',
+  relevant: 'Relevant',
+  none: 'Not a focus',
+};
+// Compact wording for the matrix so all three product columns fit on a phone.
+const short: Record<Relevance, string> = { primary: 'Primary', relevant: 'Relevant', none: '' };
+---
+
+<BaseLayout
+  title="Industries"
+  description="Where each Aegis product fits: healthcare, SaaS, professional services, home services and contractors, and MSPs and vCISOs."
+  path="/industries/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Industries', path: '/industries/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    label="Industries"
+    title="Where each Aegis product fits."
+    lede="Aegis products are built for specific kinds of work. This page says where each one fits, and where it does not."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Industries' }]}
+  >
+    <div slot="visual">
+      <IndustriesLens />
+    </div>
+  </PageHero>
+
+  <section class="section ground-mist" aria-labelledby="glance-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="glance-title">At a glance</h2>
+      </div>
+      <div class="table-wrap" role="region" aria-label="Industry and product fit" tabindex="0">
+        <table>
+          <caption class="visually-hidden">Fit of each Aegis product by industry</caption>
+          <thead>
+            <tr>
+              <th scope="col">Industry</th>
+              {productList.map((p) => (
+                <th scope="col" data-product={p.id}>
+                  <span class="visually-hidden">Aegis </span>
+                  {p.short}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {industries.map((i) => (
+              <tr>
+                <th scope="row">
+                  <a href={`#${i.id}`}>{i.name}</a>
+                </th>
+                {productList.map((p) => (
+                  <td class={`fit fit--${i.relevance[p.id]}`}>
+                    {i.relevance[p.id] === 'none' ? (
+                      <>
+                        <span aria-hidden="true">&mdash;</span>
+                        <span class="visually-hidden">Not a focus</span>
+                      </>
+                    ) : (
+                      short[i.relevance[p.id]]
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Industries">
+    <div class="container">
+      {industries.map((i) => (
+        <article class="ind" id={i.id}>
+          <div class="stack">
+            <h2>{i.name}</h2>
+            <p class="lede">{i.matters}</p>
+          </div>
+          <ul class="fits">
+            {productList
+              .filter((p) => i.relevance[p.id] !== 'none')
+              .map((p) => (
+                <li data-product={p.id}>
+                  <a href={p.path}>
+                    <ProductGlyph product={p.id} size={20} />
+                    <span>
+                      <strong>{products[p.id].name}</strong>
+                      <span>{label[i.relevance[p.id]]}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </article>
+      ))}
+      <p class="note">
+        Aegis products help teams organize and run their programs. They do not make an organization
+        compliant or certified, and nothing on this page implies an industry certification.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Don't see your industry?"
+    text="Tell us what your team does and we will say plainly whether an Aegis product fits."
+    primary={{ label: 'Contact sales', href: '/contact/' }}
+    secondary={{ label: 'Explore the products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  .table-wrap {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    padding: 20px 18px 20px 0;
+    text-align: left;
+    border-bottom: 1px solid var(--line-2);
+  }
+  thead th {
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    font-weight: 560;
+    color: var(--accent-text);
+    border-bottom-color: var(--text);
+  }
+  thead th:first-child {
+    color: var(--text-faint);
+  }
+  tbody th {
+    font-weight: 560;
+    font-size: 1.125rem;
+    letter-spacing: -0.015em;
+  }
+  tbody th a:hover {
+    color: var(--blue-text);
+  }
+  .fit {
+    color: var(--text-faint);
+  }
+  .fit--primary {
+    color: var(--text);
+    font-weight: 560;
+  }
+  .ind {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(28px, 6vw, 104px);
+    padding: clamp(32px, 4vw, 56px) 0;
+    border-top: 1px solid var(--line-2);
+    align-items: start;
+  }
+  .ind:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .ind h2 {
+    font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+    letter-spacing: -0.04em;
+  }
+  .fits {
+    display: grid;
+    gap: 0;
+  }
+  .fits a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    color: var(--accent-text);
+  }
+  .fits li:last-child a {
+    border-bottom: 1px solid var(--line);
+  }
+  .fits a:hover strong {
+    color: var(--accent-text);
+  }
+  .fits span span {
+    display: block;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .fits strong {
+    font-weight: 560;
+    color: var(--text);
+  }
+  .note {
+    margin-top: 40px;
+  }
+  @media (max-width: 640px) {
+    th,
+    td {
+      padding: 14px 8px 14px 0;
+      font-size: var(--fs-small);
+    }
+    tbody th {
+      font-size: var(--fs-small);
+    }
+  }
+  @media (max-width: 960px) {
+    .ind {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

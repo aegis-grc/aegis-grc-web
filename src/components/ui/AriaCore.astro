@@ -1,0 +1,236 @@
+---
+import LockGlyph from './LockGlyph.astro';
+import ProductGlyph from '../ProductGlyph.astro';
+import { products } from '../../data/products';
+
+/**
+ * Aria hero: the layer under the products. Three product pillars (ports, not purchasable tiles) feed one
+ * wide Aria slab (context, reasoning, orchestration) that sits above a human-approval gate.
+ * Architecture, not an org chart: nothing here is a button and nothing implies a shared runtime.
+ * Mobile keeps the same order (products, layer, gate) as a compact vertical stack.
+ */
+const pillars = [
+  { p: products.grc, line: 'Governance and compliance' },
+  { p: products.amplify, line: 'Revenue operations' },
+  { p: products.sentinel, line: 'Security operations' },
+];
+const layers = [
+  { name: 'Context', note: 'Grounded in what each product holds' },
+  { name: 'Reasoning', note: 'Working out what to do with it' },
+  { name: 'Orchestration', note: 'Coordinating the steps' },
+];
+---
+
+<div class="core" aria-hidden="true">
+  <ul class="pillars">
+    {pillars.map(({ p, line }) => (
+      <li data-product={p.id}>
+        <span class="g">
+          <ProductGlyph product={p.id} size={22} />
+        </span>
+        <b>{p.name}</b>
+        <span class="ln">{line}</span>
+        <i class="stem"></i>
+      </li>
+    ))}
+  </ul>
+
+  <div class="slab">
+    <div class="head">
+      <span class="who">Aria</span>
+      <span class="what">
+        The Aegis intelligence layer. Shared across products, not a product of its own.
+      </span>
+    </div>
+    <ul class="layers">
+      {layers.map((l) => (
+        <li>
+          <b>{l.name}</b>
+          <span>{l.note}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="gate">
+    <i class="stem2"></i>
+    <div class="pill">
+      <LockGlyph />
+      <b>Human approval</b>
+      <span>A person decides what matters.</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .core {
+    position: relative;
+    display: grid;
+    gap: 0;
+  }
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 28px);
+  }
+  .pillars li {
+    position: relative;
+    display: grid;
+    gap: 4px;
+    padding: 18px 20px 22px;
+    border: 1px solid var(--line-2);
+    border-top: 2px solid var(--p);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--navy-panel) 70%, transparent);
+  }
+  .g {
+    color: var(--accent-text);
+    margin-bottom: 4px;
+  }
+  .pillars b {
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    color: var(--text);
+  }
+  .ln {
+    font-size: var(--fs-label);
+    color: var(--text-dim);
+  }
+  .stem {
+    position: absolute;
+    left: 50%;
+    bottom: -26px;
+    width: 2px;
+    height: 26px;
+    background: linear-gradient(var(--p), rgba(255, 255, 255, 0.5));
+  }
+  .slab {
+    position: relative;
+    margin-top: 26px;
+    padding: clamp(20px, 2.6vw, 32px) clamp(20px, 3vw, 36px) clamp(22px, 2.8vw, 34px);
+    border-radius: 20px;
+    background:
+      linear-gradient(var(--navy-panel), var(--navy-panel)) padding-box,
+      linear-gradient(90deg, var(--amplify), var(--silver), var(--sentinel) 55%, var(--grc))
+        border-box;
+    border: 1.5px solid transparent;
+    box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 18px;
+    margin-bottom: 20px;
+  }
+  .who {
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    background: linear-gradient(90deg, #fff, var(--silver));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .what {
+    font-size: var(--fs-label);
+    color: var(--text-dim);
+    max-width: 52ch;
+  }
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+  .layers li {
+    display: grid;
+    gap: 4px;
+    padding: 4px 22px;
+    border-left: 1px solid var(--line-2);
+  }
+  .layers li:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .layers b {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    font-weight: 500;
+    color: var(--blue-lum);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .layers span {
+    font-size: var(--fs-small);
+    color: var(--text);
+  }
+  .gate {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    padding-top: 26px;
+  }
+  .stem2 {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 26px;
+    background: linear-gradient(rgba(255, 255, 255, 0.5), #fff);
+  }
+  .pill {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 12px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--navy);
+    font-size: var(--fs-small);
+  }
+  .pill :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .pill b {
+    font-weight: 600;
+  }
+  .pill span {
+    color: var(--slate);
+  }
+  @media (max-width: 820px) {
+    .pillars {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+    .pillars li {
+      grid-template-columns: 26px 1fr;
+      column-gap: 12px;
+      align-items: center;
+      padding: 12px 16px;
+    }
+    .g {
+      grid-row: 1 / span 2;
+      margin: 0;
+    }
+    .stem {
+      display: none;
+    }
+    .layers {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 14px;
+    }
+    .layers li,
+    .layers li:first-child {
+      border-left: 0;
+      padding: 0 0 0 14px;
+      border-left: 2px solid var(--blue-lum);
+    }
+    .pill {
+      border-radius: 18px;
+      justify-content: flex-start;
+    }
+  }
+</style>

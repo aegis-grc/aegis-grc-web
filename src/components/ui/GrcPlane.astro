@@ -1,0 +1,164 @@
+---
+import Plane from './Plane.astro';
+
+interface Props {
+  class?: string;
+}
+// Generic control names only: structure, not data.
+const rows = [
+  { name: 'Access control', evidence: true },
+  { name: 'Vendor review', evidence: false, current: true },
+  { name: 'Incident response', evidence: true },
+  { name: 'Data retention', evidence: true },
+  { name: 'Security training', evidence: true },
+];
+const frameworks = ['HIPAA', 'SOC 2', 'ISO 27001', 'GDPR', 'NIST CSF'];
+---
+
+<Plane product="grc" title="Program" status="Audit-ready view" class={Astro.props.class}>
+  <div class="grid">
+    <span class="hd">Control</span>
+    <span class="hd c">Policy</span>
+    <span class="hd c">Evidence</span>
+    <span class="hd c">Owner</span>
+    {rows.map((r) => (
+      <>
+        <span class:list={['name', { current: r.current }]}>{r.name}</span>
+        <span class:list={['c', { current: r.current }]}>
+          <b class="dot ok">
+            <svg viewBox="0 0 12 12" fill="none">
+              <path
+                d="m2.5 6.2 2.3 2.3 4.7-5"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </b>
+        </span>
+        <span class:list={['c', { current: r.current }]}>
+          {r.evidence ? (
+            <b class="dot ok">
+              <svg viewBox="0 0 12 12" fill="none">
+                <path
+                  d="m2.5 6.2 2.3 2.3 4.7-5"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </b>
+          ) : (
+            <b class="dot gap" />
+          )}
+        </span>
+        <span class:list={['c', { current: r.current }]}>
+          <i class="owner"></i>
+        </span>
+      </>
+    ))}
+  </div>
+  <p class="map">
+    <span>Mapped to</span>
+    {frameworks.map((f) => (
+      <em>{f}</em>
+    ))}
+  </p>
+</Plane>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.8fr) minmax(0, 0.95fr) minmax(0, 0.62fr);
+    align-items: stretch;
+  }
+  @media (max-width: 400px) {
+    .grid {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr) minmax(0, 0.95fr);
+    }
+    .grid > :nth-child(4n) {
+      display: none;
+    }
+  }
+  .grid > * {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .hd {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+    padding-top: 0;
+  }
+  .c {
+    display: grid;
+    place-items: center;
+  }
+  .name {
+    display: flex;
+    align-items: center;
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+  .current {
+    background: var(--accent-soft);
+    border-bottom-color: var(--accent-line);
+  }
+  .name.current {
+    box-shadow: -16px 0 0 var(--accent-soft);
+    padding-left: 0;
+    position: relative;
+  }
+  .name.current::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent);
+  }
+  .dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+  .dot.ok {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .dot.ok svg {
+    width: 11px;
+    height: 11px;
+  }
+  .dot.gap {
+    border: 1.5px dashed var(--accent-text);
+  }
+  .owner {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 36%, var(--steel) 0 21%, transparent 23%),
+      radial-gradient(ellipse 60% 48% at 50% 104%, var(--steel) 0 90%, transparent 94%),
+      var(--silver-wash);
+  }
+  .map {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .map em {
+    font-style: normal;
+    color: var(--text-dim);
+  }
+</style>

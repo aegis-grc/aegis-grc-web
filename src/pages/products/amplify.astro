@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProductSubnav from '../../components/ProductSubnav.astro';
+import AmplifyFlow from '../../components/ui/AmplifyFlow.astro';
+import AmplifyHandoff from '../../components/ui/AmplifyHandoff.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Arrow from '../../components/Arrow.astro';
+import { products, ariaPath } from '../../data/products';
+import { productSchema, breadcrumbSchema } from '../../lib/seo';
+
+const p = products.amplify;
+const description =
+  'Aegis Amplify is AI-native sales, marketing, and revenue operations for contractors and home-service businesses: lead response, nurturing, estimate recovery, CRM, and attribution.';
+
+const groups = [
+  {
+    title: 'Win demand',
+    text: 'Bring in new customers through acquisition and lead generation, including the Aegis Demand Network.',
+    items: ['Customer acquisition', 'Demand Network', 'Lead generation'],
+  },
+  {
+    title: 'Respond and nurture',
+    text: 'Reply to new leads right away, keep them warm until they are ready, book appointments, and follow up on estimates that have gone quiet.',
+    items: ['Instant lead response', 'Lead nurturing', 'Estimate recovery', 'Appointments'],
+  },
+  {
+    title: 'Run the pipeline',
+    text: 'Keep customers, jobs, and opportunities in one CRM and pipeline, with sales automation for the routine steps.',
+    items: ['CRM', 'Pipeline', 'Sales automation'],
+  },
+  {
+    title: 'Measure and optimize',
+    text: 'Run campaigns, automate marketing, and use attribution to see which sources are producing jobs.',
+    items: ['Campaigns', 'Attribution', 'Marketing automation', 'Revenue operations'],
+  },
+];
+---
+
+<BaseLayout
+  title="Aegis Amplify: AI sales, marketing, and revenue operations"
+  description={description}
+  path={p.path}
+  product="amplify"
+  schema={[
+    productSchema(p, description, Astro.site),
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Products', path: '/products/' },
+        { name: 'Aegis Amplify', path: p.path },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    product="amplify"
+    layout="stacked"
+    title="Keep every lead moving toward a booked job."
+    lede="Aegis Amplify is AI-native sales, marketing, and revenue operations for contractors and home-service businesses, from the first inquiry to the follow-up on an estimate."
+    crumbs={[
+      { name: 'Aegis', href: '/' },
+      { name: 'Products', href: '/products/' },
+      { name: 'Aegis Amplify' },
+    ]}
+  >
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href="/contact/?topic=amplify">
+        Contact sales
+        <Arrow />
+      </a>
+      <a class="link-arrow" href="#capabilities">
+        What it covers
+        <Arrow />
+      </a>
+    </Fragment>
+    <div slot="visual" class="vis">
+      <AmplifyFlow />
+    </div>
+  </PageHero>
+
+  <ProductSubnav
+    product="amplify"
+    items={[
+      { label: 'What it covers', href: '#capabilities' },
+      { label: 'AI agents', href: '#agents' },
+    ]}
+  />
+
+  <section class="section" id="capabilities" aria-labelledby="cap-title" data-product="amplify">
+    <div class="container">
+      <div class="split head">
+        <h2 id="cap-title">One system from demand to job.</h2>
+        <p class="lede">
+          Home-service work is often won or lost in the gaps: the lead that waits, the estimate
+          nobody follows up on. Amplify covers each stage and ties the result back to where the lead
+          came from.
+        </p>
+      </div>
+      <ol class="route">
+        {groups.map((g, i) => (
+          <li>
+            <span class="stn" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3>{g.title}</h3>
+            <p>{g.text}</p>
+            <ul class="ticks">
+              {g.items.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section
+    class="section ground-fog"
+    id="agents"
+    aria-labelledby="agents-title"
+    data-product="amplify"
+  >
+    <div class="container">
+      <div class="split head">
+        <h2 id="agents-title">AI agents work alongside your team.</h2>
+        <p class="lede">
+          AI agents handle repeatable work such as first response and follow-up, so your team spends
+          its time on the conversations that need a person.
+        </p>
+      </div>
+      <AmplifyHandoff />
+      <p class="aria-line">
+        <span class="muted">
+          Aegis Amplify is part of the Aegis family, alongside Aegis GRC and Aegis Sentinel. Aria,
+          the Aegis intelligence layer, brings a consistent approach to AI across all three.
+        </span>
+        <a class="link-arrow" href={ariaPath}>
+          Meet Aria
+          <Arrow />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    product="amplify"
+    title="Talk to us about your pipeline."
+    text="Tell us how leads reach you today and where they go quiet, and we will follow up."
+    primary={{ label: 'Contact sales', href: '/contact/?topic=amplify' }}
+    secondary={{ label: 'Explore all products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  .head {
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 72px);
+  }
+  .route {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 44px);
+    counter-reset: none;
+  }
+  .route::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 19px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--amplify), var(--blue-lum) 70%, transparent);
+  }
+  .route > li {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 14px;
+  }
+  .stn {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--amplify);
+    color: #031327;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    font-weight: 500;
+    box-shadow: 0 0 0 6px var(--paper);
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .route h3 {
+    font-size: var(--fs-h3);
+  }
+  .route p {
+    color: var(--text-dim);
+    font-size: var(--fs-small);
+  }
+  @media (max-width: 960px) {
+    .route {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+      padding-left: 0;
+    }
+    .route::before {
+      left: 19px;
+      right: auto;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      height: auto;
+      background: linear-gradient(180deg, var(--amplify), var(--blue-lum) 85%, transparent);
+    }
+    .route > li {
+      padding-left: 64px;
+    }
+    .stn {
+      position: absolute;
+      left: 0;
+      top: -4px;
+      margin: 0;
+    }
+  }
+  .aria-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 24px;
+    margin-top: 48px;
+    max-width: 70ch;
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+import ProductGlyph from './ProductGlyph.astro';
+import { products, type ProductId } from '../data/products';
+/** A quiet in-page anchor row. No second CTA: the header already carries it. */
+interface Props {
+  product: ProductId;
+  items: { label: string; href: string }[];
+}
+const { product, items } = Astro.props;
+const name = products[product].name;
+---
+
+<div class="subnav" data-product={product}>
+  <div class="container inner">
+    <span class="who">
+      <ProductGlyph product={product} size={16} />
+      {name}
+    </span>
+    <nav aria-label="On this page">
+      <ul>
+        {items.map((i) => (
+          <li>
+            <a href={i.href}>{i.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .subnav {
+    position: sticky;
+    top: var(--nav-h);
+    z-index: 900;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 46px;
+  }
+  .who {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    font-weight: 560;
+    font-size: var(--fs-small);
+    letter-spacing: -0.01em;
+    color: var(--accent-text);
+  }
+  nav {
+    min-width: 0;
+  }
+  ul {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  ul::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 720px) {
+    ul {
+      -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent);
+      mask-image: linear-gradient(90deg, #000 86%, transparent);
+    }
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 12px;
+    white-space: nowrap;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--text-dim);
+    border-radius: 8px;
+  }
+  a:hover {
+    color: var(--text);
+  }
+</style>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="234 142 484 484" width="240" height="240" fill="none" role="img" aria-label="Aegis"><title>Aegis</title><defs>
+  <linearGradient id="ag-topleft" gradientUnits="userSpaceOnUse" x1="240" y1="220" x2="487" y2="170">
+    <stop offset="0" stop-color="#C9D8F2"/><stop offset=".55" stop-color="#F4F8FF"/><stop offset="1" stop-color="#FFFFFF"/>
+  </linearGradient>
+  <linearGradient id="ag-leftface" gradientUnits="userSpaceOnUse" x1="245" y1="240" x2="335" y2="470">
+    <stop offset="0" stop-color="#DDE2EB"/><stop offset=".45" stop-color="#A3ABBA"/><stop offset="1" stop-color="#5E687D"/>
+  </linearGradient>
+  <linearGradient id="ag-floor" gradientUnits="userSpaceOnUse" x1="310" y1="250" x2="400" y2="450">
+    <stop offset="0" stop-color="#F7FAFF"/><stop offset="1" stop-color="#D8E3F5"/>
+  </linearGradient>
+  <linearGradient id="ag-topright" gradientUnits="userSpaceOnUse" x1="487" y1="150" x2="710" y2="225">
+    <stop offset="0" stop-color="#050E26"/><stop offset=".35" stop-color="#27365A"/><stop offset=".75" stop-color="#8590A8"/><stop offset="1" stop-color="#C3CAD8"/>
+  </linearGradient>
+  <linearGradient id="ag-rplate" gradientUnits="userSpaceOnUse" x1="520" y1="215" x2="640" y2="440">
+    <stop offset="0" stop-color="#F3F6FB"/><stop offset=".6" stop-color="#CED4DE"/><stop offset="1" stop-color="#A3ACBB"/>
+  </linearGradient>
+  <linearGradient id="ag-rbevel" gradientUnits="userSpaceOnUse" x1="700" y1="230" x2="560" y2="560">
+    <stop offset="0" stop-color="#4B546A"/><stop offset=".5" stop-color="#9AA3B4"/><stop offset="1" stop-color="#E4E8EF"/>
+  </linearGradient>
+  <linearGradient id="ag-leaf" gradientUnits="userSpaceOnUse" x1="470" y1="200" x2="470" y2="615">
+    <stop offset="0" stop-color="#020A22"/><stop offset=".5" stop-color="#06173F"/><stop offset="1" stop-color="#031024"/>
+  </linearGradient>
+  <radialGradient id="ag-leaf-blue" gradientUnits="userSpaceOnUse" cx="385" cy="425" r="170">
+    <stop offset="0" stop-color="#2F86FF" stop-opacity=".95"/><stop offset=".55" stop-color="#1457D8" stop-opacity=".55"/><stop offset="1" stop-color="#0A2A8A" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="ag-leaf-flare" gradientUnits="userSpaceOnUse" cx="425" cy="320" r="90">
+    <stop offset="0" stop-color="#9CCBFF" stop-opacity=".75"/><stop offset="1" stop-color="#4C9BFF" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="ag-leaf-teal" gradientUnits="userSpaceOnUse" cx="520" cy="520" r="120">
+    <stop offset="0" stop-color="#00E8B4" stop-opacity=".7"/><stop offset=".5" stop-color="#00B58E" stop-opacity=".32"/><stop offset="1" stop-color="#007A6A" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="ag-wedge" gradientUnits="userSpaceOnUse" x1="455" y1="205" x2="490" y2="150">
+    <stop offset="0" stop-color="#0A2A5B"/><stop offset="1" stop-color="#2F7CFF"/>
+  </linearGradient>
+  <linearGradient id="ag-shard" gradientUnits="userSpaceOnUse" x1="350" y1="500" x2="490" y2="400">
+    <stop offset="0" stop-color="#E9EDF4"/><stop offset=".55" stop-color="#C3CAD6"/><stop offset="1" stop-color="#8C95A6"/>
+  </linearGradient>
+  <linearGradient id="ag-shard-shade" gradientUnits="userSpaceOnUse" x1="345" y1="520" x2="470" y2="610">
+    <stop offset="0" stop-color="#5A6479" stop-opacity=".45"/><stop offset="1" stop-color="#5A6479" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="ag-glow" x="-30%" y="-10%" width="160%" height="120%"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+<!-- left bevel: pale top face, grey side face, pale floor -->
+<path d="M303 258 L452 202 C385 255 335 345 325 430 C322 460 326 480 333 495 C318 420 305 330 303 258 Z" fill="url(#ag-floor)"/>
+<path d="M240 220 L487 150 L452 201 L303 258 Z" fill="url(#ag-topleft)"/>
+<path d="M240 220 L487 150" stroke="#7FA6EE" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M240 220 L303 258 C304 330 318 420 333 495 C296 430 256 330 240 220 Z" fill="url(#ag-leftface)"/>
+<path d="M303 258 C305 330 318 420 333 495" stroke="#FFFFFF" stroke-width="1.5" fill="none" opacity=".85"/>
+<path d="M303 258 L452 202" stroke="#FFFFFF" stroke-width="1.5" fill="none" opacity=".85"/>
+<!-- right bevel -->
+<path d="M487 150 L710 215 L652 236 L560 207 L498 199 Z" fill="url(#ag-topright)"/>
+<path d="M498 200 L652 236 C657 310 645 385 598 455 L596 440 C596 360 570 285 498 200 Z" fill="url(#ag-rplate)"/>
+<path d="M710 215 L652 236 C657 310 645 385 598 455 C592 522 545 578 467 614 L463 618 C535 592 600 545 640 487 C690 405 707 310 710 215 Z" fill="url(#ag-rbevel)"/>
+<path d="M652 236 C657 310 645 385 598 455" stroke="#FFFFFF" stroke-width="1.4" fill="none" opacity=".8"/>
+<!-- leaf -->
+<path id="ag-leaf" d="M455 203 L497 200 C566 268 602 365 597 452 C592 522 545 578 467 614 L466 606 C492 545 497 440 473 331 L333 495 C316 440 330 335 455 203 Z" fill="url(#ag-leaf)"/>
+<path d="M455 203 L497 200 C566 268 602 365 597 452 C592 522 545 578 467 614 L466 606 C492 545 497 440 473 331 L333 495 C316 440 330 335 455 203 Z" fill="url(#ag-leaf-blue)"/>
+<path d="M455 203 L497 200 C566 268 602 365 597 452 C592 522 545 578 467 614 L466 606 C492 545 497 440 473 331 L333 495 C316 440 330 335 455 203 Z" fill="url(#ag-leaf-flare)"/>
+<path d="M455 203 L497 200 C566 268 602 365 597 452 C592 522 545 578 467 614 L466 606 C492 545 497 440 473 331 L333 495 C316 440 330 335 455 203 Z" fill="url(#ag-leaf-teal)"/>
+<path d="M487 150 L455 203 L497 200 Z" fill="url(#ag-wedge)"/>
+<path d="M497 200 C566 268 602 365 597 452 C592 522 545 578 467 614" stroke="#1E6BFF" stroke-width="3.4" fill="none" stroke-linecap="round" opacity=".95"/>
+<path d="M455 203 C330 335 316 440 333 495" stroke="#2F86FF" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M333 495 L473 331" stroke="#58B4FF" stroke-width="2.4" fill="none" stroke-linecap="round" filter="url(#ag-glow)" opacity=".8"/>
+<path d="M333 495 L473 331" stroke="#8CD0FF" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<!-- shard -->
+<path d="M343 505 L453 357 C482 396 495 465 489 522 C485 562 474 594 465 614 C420 585 372 548 343 505 Z" fill="url(#ag-shard)"/>
+<path d="M343 505 L453 357 C482 396 495 465 489 522 C485 562 474 594 465 614 C420 585 372 548 343 505 Z" fill="url(#ag-shard-shade)"/>
+<path d="M343 505 L453 357" stroke="#3FA8FF" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<path d="M343 505 C372 548 420 585 465 614" stroke="#0A2A5B" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85"/>
+<!-- green/teal glint down the shard's right edge -->
+<path d="M456 359 C482 396 495 465 489 522 C485 562 474 594 465 614" stroke="#00F0C2" stroke-width="7" fill="none" stroke-linecap="round" filter="url(#ag-glow)" opacity=".85"/>
+<path d="M456 359 C482 396 495 465 489 522 C485 562 474 594 465 614" stroke="#C9FFF0" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import AriaSystem from '../../components/ui/AriaSystem.astro';
+import AriaCore from '../../components/ui/AriaCore.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Arrow from '../../components/Arrow.astro';
+import { breadcrumbSchema } from '../../lib/seo';
+import { ariaPath } from '../../data/products';
+
+const principles = [
+  {
+    title: 'Reasoning',
+    text: 'Aria works from the context a product holds: your playbook, your pipeline, your alerts. Answers are grounded in your information, not in generic defaults.',
+  },
+  {
+    title: 'Orchestration',
+    text: 'Real work has steps. Aria coordinates a workflow from start to finish rather than answering isolated questions.',
+  },
+  {
+    title: 'Governed automation',
+    text: 'Automation runs inside limits that people can see and review.',
+  },
+  {
+    title: 'Human control',
+    text: 'People approve what matters. Consequential actions are designed to wait for a decision.',
+  },
+  {
+    title: 'Auditability',
+    text: 'What happened, and who approved it, is recorded so teams can review and explain it later.',
+  },
+  {
+    title: 'Product-specific intelligence',
+    text: 'Each product applies Aria to its own domain, so intelligence in Aegis GRC looks different from intelligence in Aegis Sentinel.',
+  },
+];
+
+const concept = [
+  { name: 'Atlas', role: 'Threat intelligence, context, and enrichment' },
+  { name: 'Echo', role: 'Detection, telemetry analysis, and correlation' },
+  { name: 'Warden', role: 'Response planning, governance, and approval-gated action' },
+];
+---
+
+<BaseLayout
+  title="Aria, the Aegis intelligence layer"
+  description="Aria is the shared approach to AI across Aegis products: reasoning over context, orchestrating workflows, and keeping people in control."
+  path={ariaPath}
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Aria', path: ariaPath },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    dark
+    tone="aria"
+    layout="stacked"
+    label="Aegis intelligence"
+    title="Aria, the Aegis intelligence layer."
+    lede="Aria is the shared approach to AI across Aegis products: reasoning over context, orchestrating the steps of a workflow, and keeping people in control."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Aria' }]}
+  >
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href="/products/">
+        Explore the products
+        <Arrow />
+      </a>
+      <a class="link-arrow ink" href="/security/">
+        How Aegis approaches security
+        <Arrow />
+      </a>
+    </Fragment>
+    <div slot="visual">
+      <AriaCore />
+    </div>
+  </PageHero>
+
+  <section class="section ground-fog" aria-labelledby="system-title">
+    <div class="container">
+      <div class="split head">
+        <h2 id="system-title">One process across three products.</h2>
+        <p class="lede">
+          Each product brings its own context. Aria reasons over it and coordinates the steps, and
+          nothing consequential happens until a person decides.
+        </p>
+      </div>
+      <AriaSystem />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="stands-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="stands-title">One philosophy for AI across every product.</h2>
+      </div>
+      <ul class="defs">
+        {principles.map((p) => (
+          <li>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section ground-mist" aria-labelledby="scope-title">
+    <div class="container split split--even">
+      <div class="stack">
+        <h2 id="scope-title">A shared identity and set of principles.</h2>
+      </div>
+      <div class="stack">
+        <p class="lede">
+          Each Aegis product applies Aria to its own data and workflows. We describe Aria as a
+          common approach and identity across the family, not as a single system that every product
+          runs on.
+        </p>
+        <p class="muted">
+          That keeps each product independent while giving customers one consistent answer to a
+          simple question: what is the AI allowed to do, and who decides?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="concept-title">
+    <div class="container split">
+      <div class="stack sticky">
+        <span class="label">Conceptual</span>
+        <h2 id="concept-title">A direction we are exploring for Sentinel.</h2>
+        <p class="note">
+          Conceptual only. These specialist roles are design ideas for Aegis Sentinel, not available
+          features.
+        </p>
+      </div>
+      <ul class="rows">
+        {concept.map((c) => (
+          <li>
+            <h3>{c.name}</h3>
+            <p>{c.role}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Ask how Aegis approaches AI."
+    text="If your team is reviewing AI in a purchase, we are glad to talk through how each product handles it."
+    primary={{ label: 'Contact sales', href: '/contact/' }}
+    secondary={{ label: 'Security principles', href: '/security/' }}
+  />
+</BaseLayout>
+
+<style>
+  .head {
+    align-items: end;
+    margin-bottom: clamp(48px, 6vw, 88px);
+  }
+  .ink {
+    color: var(--text);
+  }
+</style>

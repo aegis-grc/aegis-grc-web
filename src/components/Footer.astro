@@ -1,0 +1,195 @@
+---
+import Logo from './Logo.astro';
+import Tagline from './brand/Tagline.astro';
+import Arrow from './Arrow.astro';
+import { footer } from '../data/site';
+
+const year = new Date().getFullYear();
+// Product-aware: a link that points at a product carries that product's accent.
+const productOf = (href: string) =>
+  href.startsWith('/products/grc')
+    ? 'grc'
+    : href.startsWith('/products/amplify')
+      ? 'amplify'
+      : href.startsWith('/products/sentinel')
+        ? 'sentinel'
+        : undefined;
+---
+
+<footer class="site-footer" data-theme="dark">
+  <span class="thread" aria-hidden="true"></span>
+  <div class="container">
+    <div class="top">
+      <div class="statement">
+        <a href="/" aria-label="Aegis home">
+          <Logo size="lg" />
+        </a>
+        <Tagline size="sm" />
+        <p class="big">The AI does the work. People keep control.</p>
+        <a class="btn btn--primary" href="/contact/">
+          Contact sales
+          <Arrow />
+        </a>
+      </div>
+      <div class="cols">
+        {footer.groups.map((g) => (
+          <nav aria-label={g.title}>
+            <h2 class="col-title">{g.title}</h2>
+            <ul>
+              {g.links.map((l) => (
+                <li
+                  class:list={[{ indent: 'indent' in l && l.indent }]}
+                  data-product={productOf(l.href)}
+                >
+                  <a href={l.href}>
+                    {productOf(l.href) && <i aria-hidden="true" />}
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+      </div>
+    </div>
+    <div class="wordmark" aria-hidden="true">
+      AEGIS
+    </div>
+    <div class="legal">
+      <p>&copy; {year} Aegis. All rights reserved.</p>
+      <ul>
+        {footer.legal.map((l) => (
+          <li>
+            <a href={l.href}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    padding: clamp(64px, 8vw, 112px) 0 28px;
+  }
+  .thread {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--amplify) 25%,
+      var(--sentinel) 55%,
+      var(--grc) 80%,
+      transparent
+    );
+    opacity: 0.9;
+  }
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: clamp(40px, 7vw, 120px);
+    align-items: start;
+  }
+  .statement {
+    display: grid;
+    gap: 28px;
+    justify-items: start;
+  }
+  .big {
+    font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    font-weight: 540;
+    max-width: 14ch;
+    text-wrap: balance;
+  }
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px 28px;
+  }
+  .col-title {
+    font-family: var(--font-body);
+    font-size: var(--fs-label);
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--text-faint);
+    margin-bottom: 14px;
+  }
+  li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 0;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+    transition: color var(--t-fast) var(--ease);
+  }
+  li a:hover {
+    color: var(--text);
+  }
+  li a i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .indent {
+    padding-left: 16px;
+  }
+  .wordmark {
+    margin: clamp(48px, 7vw, 96px) 0 0;
+    font-size: clamp(6rem, 24vw, 21rem);
+    line-height: 0.78;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    text-align: center;
+    color: transparent;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    -webkit-background-clip: text;
+    background-clip: text;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .legal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-label);
+    color: var(--text-faint);
+  }
+  .legal ul {
+    display: flex;
+    gap: 22px;
+  }
+  .legal a {
+    color: var(--text-dim);
+  }
+  .legal a:hover {
+    color: var(--text);
+  }
+  @media (max-width: 960px) {
+    .top {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .cols {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

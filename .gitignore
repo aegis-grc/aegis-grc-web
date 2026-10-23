@@ -1,0 +1,34 @@
+# Playwright MCP / runtime artifacts
+.playwright-mcp/
+# Loose captures written to the repo root (Playwright MCP resolves relative
+# screenshot filenames against the root). Anchored to the root so image assets
+# under public/, src/ or docs/ are never ignored.
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+# Playwright Test output (for the later test phase)
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Machine-local Claude Code settings (Impeccable writes its hook config here)
+.claude/settings.local.json
+
+# Dependencies and build output
+node_modules/
+dist/
+.astro/
+.lighthouseci/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+
+# Vendored third-party skill kept local (3.6 MB incl. executable Python and tests).
+# Pinned commit and re-install steps are recorded in .claude/TOOLING.md.
+.claude/skills/ui-ux-pro-max/
+
+# Local Claude Code tooling (kept on disk, not shipped with the site)
+.claude/skills/

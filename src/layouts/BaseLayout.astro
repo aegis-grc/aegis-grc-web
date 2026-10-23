@@ -1,0 +1,71 @@
+---
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/patterns.css';
+import { Font } from 'astro:assets';
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BrandDefs from '../components/brand/BrandDefs.astro';
+import type { ProductId } from '../data/products';
+
+interface Props {
+  /** Page title without the site suffix */
+  title: string;
+  description: string;
+  /** Site-relative path with trailing slash, e.g. /products/grc/ */
+  path: string;
+  product?: ProductId;
+  noindex?: boolean;
+  schema?: object[];
+  /** Use the title as-is (home page) */
+  rawTitle?: boolean;
+}
+const { title, description, path, product, noindex, schema, rawTitle } = Astro.props;
+const fullTitle = rawTitle ? title : `${title} | Aegis`;
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script is:inline>
+      document.documentElement.className = document.documentElement.className.replace(
+        'no-js',
+        'js',
+      );
+    </script>
+    <Font
+      cssVariable="--font-body"
+      preload={[{ weight: '100 900', style: 'normal', subset: 'latin' }]}
+    />
+    <Font cssVariable="--font-mono" />
+    <Seo
+      title={fullTitle}
+      description={description}
+      path={path}
+      noindex={noindex}
+      schema={schema}
+    />
+  </head>
+  <body data-product={product}>
+    <BrandDefs />
+    <a class="skip-link" href="#main">
+      Skip to main content
+    </a>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/ui';
+    </script>
+  </body>
+</html>

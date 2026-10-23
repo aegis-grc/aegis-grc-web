@@ -1,0 +1,133 @@
+---
+import Plane from './Plane.astro';
+import SentinelPlane from './SentinelPlane.astro';
+
+/**
+ * Sentinel hero: a layered workspace. The Case plane sits in front of an evidence-timeline plane, with a
+ * "plan only" tag on the front edge. Generic structure, no counts, no alert data.
+ * Real-screenshot slot: the Case plane can be replaced by a case-view crop in a dark frame.
+ */
+const events = [74, 58, 66, 50, 62];
+---
+
+<div class="ws" aria-hidden="true">
+  <Plane product="sentinel" title="Evidence timeline" status="Case record" dark class="back">
+    <ol class="tl">
+      {events.map((w) => (
+        <li>
+          <i></i>
+          <b style={`width:${w}%`}></b>
+          <b class="s" style="width:34%"></b>
+        </li>
+      ))}
+    </ol>
+  </Plane>
+  <SentinelPlane class="front" />
+  <span class="tag">Plan only. A person approves.</span>
+</div>
+
+<style>
+  .ws {
+    position: relative;
+    display: grid;
+    padding: 0 0 28px 40px;
+    max-width: 620px;
+    margin-left: auto;
+  }
+  .ws > :global(.back) {
+    grid-area: 1 / 1;
+    width: 78%;
+    justify-self: start;
+    align-self: start;
+    transform: translate(-40px, 24px);
+    opacity: 0.9;
+  }
+  .ws > :global(.front) {
+    grid-area: 1 / 1;
+    width: 82%;
+    justify-self: end;
+    margin-top: 150px;
+    position: relative;
+    z-index: 2;
+  }
+  .tl {
+    display: grid;
+    gap: 14px;
+    padding-bottom: 150px;
+  }
+  .tl li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 10px 1fr;
+    gap: 6px 14px;
+    align-items: center;
+  }
+  .tl li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 14px;
+    bottom: -18px;
+    width: 1px;
+    background: var(--line-2);
+  }
+  .tl li:last-child::before {
+    display: none;
+  }
+  .tl i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-text);
+    background: var(--bg);
+  }
+  .tl b {
+    display: block;
+    height: 7px;
+    border-radius: 4px;
+    background: var(--line-2);
+  }
+  .tl .s {
+    grid-column: 2;
+    height: 5px;
+    opacity: 0.6;
+  }
+  .tag {
+    position: absolute;
+    z-index: 3;
+    right: 18px;
+    bottom: 0;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--accent-line);
+    background: var(--bg);
+    color: var(--accent-text);
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+  }
+  @media (max-width: 960px) {
+    .ws {
+      margin-left: 0;
+      max-width: 560px;
+    }
+  }
+  @media (max-width: 520px) {
+    .ws {
+      padding-left: 0;
+    }
+    .ws > :global(.back) {
+      width: 84%;
+      transform: translate(0, 12px);
+    }
+    .ws > :global(.front) {
+      width: 90%;
+      margin-top: 120px;
+    }
+    .tl {
+      padding-bottom: 120px;
+    }
+    .tag {
+      right: 0;
+    }
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+import AegisLogo from './AegisLogo.astro';
+import Tagline from './Tagline.astro';
+
+/** A quiet brand sign-off: the approved lockup and tagline on a light blue/silver diagonal ground. */
+---
+
+<section class="moment" aria-label="Aegis">
+  <div class="container inner">
+    <AegisLogo variant="lockup" height={112} class="lg-logo" />
+    <AegisLogo variant="lockup" height={72} class="sm-logo" />
+    <Tagline size="lg" align="center" />
+  </div>
+</section>
+
+<style>
+  .moment {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(72px, 9vw, 128px);
+    background:
+      linear-gradient(
+        112deg,
+        transparent 38%,
+        rgba(122, 167, 255, 0.16) 47%,
+        rgba(186, 195, 210, 0.22) 51%,
+        transparent 60%
+      ),
+      linear-gradient(112deg, transparent 20%, rgba(30, 107, 255, 0.06) 30%, transparent 40%),
+      linear-gradient(180deg, var(--mist), var(--paper));
+    border-top: 1px solid var(--line);
+  }
+  .inner {
+    position: relative;
+    display: grid;
+    gap: clamp(24px, 3vw, 40px);
+    justify-items: center;
+  }
+  .inner :global(.sm-logo) {
+    display: none;
+  }
+  @media (max-width: 560px) {
+    .inner :global(.lg-logo) {
+      display: none;
+    }
+    .inner :global(.sm-logo) {
+      display: block;
+    }
+  }
+</style>

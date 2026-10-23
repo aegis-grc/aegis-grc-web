@@ -1,0 +1,73 @@
+---
+import AegisLogo from './brand/AegisLogo.astro';
+import ProductGlyph from './ProductGlyph.astro';
+import { products, type ProductId } from '../data/products';
+
+/**
+ * Master identity (shield + AEGIS), optionally with a product: AEGIS | glyph GRC.
+ * Product differentiation is the name, accent and glyph; the corporate shield stays the same.
+ * Below 360px the wordmark drops out and only the shield remains.
+ */
+interface Props {
+  product?: ProductId;
+  size?: 'sm' | 'md' | 'lg';
+}
+const { product, size = 'md' } = Astro.props;
+const p = product ? products[product] : undefined;
+const height = { sm: 32, md: 44, lg: 58 }[size];
+---
+
+<span class:list={['lockup', `lockup--${size}`]} data-product={product}>
+  <AegisLogo class="full" variant="lockup" {height} />
+  <AegisLogo class="shield" variant="mark" height={Math.round(height * 0.92)} />
+  {p && (
+    <>
+      <span class="sep" aria-hidden="true" />
+      <span class="prod">
+        <ProductGlyph product={p.id} size={size === 'lg' ? 20 : 17} />
+        {p.short}
+      </span>
+    </>
+  )}
+</span>
+
+<style>
+  .lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1;
+    max-width: 100%;
+  }
+  .lockup :global(.shield) {
+    display: none;
+  }
+  .sep {
+    width: 1px;
+    align-self: stretch;
+    min-height: 1.1em;
+    background: var(--line-2);
+    margin-inline: 2px;
+  }
+  .prod {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--accent-text);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+  .lockup--lg .prod {
+    font-size: 1.1875rem;
+  }
+  @media (max-width: 359px) {
+    .lockup :global(.full) {
+      display: none;
+    }
+    .lockup :global(.shield) {
+      display: block;
+    }
+  }
+</style>

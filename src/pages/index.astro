@@ -1,0 +1,673 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSystem from '../components/ui/HeroSystem.astro';
+import GrcPlane from '../components/ui/GrcPlane.astro';
+import AmplifyPlane from '../components/ui/AmplifyPlane.astro';
+import SentinelPlane from '../components/ui/SentinelPlane.astro';
+import AriaSystem from '../components/ui/AriaSystem.astro';
+import ProductGlyph from '../components/ProductGlyph.astro';
+import CtaBand from '../components/CtaBand.astro';
+import BrandMoment from '../components/brand/BrandMoment.astro';
+import Arrow from '../components/Arrow.astro';
+import { products, productList, ariaPath } from '../data/products';
+import { solutions } from '../data/solutions';
+import { industries } from '../data/industries';
+import { organizationSchema } from '../lib/seo';
+
+const principles = [
+  {
+    title: 'Automation within limits',
+    text: 'Automated work runs inside boundaries that people can see, and it can be stopped.',
+  },
+  {
+    title: 'Approval where it matters',
+    text: 'Consequential actions wait for a person to decide. Routine work does not.',
+  },
+  {
+    title: 'A record you can review',
+    text: 'What the system did, and who approved it, is logged so teams can explain it later.',
+  },
+];
+---
+
+<BaseLayout
+  rawTitle
+  title="Aegis | AI-native platforms for revenue, risk, and security"
+  description="Aegis builds AI-native platforms for revenue, risk, and security: Aegis Amplify, Aegis GRC, and Aegis Sentinel, with human approval where it matters."
+  path="/"
+  schema={[organizationSchema(Astro.site)]}
+>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="copy">
+        <h1 id="hero-title">
+          AI-native platforms for{' '}
+          <span class="k">
+            <i data-product="amplify" aria-hidden="true"></i>revenue,
+          </span>{' '}
+          <span class="k">
+            <i data-product="grc" aria-hidden="true"></i>risk,
+          </span>{' '}
+          and{' '}
+          <span class="k">
+            <i data-product="sentinel" aria-hidden="true"></i>security.
+          </span>
+        </h1>
+        <p class="lede">
+          Aegis builds operating platforms for the work businesses can't afford to get wrong. The AI
+          does the work; your people stay in control.
+        </p>
+        <div class="cta">
+          <a class="btn btn--primary" href="/products/">
+            Explore the products
+            <Arrow />
+          </a>
+          <a class="link-arrow ink" href="/contact/">
+            Contact sales
+            <Arrow />
+          </a>
+        </div>
+        <ul class="legend" aria-label="The three platforms">
+          <li data-product="amplify">
+            <a href={products.amplify.path}>
+              <i></i>Aegis Amplify
+            </a>
+          </li>
+          <li data-product="grc">
+            <a href={products.grc.path}>
+              <i></i>Aegis GRC
+            </a>
+          </li>
+          <li data-product="sentinel">
+            <a href={products.sentinel.path}>
+              <i></i>Aegis Sentinel
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="vis">
+        <HeroSystem />
+      </div>
+    </div>
+  </section>
+
+  <!-- One company, three platforms -->
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="container split">
+      <h2 id="intro-title">Three platforms. One standard for AI you can supervise.</h2>
+      <p class="lede">
+        Each Aegis product is built for its own domain and follows the same rules: automation inside
+        limits, people approving what matters, and a record of what happened.
+      </p>
+    </div>
+  </section>
+
+  <!-- GRC: split, plane right -->
+  <section class="moment grc" data-product="grc" aria-labelledby="grc-title">
+    <div class="container split">
+      <div class="stack">
+        <span class="label">
+          <ProductGlyph product="grc" size={17} />
+          Aegis GRC
+        </span>
+        <h2 class="verb" id="grc-title">
+          Govern risk.
+        </h2>
+        <p class="lede">
+          Compliance, risk, audit, vendors, contracts, and quality as one connected program, with AI
+          that works from your own playbook.
+        </p>
+        <a class="link-arrow" href={products.grc.path}>
+          Explore Aegis GRC
+          <Arrow />
+        </a>
+        <p class="family">
+          Includes <a href="/products/grc/contracts/">Aegis Contracts</a> and{' '}
+          <a href="/products/grc/qms/">Aegis QMS</a>
+        </p>
+      </div>
+      <div class="plane-bleed">
+        <GrcPlane />
+      </div>
+    </div>
+  </section>
+
+  <!-- Amplify: heading row, then a full-width pipeline -->
+  <section class="moment amplify" data-product="amplify" aria-labelledby="amp-title">
+    <div class="container">
+      <div class="amp-head">
+        <div class="stack">
+          <span class="label">
+            <ProductGlyph product="amplify" size={17} />
+            Aegis Amplify
+          </span>
+          <h2 class="verb" id="amp-title">
+            Grow revenue.
+          </h2>
+        </div>
+        <div class="stack">
+          <p class="lede">
+            AI-native sales and marketing operations for contractors and home-service businesses,
+            from the first inquiry to the follow-up on an estimate.
+          </p>
+          <a class="link-arrow" href={products.amplify.path}>
+            Explore Aegis Amplify
+            <Arrow />
+          </a>
+        </div>
+      </div>
+      <div class="wide-plane">
+        <AmplifyPlane variant="wide" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Sentinel: the dark moment -->
+  <section
+    class="moment sentinel"
+    data-product="sentinel"
+    data-theme="dark"
+    aria-labelledby="sen-title"
+  >
+    <div class="container split split--wide-left">
+      <div class="plane-left">
+        <SentinelPlane />
+      </div>
+      <div class="stack">
+        <span class="label">
+          <ProductGlyph product="sentinel" size={17} />
+          Aegis Sentinel
+        </span>
+        <h2 class="verb" id="sen-title">
+          Defend operations.
+        </h2>
+        <p class="lede">
+          AI-native security operations that bring alerts, correlation, investigation, and cases
+          into one workflow, with people approving every consequential action.
+        </p>
+        <ul class="ticks ticks--one">
+          <li>Deterministic deduplication and correlation</li>
+          <li>Evidence timelines and case management</li>
+          <li>Gated, plan-only containment</li>
+        </ul>
+        <a class="link-arrow" href={products.sentinel.path}>
+          Explore Aegis Sentinel
+          <Arrow />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aria: the system -->
+  <section class="aria ground-fog" aria-labelledby="aria-title">
+    <div class="container">
+      <div class="aria-head split">
+        <div class="stack">
+          <h2 id="aria-title">Aria is how Aegis applies AI. People keep control.</h2>
+        </div>
+        <div class="stack">
+          <p class="lede">
+            One intelligence layer across the family: reasoning over each product's context,
+            orchestrating the steps, and stopping at a human decision before anything consequential
+            happens.
+          </p>
+          <a class="link-arrow" href={ariaPath}>
+            Meet Aria
+            <Arrow />
+          </a>
+        </div>
+      </div>
+      <AriaSystem />
+      <ul class="cols-3 principles">
+        {principles.map((p) => (
+          <li class="col">
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="review">
+        Built to be reviewed.
+        <a class="link-arrow" href="/security/">
+          How Aegis approaches security
+          <Arrow />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Solutions and industries -->
+  <section class="finder" aria-labelledby="finder-title">
+    <div class="container split">
+      <div class="stack">
+        <h2 id="finder-title">Start from the problem.</h2>
+        <ul class="big-links">
+          {solutions.map((s) => (
+            <li>
+              <a href={`/solutions/#${s.id}`}>
+                {s.title}
+                <Arrow />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="stack">
+        <h3 class="sub">Or start from your industry.</h3>
+        <ul class="ind-list">
+          {industries.map((i) => {
+            const fits = productList.filter((p) => i.relevance[p.id] !== 'none');
+            return (
+              <li>
+                <a href={`/industries/#${i.id}`}>
+                  <span>{i.name}</span>
+                  <span class="fit">
+                    <span class="visually-hidden">Fits {fits.map((p) => p.name).join(', ')}</span>
+                    {fits.map((p) => (
+                      <i data-product={p.id} aria-hidden="true" />
+                    ))}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+        <p class="legend-note">Dots show the Aegis products that fit each industry.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What next -->
+  <section class="next" aria-label="Resources and company">
+    <div class="container cols-2">
+      <a class="next-link" href="/resources/">
+        <span class="t">Resources</span>
+        <span class="d">Product guides and security information, as the library grows.</span>
+        <Arrow />
+      </a>
+      <a class="next-link" href="/company/">
+        <span class="t">Company</span>
+        <span class="d">What Aegis builds, and the principles behind the product family.</span>
+        <Arrow />
+      </a>
+    </div>
+  </section>
+
+  <BrandMoment />
+
+  <CtaBand
+    title="Talk to Aegis about the work you can't afford to get wrong."
+    text="Tell us which product you're interested in and we'll follow up."
+    primary={{ label: 'Contact sales', href: '/contact/' }}
+    secondary={{ label: 'Explore the products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    background:
+      linear-gradient(
+        112deg,
+        transparent 52%,
+        rgba(122, 167, 255, 0.13) 61%,
+        rgba(186, 195, 210, 0.2) 64%,
+        transparent 74%
+      ),
+      linear-gradient(180deg, var(--mist) 0%, var(--paper) 100%);
+    padding: clamp(40px, 6vw, 88px) 0 clamp(72px, 9vw, 128px);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+  .copy {
+    display: grid;
+    gap: 28px;
+    justify-items: start;
+  }
+  .copy h1 {
+    font-size: clamp(2.75rem, 1rem + 5.4vw, 5rem);
+    line-height: 0.99;
+    letter-spacing: -0.048em;
+    font-weight: 580;
+  }
+  /* A small product dot after each keyword ties the headline to the platforms */
+  .k {
+    white-space: nowrap;
+  }
+  .k i {
+    display: inline-block;
+    width: 0.17em;
+    height: 0.17em;
+    margin-right: 0.14em;
+    border-radius: 50%;
+    background: var(--p);
+    vertical-align: 0.26em;
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 28px;
+  }
+  .ink {
+    color: var(--text);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 26px;
+    margin-top: 6px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line-2);
+    width: 100%;
+    max-width: 30rem;
+  }
+  .legend a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--text-dim);
+    transition: color var(--t-fast) var(--ease);
+  }
+  .legend a:hover {
+    color: var(--text);
+  }
+  .legend i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--p);
+  }
+  .vis {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+
+  /* Intro */
+  .intro {
+    padding: clamp(80px, 10vw, 152px) 0 clamp(72px, 9vw, 128px);
+    background:
+      radial-gradient(ellipse 60% 90% at 100% 100%, rgba(30, 107, 255, 0.1), transparent 70%),
+      linear-gradient(180deg, var(--paper) 0%, var(--mist) 100%);
+  }
+  .intro .split {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    align-items: end;
+  }
+  .intro .lede {
+    max-width: 40ch;
+  }
+  @media (max-width: 960px) {
+    .intro .split {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  .intro h2 {
+    max-width: 18ch;
+    font-size: clamp(2.5rem, 1.2rem + 4.6vw, 4.75rem);
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  /* Product moments: each one a different structure and ground */
+  .moment {
+    padding-block: clamp(64px, 8vw, 120px);
+    position: relative;
+  }
+  .moment::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--accent-line) 30%,
+      var(--accent-line) 70%,
+      transparent
+    );
+  }
+  .verb {
+    font-size: clamp(2.75rem, 1rem + 5.2vw, 5.25rem);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+    font-weight: 580;
+  }
+  .family {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .family a {
+    color: var(--text);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .family a:hover {
+    border-color: var(--text);
+  }
+  .plane-bleed {
+    margin-right: 0;
+  }
+  .moment.grc {
+    /* silver band: the planes lift off it */
+    background:
+      radial-gradient(ellipse 55% 80% at 90% 0%, rgba(30, 107, 255, 0.12), transparent 70%),
+      radial-gradient(ellipse 50% 70% at 0% 100%, rgba(255, 255, 255, 0.8), transparent 70%),
+      linear-gradient(180deg, #eaf0f8 0%, #d3deec 100%);
+  }
+  .moment.amplify {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--amplify) 16%, white) 0%,
+      color-mix(in srgb, var(--amplify) 5%, white) 100%
+    );
+  }
+  .amp-head {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(24px, 5vw, 88px);
+    align-items: end;
+    margin-bottom: clamp(36px, 5vw, 64px);
+  }
+  .wide-plane {
+    max-width: 1100px;
+  }
+  .moment.sentinel {
+    background:
+      linear-gradient(
+          to right,
+          color-mix(in srgb, var(--sentinel) 6%, transparent) 1px,
+          transparent 1px
+        )
+        0 0 / 64px 64px,
+      linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--sentinel) 6%, transparent) 1px,
+          transparent 1px
+        )
+        0 0 / 64px 64px,
+      var(--bg);
+    color: var(--text);
+  }
+  .plane-left {
+    margin-left: 0;
+  }
+  .moment.sentinel .ticks {
+    margin: 4px 0;
+    width: 100%;
+    max-width: 30rem;
+  }
+
+  /* Aria */
+  .aria {
+    padding-block: clamp(80px, 10vw, 144px);
+    background:
+      radial-gradient(ellipse 70% 60% at 85% 0%, rgba(30, 107, 255, 0.16), transparent 70%),
+      radial-gradient(ellipse 50% 50% at 0% 100%, rgba(186, 195, 210, 0.5), transparent 70%),
+      linear-gradient(180deg, var(--mist) 0%, #dbe4f1 100%);
+  }
+  .aria-head {
+    margin-bottom: clamp(48px, 6vw, 88px);
+    align-items: end;
+  }
+  .principles {
+    margin-top: clamp(56px, 7vw, 96px);
+  }
+  .review {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 24px;
+    margin-top: clamp(36px, 5vw, 56px);
+    font-weight: 500;
+    color: var(--text-dim);
+  }
+
+  /* Finder */
+  .finder {
+    padding-block: var(--section-y);
+  }
+  .sub {
+    margin-bottom: 4px;
+  }
+  .big-links {
+    width: 100%;
+    margin-top: 16px;
+  }
+  .big-links a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line-2);
+    font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem);
+    font-weight: 540;
+    letter-spacing: -0.025em;
+    transition: color var(--t-fast) var(--ease);
+  }
+  .big-links li:last-child a {
+    border-bottom: 1px solid var(--line-2);
+  }
+  .big-links a :global(svg) {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    color: var(--text-faint);
+    transition:
+      transform 160ms var(--ease),
+      color var(--t-fast) var(--ease);
+  }
+  @media (hover: hover) {
+    .big-links a:hover {
+      color: var(--blue-text);
+    }
+    .big-links a:hover :global(svg) {
+      transform: translateX(3px);
+      color: var(--blue-text);
+    }
+  }
+  .ind-list {
+    width: 100%;
+  }
+  .ind-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    min-height: 60px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line-2);
+    font-weight: 500;
+  }
+  .ind-list li:last-child a {
+    border-bottom: 1px solid var(--line-2);
+  }
+  .fit {
+    display: inline-flex;
+    gap: 7px;
+  }
+  .fit i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--p);
+  }
+  @media (hover: hover) {
+    .ind-list a:hover span:first-child {
+      color: var(--blue-text);
+    }
+  }
+  .legend-note {
+    font-size: var(--fs-label);
+    color: var(--text-faint);
+  }
+
+  /* Next */
+  .next {
+    padding-bottom: var(--section-y);
+  }
+  .next-link {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 20px;
+    align-items: center;
+    padding: 28px 0;
+    border-top: 1px solid var(--line-2);
+  }
+  .next-link .t {
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem);
+    font-weight: 560;
+    letter-spacing: -0.03em;
+  }
+  .next-link .d {
+    grid-column: 1;
+    color: var(--text-dim);
+    max-width: 40ch;
+  }
+  .next-link :global(svg) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    width: 22px;
+    height: 22px;
+    transition: transform 160ms var(--ease);
+  }
+  @media (hover: hover) {
+    .next-link:hover :global(svg) {
+      transform: translateX(4px);
+    }
+    .next-link:hover .t {
+      color: var(--blue-text);
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .vis {
+      justify-content: flex-start;
+    }
+    .plane-bleed,
+    .plane-left {
+      margin: 0;
+    }
+  }
+  @media (max-width: 960px) {
+    .amp-head {
+      grid-template-columns: 1fr;
+    }
+    .plane-left {
+      order: 2;
+    }
+  }
+</style>

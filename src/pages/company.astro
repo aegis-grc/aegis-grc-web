@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FamilyMap from '../components/ui/FamilyMap.astro';
+import CtaBand from '../components/CtaBand.astro';
+import BrandMoment from '../components/brand/BrandMoment.astro';
+import ProductGlyph from '../components/ProductGlyph.astro';
+import Arrow from '../components/Arrow.astro';
+import { productList } from '../data/products';
+import { breadcrumbSchema } from '../lib/seo';
+
+const beliefs = [
+  {
+    title: 'Operational intelligence',
+    text: 'AI is only useful when it understands the context of the work it is doing. Our products are built around that context.',
+  },
+  {
+    title: 'Governed automation',
+    text: 'Automation should run inside limits that people can see, and those limits should be easy to review.',
+  },
+  {
+    title: 'Human control',
+    text: 'The AI does the work; people keep control of the decisions that matter.',
+  },
+  {
+    title: 'Products that stand on their own',
+    text: 'Each Aegis product is its own application, built for its own domain. They share principles, not a single catch-all interface.',
+  },
+];
+---
+
+<BaseLayout
+  title="Company"
+  description="Aegis builds AI-native operating platforms for the work businesses can't afford to get wrong: Aegis GRC, Aegis Amplify, and Aegis Sentinel."
+  path="/company/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Company', path: '/company/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    label="Company"
+    title="We build platforms for the work businesses can't afford to get wrong."
+    lede="Aegis makes AI-native operating platforms for high-stakes business operations. Each product is built for its own domain, on shared principles."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Company' }]}
+  >
+    <div slot="visual">
+      <FamilyMap />
+    </div>
+  </PageHero>
+
+  <BrandMoment />
+
+  <section class="section ground-mist" aria-labelledby="build-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="build-title">Three products across revenue, risk, and security.</h2>
+      </div>
+      <ul class="prods">
+        {productList.map((p) => (
+          <li data-product={p.id}>
+            <a href={p.path}>
+              <span class="g">
+                <ProductGlyph product={p.id} size={22} />
+              </span>
+              <span class="tx">
+                <strong>{p.name}</strong>
+                <span>{p.category}</span>
+              </span>
+              <Arrow />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="why-title">
+    <div class="container split split--even">
+      <div class="stack">
+        <span class="label">Why a product family</span>
+        <h2 id="why-title">Different domains, the same problem.</h2>
+      </div>
+      <div class="stack">
+        <p class="lede">
+          Revenue, risk, and security look like different worlds. They share a problem: important
+          work done under pressure, with AI that has to be trusted before it is useful.
+        </p>
+        <p class="muted">
+          Building them as a family means one standard for how AI is governed, even though each
+          product is shaped by its own domain.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-fog" aria-labelledby="beliefs-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="beliefs-title">Product philosophy.</h2>
+      </div>
+      <ul class="defs">
+        {beliefs.map((b) => (
+          <li>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Talk to us."
+    text="Tell us what you are working on and we will follow up."
+    primary={{ label: 'Contact sales', href: '/contact/' }}
+    secondary={{ label: 'Explore the products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  .prods a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line-2);
+  }
+  .prods li:last-child a {
+    border-bottom: 1px solid var(--line-2);
+  }
+  .g {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    color: var(--accent-text);
+  }
+  .tx strong {
+    display: block;
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    font-weight: 560;
+    letter-spacing: -0.03em;
+  }
+  .tx span {
+    color: var(--text-dim);
+  }
+  .prods a :global(svg:last-child) {
+    width: 20px;
+    height: 20px;
+    color: var(--text-faint);
+    transition: transform 160ms var(--ease);
+  }
+  @media (hover: hover) {
+    .prods a:hover :global(svg:last-child) {
+      transform: translateX(4px);
+      color: var(--accent-text);
+    }
+  }
+</style>

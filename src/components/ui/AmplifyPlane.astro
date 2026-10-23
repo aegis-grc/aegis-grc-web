@@ -1,0 +1,193 @@
+---
+import Plane from './Plane.astro';
+
+interface Props {
+  class?: string;
+  /** compact: four lanes (hero, menus). wide: six lanes for a full-width product moment. */
+  variant?: 'compact' | 'wide';
+}
+const { variant = 'compact', class: className } = Astro.props;
+// Lanes and labelled example leads: structure and state, not data.
+const compact = [
+  {
+    name: 'New',
+    leads: [
+      { src: 'Web form', st: 'Waiting' },
+      { src: 'Campaign', st: 'Waiting' },
+    ],
+  },
+  {
+    name: 'Replied',
+    leads: [
+      { src: 'Demand Network', st: 'Replied', hot: true },
+      { src: 'Web form', st: 'Replied' },
+    ],
+  },
+  { name: 'Booked', leads: [{ src: 'Campaign', st: 'On calendar' }] },
+  {
+    name: 'Quoted',
+    leads: [
+      { src: 'Web form', st: 'Estimate sent' },
+      { src: 'Lead gen', st: 'Follow-up due' },
+    ],
+  },
+];
+const wide = [
+  {
+    name: 'New lead',
+    leads: [
+      { src: 'Web form', st: 'Waiting' },
+      { src: 'Campaign', st: 'Waiting' },
+    ],
+  },
+  {
+    name: 'Instant reply',
+    leads: [
+      { src: 'Demand Network', st: 'Replied', hot: true },
+      { src: 'Web form', st: 'Replied' },
+    ],
+  },
+  { name: 'Nurture', leads: [{ src: 'Campaign', st: 'Kept warm' }] },
+  { name: 'Booked', leads: [{ src: 'Web form', st: 'On calendar' }] },
+  { name: 'Estimate', leads: [{ src: 'Lead gen', st: 'Sent' }] },
+  { name: 'Follow-up', leads: [{ src: 'Web form', st: 'Due' }] },
+];
+const lanes = variant === 'wide' ? wide : compact;
+---
+
+<Plane product="amplify" title="Pipeline" status="Example" class={className}>
+  <div class="lanes" style={`--n:${lanes.length}`}>
+    {lanes.map((l) => (
+      <div class="lane">
+        <span class="hd">{l.name}</span>
+        {l.leads.map((lead) => (
+          <div class:list={['lead', { hot: lead.hot }]}>
+            <i class="av"></i>
+            <span class="txt">
+              <b>{lead.src}</b>
+              <em>{lead.st}</em>
+            </span>
+            {lead.hot && <u class="tag">Instant</u>}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+  <div class="source">
+    <span class="hd">Source</span>
+    <span class="seg">
+      <i>Campaign</i>
+      <i>Demand Network</i>
+      <i>Web form</i>
+    </span>
+  </div>
+</Plane>
+
+<style>
+  .lanes {
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    gap: 10px;
+  }
+  @media (max-width: 520px) {
+    .lanes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .lane:nth-child(n + 4) {
+      display: none;
+    }
+    .tag {
+      white-space: nowrap;
+    }
+  }
+  .lane {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+  .hd {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .lead {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 8px;
+    padding: 9px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--surface);
+  }
+  .av {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.55;
+  }
+  .txt {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+  }
+  .txt b {
+    font-size: var(--fs-small);
+    font-weight: 560;
+    line-height: 1.25;
+    color: var(--text);
+  }
+  .txt em {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .lead.hot {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 6px 16px -8px var(--accent-line);
+  }
+  .tag {
+    grid-column: 1 / -1;
+    justify-self: start;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--accent-text);
+  }
+  .source {
+    display: grid;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .seg i {
+    font-style: normal;
+  }
+  .seg i::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .seg i:nth-child(2)::before {
+    opacity: 0.65;
+  }
+  .seg i:nth-child(3)::before {
+    opacity: 0.4;
+  }
+</style>

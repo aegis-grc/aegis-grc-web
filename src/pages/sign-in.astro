@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProductGlyph from '../components/ProductGlyph.astro';
+import Arrow from '../components/Arrow.astro';
+import { productList } from '../data/products';
+import { breadcrumbSchema } from '../lib/seo';
+---
+
+<BaseLayout
+  title="Sign in"
+  description="Sign in to your Aegis product: Aegis GRC, Aegis Amplify, or Aegis Sentinel."
+  path="/sign-in/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Sign in', path: '/sign-in/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    label="Sign in"
+    title="Sign in to your Aegis product."
+    lede="Each Aegis product is its own application. Choose the one you use."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Sign in' }]}
+  />
+
+  <section class="section ground-mist" aria-label="Choose a product">
+    <div class="container">
+      <ul class="cols-3">
+        {productList.map((p) => (
+          <li class="col choice" data-product={p.id}>
+            <span class="g">
+              <ProductGlyph product={p.id} size={22} />
+            </span>
+            <h2>{p.name}</h2>
+            <p class="muted">{p.category}</p>
+            {p.appUrl ? (
+              <a class="btn btn--primary" href={p.appUrl} rel="noopener">
+                Sign in to {p.name}
+                <Arrow />
+              </a>
+            ) : (
+              <p class="pending">
+                Your {p.name} sign-in link comes from your administrator or your Aegis contact.
+                <a href="/contact/">Need help? Contact us</a>
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+      <p class="note">
+        New to Aegis? <a href="/products/">Explore the products</a> or{' '}
+        <a href="/contact/">contact sales</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .choice {
+    border-top: 2px solid var(--accent);
+    gap: 12px;
+  }
+  .g {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--accent-line);
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+  h2 {
+    font-size: 1.75rem;
+    letter-spacing: -0.03em;
+  }
+  .choice .btn {
+    justify-self: start;
+    margin-top: 10px;
+  }
+  .pending {
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .pending a,
+  .note a {
+    display: block;
+    margin-top: 6px;
+    color: var(--blue-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .note {
+    margin-top: 40px;
+  }
+  .note a {
+    display: inline;
+    margin: 0;
+  }
+</style>

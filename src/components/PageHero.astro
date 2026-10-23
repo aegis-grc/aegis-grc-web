@@ -1,0 +1,156 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+import ProductGlyph from './ProductGlyph.astro';
+import Logo from './Logo.astro';
+import { products, type ProductId } from '../data/products';
+
+interface Props {
+  title: string;
+  lede: string;
+  product?: ProductId;
+  /** A real label (e.g. a section name); product pages use the product name automatically */
+  label?: string;
+  crumbs?: { name: string; href?: string }[];
+  /** Dark ground for this hero (Sentinel, Aria) */
+  dark?: boolean;
+  /** split: copy and visual side by side. wide: larger visual. mirror: visual first. stacked: visual full width below the copy. */
+  layout?: 'split' | 'wide' | 'mirror' | 'stacked';
+  /** aria: a lighter blue-violet dark ground, distinct from Sentinel's navy */
+  tone?: 'aria';
+}
+const { title, lede, product, label, crumbs, dark = false, layout = 'split', tone } = Astro.props;
+const hasVisual = Astro.slots.has('visual');
+const productName = label ?? (product ? products[product].name : undefined);
+---
+
+<header
+  class:list={[
+    'page-hero',
+    `layout-${layout}`,
+    tone && `tone-${tone}`,
+    { 'has-visual': hasVisual, dark },
+  ]}
+  data-product={product}
+  data-theme={dark ? 'dark' : undefined}
+>
+  <div class="container inner">
+    <div class="copy">
+      {crumbs && <Breadcrumbs items={crumbs} />}
+      {product && !label ? (
+        <Logo product={product} size="md" />
+      ) : (
+        productName && (
+          <span class="label">
+            {product && <ProductGlyph product={product} size={17} />}
+            {productName}
+          </span>
+        )
+      )}
+      <h1>{title}</h1>
+      <p class="lede">{lede}</p>
+      <div class="actions">
+        <slot name="actions" />
+      </div>
+      <slot />
+    </div>
+    {hasVisual && (
+      <div class="visual">
+        <slot name="visual" />
+      </div>
+    )}
+  </div>
+</header>
+
+<style>
+  .page-hero {
+    position: relative;
+    padding: clamp(40px, 5vw, 72px) 0 clamp(64px, 8vw, 112px);
+    background: linear-gradient(180deg, var(--mist) 0%, var(--paper) 100%);
+    overflow: hidden;
+  }
+  .page-hero[data-product='amplify']:not(.dark) {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--amplify) 10%, white) 0%,
+      var(--paper) 100%
+    );
+  }
+  .page-hero.dark {
+    background:
+      radial-gradient(
+        ellipse 50% 70% at 82% 0%,
+        color-mix(in srgb, var(--accent) 14%, transparent),
+        transparent 70%
+      ),
+      var(--bg);
+    color: var(--text);
+  }
+  .page-hero.tone-aria {
+    background:
+      radial-gradient(ellipse 60% 70% at 85% 10%, rgba(122, 167, 255, 0.38), transparent 70%),
+      radial-gradient(ellipse 45% 60% at 0% 100%, rgba(186, 195, 210, 0.16), transparent 70%),
+      linear-gradient(160deg, #123f86 0%, #0e3470 45%, #0a2a5b 100%);
+  }
+  .inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(40px, 6vw, 88px);
+    align-items: start;
+  }
+  .has-visual .inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .copy {
+    display: grid;
+    gap: 22px;
+    justify-items: start;
+    max-width: 46rem;
+    min-width: 0;
+  }
+  .copy h1 {
+    margin-top: 4px;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 26px;
+    margin-top: 8px;
+  }
+  .actions:empty {
+    display: none;
+  }
+  .layout-wide.has-visual .inner {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(32px, 4vw, 64px);
+  }
+  .layout-stacked .copy h1,
+  .layout-wide .copy h1 {
+    font-size: clamp(2.4rem, 1.4rem + 2.4vw, 3.5rem);
+  }
+  .layout-mirror.has-visual .inner {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+    align-items: center;
+  }
+  .layout-mirror .visual {
+    order: -1;
+  }
+  .layout-stacked.has-visual .inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(24px, 3vw, 36px);
+  }
+  .layout-stacked .copy {
+    max-width: 52rem;
+  }
+  @media (max-width: 960px) {
+    .layout-wide.has-visual .inner,
+    .layout-mirror.has-visual .inner,
+    .has-visual .inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .layout-mirror .visual {
+      order: 0;
+    }
+  }
+</style>

@@ -1,0 +1,262 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProductSubnav from '../../components/ProductSubnav.astro';
+import SentinelWorkspace from '../../components/ui/SentinelWorkspace.astro';
+import SentinelRail from '../../components/ui/SentinelRail.astro';
+import SentinelGuardrails from '../../components/ui/SentinelGuardrails.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Arrow from '../../components/Arrow.astro';
+import { products, ariaPath } from '../../data/products';
+import { productSchema, breadcrumbSchema } from '../../lib/seo';
+
+const p = products.sentinel;
+const description =
+  'Aegis Sentinel is AI-native security operations: alert ingestion, correlation, investigation, and case management, with human approval for consequential actions.';
+
+const sources = [
+  { name: 'CrowdStrike', note: 'Endpoint and identity detections' },
+  {
+    name: 'Microsoft Defender, Entra, and Purview',
+    note: 'Microsoft security and identity signals',
+  },
+  { name: 'AWS', note: 'Security telemetry from AWS' },
+  { name: 'Cloudflare', note: 'Edge and network security signals' },
+];
+
+const controls = [
+  {
+    title: 'Human approval for consequential actions',
+    text: 'Anything with real impact waits for a person to decide.',
+  },
+  {
+    title: 'Group-based approvals',
+    text: 'Assign approval to the right group, not to whoever happens to be online.',
+  },
+  {
+    title: 'Bounded autonomy',
+    text: 'What automation can do on its own is limited, and the limits are explicit.',
+  },
+  { title: 'Kill switch', text: 'A way to halt automated activity when you need to.' },
+  {
+    title: 'Entra single sign-on',
+    text: 'Sign in with the identity provider your organization already uses.',
+  },
+  {
+    title: 'Tamper-evident audit logging',
+    text: 'Actions are logged in a way designed to show tampering, so you can review what happened and who approved it.',
+  },
+];
+---
+
+<BaseLayout
+  title="Aegis Sentinel: AI-native security operations"
+  description={description}
+  path={p.path}
+  product="sentinel"
+  schema={[
+    productSchema(p, description, Astro.site),
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Products', path: '/products/' },
+        { name: 'Aegis Sentinel', path: p.path },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    dark
+    layout="mirror"
+    product="sentinel"
+    title="AI-native security operations, with people in control."
+    lede="Aegis Sentinel brings alert ingestion, correlation, investigation, and case management into one workflow. AI assists the analyst, and consequential actions wait for human approval."
+    crumbs={[
+      { name: 'Aegis', href: '/' },
+      { name: 'Products', href: '/products/' },
+      { name: 'Aegis Sentinel' },
+    ]}
+  >
+    <Fragment slot="actions">
+      <a class="btn btn--primary" href="/contact/?topic=sentinel">
+        Request a briefing
+        <Arrow />
+      </a>
+      <a class="link-arrow" href="#workflow">
+        See the workflow
+        <Arrow />
+      </a>
+    </Fragment>
+    <div slot="visual" class="vis">
+      <SentinelWorkspace />
+    </div>
+  </PageHero>
+
+  <ProductSubnav
+    product="sentinel"
+    items={[
+      { label: 'Workflow', href: '#workflow' },
+      { label: 'Multi-vendor', href: '#sources' },
+      { label: 'Control', href: '#control' },
+      { label: 'AI safeguards', href: '#safeguards' },
+    ]}
+  />
+
+  <section class="section" id="workflow" aria-labelledby="workflow-title" data-product="sentinel">
+    <div class="container">
+      <div class="split head">
+        <h2 id="workflow-title">From alert to a decision a person makes.</h2>
+        <p class="lede">
+          Sentinel does the assembly work: ingesting, correlating, and organizing evidence. The
+          decisions that matter stay with your team.
+        </p>
+      </div>
+      <SentinelRail />
+    </div>
+  </section>
+
+  <section
+    class="section ground-mist"
+    id="sources"
+    aria-labelledby="sources-title"
+    data-product="sentinel"
+  >
+    <div class="container">
+      <div class="split head">
+        <h2 id="sources-title">Hunt across the tools you already run.</h2>
+        <p class="lede">
+          Multi-vendor hunting means an investigation is not limited to one console.
+        </p>
+      </div>
+      <ul class="cols-4">
+        {sources.map((s) => (
+          <li class="col">
+            <h3>{s.name}</h3>
+            <p>{s.note}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="note legal-note">
+        Product and company names belong to their respective owners. Their use here does not imply
+        endorsement.
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="section control"
+    id="control"
+    aria-labelledby="control-title"
+    data-product="sentinel"
+    data-theme="dark"
+  >
+    <div class="container">
+      <div class="split head">
+        <h2 id="control-title">Autonomy with limits.</h2>
+        <p class="lede">
+          Sentinel is built so that AI assistance stays inside boundaries your team sets, and every
+          consequential step has a person behind it.
+        </p>
+      </div>
+      <SentinelGuardrails
+        access={controls[4]}
+        approval={[controls[0], controls[1]]}
+        boundary={[controls[2], controls[3]]}
+        audit={controls[5]}
+      />
+    </div>
+  </section>
+
+  <section
+    class="section"
+    id="safeguards"
+    aria-labelledby="safeguards-title"
+    data-product="sentinel"
+  >
+    <div class="container split split--even">
+      <div class="stack">
+        <h2 id="safeguards-title">Guardrails for the AI itself.</h2>
+        <p class="lede">
+          Aegis Sentinel is part of the Aegis family. Aria, the Aegis intelligence layer, is the
+          shared approach to AI across Aegis products.
+        </p>
+        <a class="link-arrow" href={ariaPath}>
+          Meet Aria
+          <Arrow />
+        </a>
+      </div>
+      <ul class="rows">
+        <li>
+          <h3>Prompt-injection defenses</h3>
+          <p>
+            Alerts and logs contain text an attacker can influence. Sentinel includes defenses
+            against prompt injection from the data it analyzes.
+          </p>
+        </li>
+        <li>
+          <h3>Sensitive-data egress controls</h3>
+          <p>Controls that limit how sensitive data can leave your environment through AI use.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    product="sentinel"
+    title="See how Sentinel would work in your security operations."
+    text="Request a briefing and tell us which tools your team works in today."
+    primary={{ label: 'Request a briefing', href: '/contact/?topic=sentinel' }}
+    secondary={{ label: 'Explore all products', href: '/products/' }}
+  />
+</BaseLayout>
+
+<style>
+  .head {
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 72px);
+  }
+  .vis {
+    max-width: 560px;
+  }
+  .cols-4 {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(24px, 3vw, 48px);
+  }
+  .cols-4 h3 {
+    font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  }
+  .legal-note {
+    margin-top: 32px;
+    font-size: var(--fs-label);
+    color: var(--text-faint);
+  }
+  .control {
+    background:
+      linear-gradient(
+          to right,
+          color-mix(in srgb, var(--sentinel) 6%, transparent) 1px,
+          transparent 1px
+        )
+        0 0 / 64px 64px,
+      linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--sentinel) 6%, transparent) 1px,
+          transparent 1px
+        )
+        0 0 / 64px 64px,
+      var(--bg);
+    color: var(--text);
+  }
+  @media (max-width: 960px) {
+    .cols-4 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .cols-4 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

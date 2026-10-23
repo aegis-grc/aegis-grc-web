@@ -1,0 +1,157 @@
+/*
+ * Aegis design tokens: "Ground, Plane, Thread".
+ *
+ * Ground  = a quiet light surface (paper, mist, fog, silver) with navy used only as punctuation.
+ * Plane   = product UI shown as hairline-bordered abstract planes lifted off the ground.
+ * Thread  = the Aria line that connects products (a silver-to-blue gradient across the product accents).
+ *
+ * Light is the default. A section opts into the dark ground with data-theme="dark".
+ * A product opts into its accent with data-product="grc|amplify|sentinel".
+ */
+:root {
+  /* Raw palette */
+  --paper: #ffffff;
+  --mist: #f4f7fb; /* brand Light */
+  --fog: #e9eef4;
+  --silver-wash: #dce3ec;
+  --silver: #bac3d2; /* brand Silver (sampled from the approved board) */
+  --ink: #0a2a5b; /* brand Navy: structure and typography */
+  --charcoal: #2b2f36; /* brand Charcoal */
+  --slate: #364055;
+  --muted: #5a6578;
+  --steel: #8a96a8;
+  --navy: #0a2a5b;
+  --navy-deep: #061b3f; /* dark ground */
+  --navy-panel: #0e3470;
+
+  /* Brand Blue (technology / trust), its text-safe form on light, and its luminous dark-ground form */
+  --blue: #1e6bff;
+  --blue-hover: #1555d6;
+  --blue-text: #1252d6;
+  --blue-lum: #7aa7ff;
+  --brand-green: #00c896; /* selective innovation/growth accent */
+
+  /* Product accents: fill, text-safe on light, bright on dark */
+  --grc: #12a774;
+  --grc-text: #0b7653;
+  --grc-lum: #46dda2;
+  --amplify: #1e8bff;
+  --amplify-text: #0a62cc;
+  --amplify-lum: #72b8ff;
+  --sentinel: #0fb4c2;
+  --sentinel-text: #0a6c79;
+  --sentinel-lum: #4be3ec;
+
+  /* Semantic: light ground (default) */
+  --bg: var(--paper);
+  --bg-2: var(--mist);
+  --bg-3: var(--fog);
+  --surface: var(--paper);
+  --surface-2: var(--mist);
+  --surface-hi: var(--fog);
+  --text: var(--ink);
+  --text-dim: var(--slate);
+  --text-faint: var(--muted);
+  --line: #e1e7f0;
+  --line-2: #c3cddb;
+  --line-soft: rgba(11, 18, 32, 0.06);
+
+  /* Corporate accent (overridden per product) */
+  --accent: var(--blue);
+  --accent-text: var(--blue-text);
+  --accent-soft: rgba(30, 107, 255, 0.07);
+  --accent-line: rgba(30, 107, 255, 0.3);
+  --accent-ink: #ffffff;
+
+  /* Aria thread: runs through the product accents. Decorative only. */
+  --thread: linear-gradient(90deg, var(--amplify) 0%, var(--sentinel) 50%, var(--grc) 100%);
+  --silver-grad: linear-gradient(180deg, #ffffff, #e4eaf2);
+
+  /* Elevation: planes only */
+  --shadow-plane:
+    0 1px 2px rgba(11, 18, 32, 0.05), 0 14px 32px -16px rgba(11, 18, 32, 0.2),
+    0 44px 80px -44px rgba(11, 18, 32, 0.3);
+  --shadow-soft: 0 1px 2px rgba(11, 18, 32, 0.04), 0 8px 24px -14px rgba(11, 18, 32, 0.16);
+
+  /* Type: one family. --font-body / --font-mono are defined by Astro's Fonts API. */
+  --font-display: var(--font-body);
+  --fs-mono: 0.75rem; /* diagram and metadata labels only */
+  --fs-label: 0.8125rem;
+  --fs-small: 0.9375rem;
+  --fs-body: 1.0625rem;
+  --fs-lede: clamp(1.125rem, 1.04rem + 0.45vw, 1.3125rem);
+  --fs-h4: 1.0625rem;
+  --fs-h3: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --fs-h2: clamp(1.9rem, 1.2rem + 2.9vw, 3.25rem);
+  --fs-h1-page: clamp(2.5rem, 1.5rem + 3.1vw, 3.875rem);
+  --fs-h1: clamp(2.75rem, 1.2rem + 5.9vw, 5.25rem);
+
+  /* Layout */
+  --maxw: 1240px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --section-y: clamp(80px, 10vw, 152px);
+  --nav-h: 68px;
+  --subnav-h: 46px;
+  --r-plane: 14px;
+  --r-ctl: 10px;
+  --r-frag: 6px;
+
+  /* Motion: ease-out only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-fast: 140ms;
+  --t-med: 200ms;
+}
+
+/* Dark ground: navy punctuation (Sentinel/Aria moments, footer) */
+[data-theme='dark'] {
+  --bg: var(--navy);
+  --bg-2: #04122e;
+  --bg-3: #0a2350;
+  --surface: var(--navy-panel);
+  --surface-2: #123a7a;
+  --surface-hi: #174590;
+  --text: #eef3fb;
+  --text-dim: #b3c0d6;
+  --text-faint: #8fa0bd;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-2: rgba(255, 255, 255, 0.18);
+  --line-soft: rgba(255, 255, 255, 0.06);
+  --accent-text: var(--blue-lum);
+  --accent-soft: rgba(122, 167, 255, 0.14);
+  --accent-line: rgba(122, 167, 255, 0.42);
+  --shadow-plane: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 30px 70px -30px rgba(0, 0, 0, 0.7);
+  color: var(--text);
+}
+
+/* Product accents. --p* are set per product; --accent* are derived on the same element. */
+[data-product='grc'] {
+  --p: var(--grc);
+  --p-text-l: var(--grc-text);
+  --p-text-d: var(--grc-lum);
+  --accent-ink: #04140d;
+}
+[data-product='amplify'] {
+  --p: var(--amplify);
+  --p-text-l: var(--amplify-text);
+  --p-text-d: var(--amplify-lum);
+  --accent-ink: #031327;
+}
+[data-product='sentinel'] {
+  --p: var(--sentinel);
+  --p-text-l: var(--sentinel-text);
+  --p-text-d: var(--sentinel-lum);
+  --accent-ink: #031a1d;
+}
+[data-product] {
+  --accent: var(--p);
+  --accent-text: var(--p-text-l);
+  --accent-soft: color-mix(in srgb, var(--p) 10%, transparent);
+  --accent-line: color-mix(in srgb, var(--p) 40%, transparent);
+}
+[data-theme='dark'][data-product],
+[data-theme='dark'] [data-product],
+[data-product] [data-theme='dark'] {
+  --accent-text: var(--p-text-d);
+  --accent-soft: color-mix(in srgb, var(--p) 16%, transparent);
+  --accent-line: color-mix(in srgb, var(--p) 50%, transparent);
+}

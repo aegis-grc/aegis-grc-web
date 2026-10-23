@@ -1,0 +1,126 @@
+---
+import ProductGlyph from '../ProductGlyph.astro';
+import { industries } from '../../data/industries';
+import { productList } from '../../data/products';
+
+/**
+ * Industries hero: for each product, the industries where it is the primary fit (solid) or relevant (outline).
+ * Built from the industries data. Three columns on desktop; stacked groups on mobile.
+ */
+const cols = productList.map((p) => ({
+  p,
+  primary: industries.filter((i) => i.relevance[p.id] === 'primary'),
+  relevant: industries.filter((i) => i.relevance[p.id] === 'relevant'),
+}));
+---
+
+<div class="il" aria-hidden="true">
+  {cols.map(({ p, primary, relevant }) => (
+    <section data-product={p.id}>
+      <header>
+        <ProductGlyph product={p.id} size={18} />
+        <b>{p.short}</b>
+      </header>
+      <ul>
+        {primary.map((i) => (
+          <li class="pri">{i.name}</li>
+        ))}
+        {relevant.map((i) => (
+          <li class="rel">{i.name}</li>
+        ))}
+        {primary.length + relevant.length === 0 && <li class="rel">None listed</li>}
+      </ul>
+    </section>
+  ))}
+  <p class="key">
+    <i class="k1"></i>Primary fit <i class="k2"></i>Relevant
+  </p>
+</div>
+
+<style>
+  .il {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    max-width: 640px;
+  }
+  section {
+    display: grid;
+    align-content: start;
+    gap: 14px;
+    padding: 16px 14px 20px;
+    border: 1px solid var(--line-2);
+    border-top: 3px solid var(--p);
+    border-radius: 14px;
+    background: var(--paper);
+    box-shadow: var(--shadow-soft);
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-text);
+  }
+  header b {
+    color: var(--text);
+    font-size: var(--fs-small);
+  }
+  ul {
+    display: grid;
+    gap: 8px;
+    min-height: 160px;
+    align-content: start;
+  }
+  li {
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: var(--fs-label);
+    font-weight: 500;
+  }
+  .pri {
+    background: color-mix(in srgb, var(--p) 16%, var(--paper));
+    color: var(--text);
+    border: 1px solid var(--accent-line);
+  }
+  .rel {
+    border: 1px dashed var(--line-2);
+    color: var(--text-dim);
+  }
+  .key {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .key i {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+  }
+  .k1 {
+    background: color-mix(in srgb, var(--blue) 30%, var(--paper));
+    border: 1px solid var(--blue);
+  }
+  .k2 {
+    margin-left: 10px;
+    border: 1px dashed var(--line-2);
+  }
+  @media (max-width: 720px) {
+    .il {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    section {
+      grid-template-columns: 110px minmax(0, 1fr);
+      align-items: start;
+      padding: 14px;
+    }
+    ul {
+      min-height: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+</style>

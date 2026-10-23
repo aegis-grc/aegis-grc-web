@@ -1,0 +1,171 @@
+---
+/**
+ * GRC body motif: a tiny framework / control / evidence / owner diagram for one module row.
+ * Schematic and labelled, no data. Shares the ruled, orthogonal line language of GrcMap.
+ */
+interface Props {
+  kind: 'contracts' | 'qms' | 'risk' | 'vendors';
+}
+const { kind } = Astro.props;
+---
+
+<div class={`mod mod--${kind}`} aria-hidden="true">
+  {kind === 'contracts' && (
+    <ol class="chain">
+      <li>Draft</li>
+      <li>Sign</li>
+      <li>Obligation</li>
+      <li class="end">Renewal</li>
+    </ol>
+  )}
+  {kind === 'qms' && (
+    <>
+      <ol class="chain">
+        <li>v1</li>
+        <li>v2</li>
+        <li class="end">Approved</li>
+      </ol>
+      <p class="under">Audit trail</p>
+    </>
+  )}
+  {kind === 'risk' && (
+    <div class="tree">
+      <span class="fw">SOC 2</span>
+      <ul>
+        <li>
+          <span class="ctl">Access control</span>
+          <span class="ev ok">Evidence</span>
+        </li>
+        <li>
+          <span class="ctl">Vendor review</span>
+          <span class="ev gap">Needed</span>
+        </li>
+      </ul>
+    </div>
+  )}
+  {kind === 'vendors' && (
+    <ol class="chain tiers">
+      <li>Vendor</li>
+      <li>Sub-processor</li>
+      <li class="end">Fourth party</li>
+    </ol>
+  )}
+</div>
+
+<style>
+  .mod {
+    position: relative;
+    min-height: 118px;
+    display: grid;
+    align-content: center;
+    padding: 20px 22px;
+    border-top: 1px solid var(--line-2);
+    border-bottom: 1px solid var(--line-2);
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--grc) 6%, transparent),
+      transparent 75%
+    );
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-dim);
+  }
+  .chain {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .chain::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: 5px;
+    height: 1px;
+    background: var(--line-2);
+  }
+  .chain li {
+    position: relative;
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+    background: transparent;
+  }
+  .chain li::before {
+    content: '';
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grc);
+    background: var(--paper);
+  }
+  .chain li.end {
+    justify-items: end;
+    color: var(--text);
+  }
+  .chain li.end::before {
+    background: var(--grc);
+  }
+  .under {
+    margin-top: 16px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--grc);
+    color: var(--grc-text, var(--text-dim));
+  }
+  .tree {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0 18px;
+  }
+  .fw {
+    padding: 6px 10px;
+    border: 1px solid var(--grc);
+    border-radius: 6px;
+    background: var(--paper);
+    color: var(--text);
+  }
+  .tree ul {
+    display: grid;
+    gap: 10px;
+    padding-left: 18px;
+    border-left: 1px solid var(--line-2);
+  }
+  .tree li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tree li::before {
+    content: '';
+    width: 12px;
+    height: 1px;
+    margin-left: -18px;
+    background: var(--line-2);
+  }
+  .ev {
+    margin-left: auto;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--grc);
+    color: var(--text);
+  }
+  .ev.ok {
+    background: color-mix(in srgb, var(--grc) 14%, transparent);
+  }
+  .ev.gap {
+    border-style: dashed;
+    color: var(--text-dim);
+  }
+  .tiers li:nth-child(2)::before {
+    border-style: dashed;
+  }
+  .tiers li:nth-child(3)::before {
+    border-style: dashed;
+    background: var(--paper);
+  }
+  .tiers li.end {
+    color: var(--text-dim);
+  }
+</style>

@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "astro-docs": {
+      "type": "http",
+      "url": "https://mcp.docs.astro.build/mcp"
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@0.0.83",
+        "--headless",
+        "--isolated",
+        "--allowed-origins",
+        "http://localhost:4321;http://127.0.0.1:4321"
+      ],
+      "env": {
+        "CONTEXT7_API_KEY": ""
+      }
+    }
+  }
+}

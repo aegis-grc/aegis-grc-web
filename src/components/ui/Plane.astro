@@ -1,0 +1,86 @@
+---
+import ProductGlyph from '../ProductGlyph.astro';
+import type { ProductId } from '../../data/products';
+
+/**
+ * A product "plane": an abstract representation of product UI, lifted off the ground.
+ * Planes carry structure and mood only. They never contain real data, metrics or customers,
+ * and they are decorative (aria-hidden) unless a caller labels them.
+ */
+interface Props {
+  product: ProductId;
+  title: string;
+  /** Short status text in the title bar, plain text (not a badge) */
+  status?: string;
+  /** Force the dark ground for this plane (Sentinel is always dark) */
+  dark?: boolean;
+  class?: string;
+}
+const { product, title, status, dark = false, class: className } = Astro.props;
+---
+
+<div
+  class:list={['plane', className]}
+  data-product={product}
+  data-theme={dark ? 'dark' : undefined}
+  aria-hidden="true"
+>
+  <div class="bar">
+    <span class="who">
+      <ProductGlyph product={product} size={15} />
+      {title}
+    </span>
+    {status && (
+      <span class="status">
+        <i></i>
+        {status}
+      </span>
+    )}
+  </div>
+  <div class="body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .plane {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: var(--r-plane);
+    box-shadow: var(--shadow-plane);
+    overflow: hidden;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .who {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-text);
+    font-weight: 500;
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .body {
+    padding: 16px;
+  }
+</style>

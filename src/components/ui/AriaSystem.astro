@@ -1,0 +1,250 @@
+---
+import ProductGlyph from '../ProductGlyph.astro';
+import { products } from '../../data/products';
+
+/**
+ * Aria as connective intelligence: three product lanes share one process.
+ * Context -> reasoning -> orchestration -> human approval -> governed action.
+ * It is a system diagram, not an org chart: Aria is the two buses and the gate they feed.
+ * The text sequence is the accessible version; the diagram itself is decorative.
+ */
+const stages = [
+  { name: 'Context', text: 'What each product knows about the work' },
+  { name: 'Reasoning', text: 'Working out what to do with it' },
+  { name: 'Orchestration', text: 'Coordinating the steps' },
+  { name: 'Human approval', text: 'A person decides what matters' },
+  { name: 'Governed action', text: 'Carried out, then recorded' },
+];
+const lanes = [products.amplify, products.grc, products.sentinel];
+---
+
+<div class="sys">
+  <ol class="visually-hidden">
+    {stages.map((s) => (
+      <li>
+        <b>{s.name}</b> <span>{s.text}</span>
+      </li>
+    ))}
+  </ol>
+
+  <div class="diagram" aria-hidden="true">
+    <div class="heads">
+      {stages.map((s, i) => (
+        <div class:list={['head', { gate: i === 3 }]}>
+          <b>{s.name}</b>
+          <span>{s.text}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="field">
+      {lanes.map((p, i) => (
+        <div class="lane" data-product={p.id} style={`--i:${i}`}>
+          <span class="lname">
+            <ProductGlyph product={p.id} size={16} />
+            {p.short}
+          </span>
+          <span class="track"></span>
+          {[0, 1, 2, 3, 4].map((c) => (
+            <i class:list={['node', `c${c}`]} />
+          ))}
+        </div>
+      ))}
+      <span class="bus b1">
+        <em>Aria</em>
+      </span>
+      <span class="bus b2">
+        <em>Aria</em>
+      </span>
+      <span class="gatebox"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sys {
+    --label: 112px;
+  }
+  .diagram {
+    display: grid;
+    gap: 22px;
+  }
+  .heads {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-left: var(--label);
+  }
+  .head {
+    display: grid;
+    gap: 4px;
+    padding-right: 14px;
+    align-content: start;
+  }
+  .head b {
+    font-weight: 560;
+    letter-spacing: -0.01em;
+    font-size: var(--fs-small);
+    color: var(--text);
+  }
+  .head span {
+    font-size: var(--fs-label);
+    line-height: 1.4;
+    color: var(--text-dim);
+  }
+  .head.gate b {
+    color: var(--accent-text);
+  }
+  .field {
+    position: relative;
+    height: 232px;
+  }
+  .lane {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--i) * 80px + 14px);
+    height: 44px;
+  }
+  .lname {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: var(--label);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--accent-text);
+  }
+  .track {
+    position: absolute;
+    left: var(--label);
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-line), var(--accent) 60%, var(--accent-line));
+  }
+  .node {
+    position: absolute;
+    top: 50%;
+    width: 11px;
+    height: 11px;
+    margin: -5.5px 0 0 -5.5px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .c0 {
+    left: calc(var(--label) + (100% - var(--label)) * 0.1);
+  }
+  .c1 {
+    left: calc(var(--label) + (100% - var(--label)) * 0.3);
+  }
+  .c2 {
+    left: calc(var(--label) + (100% - var(--label)) * 0.5);
+  }
+  .c3 {
+    left: calc(var(--label) + (100% - var(--label)) * 0.7);
+  }
+  .c4 {
+    left: calc(var(--label) + (100% - var(--label)) * 0.9);
+    background: var(--accent);
+  }
+  /* The Aria buses: one continuous thread crossing every lane */
+  .bus {
+    position: absolute;
+    top: -6px;
+    bottom: -6px;
+    width: 2px;
+    margin-left: -1px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--amplify), var(--sentinel) 55%, var(--grc));
+  }
+  .b1 {
+    left: calc(var(--label) + (100% - var(--label)) * 0.3);
+  }
+  .b2 {
+    left: calc(var(--label) + (100% - var(--label)) * 0.5);
+  }
+  .bus em {
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--accent-text);
+    letter-spacing: 0.02em;
+  }
+  /* The human-approval gate: the only dashed element, spanning every lane */
+  .gatebox {
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    left: calc(var(--label) + (100% - var(--label)) * 0.7 - 34px);
+    width: 68px;
+    border: 1.5px dashed var(--accent-line);
+    border-radius: 14px;
+    background: var(--accent-soft);
+  }
+  @supports (animation-timeline: view()) {
+    .bus {
+      transform-origin: top;
+      animation: grow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 80%;
+    }
+    @keyframes grow {
+      from {
+        transform: scaleY(0.05);
+      }
+      to {
+        transform: scaleY(1);
+      }
+    }
+  }
+  @media (max-width: 820px) {
+    .diagram {
+      display: none;
+    }
+    .visually-hidden {
+      position: static !important;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+      display: grid;
+      gap: 0;
+    }
+    .visually-hidden {
+      counter-reset: step;
+    }
+    .visually-hidden li {
+      position: relative;
+      display: grid;
+      gap: 4px;
+      padding: 16px 0 16px 44px;
+      border-top: 1px solid var(--line-2);
+      color: var(--text-dim);
+      counter-increment: step;
+    }
+    .visually-hidden li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 18px;
+      font-family: var(--font-mono);
+      font-size: var(--fs-mono);
+      color: var(--blue-text);
+    }
+    .visually-hidden b {
+      font-weight: 600;
+      color: var(--text);
+    }
+  }
+</style>

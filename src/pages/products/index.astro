@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import GrcPlane from '../../components/ui/GrcPlane.astro';
+import AmplifyPlane from '../../components/ui/AmplifyPlane.astro';
+import SentinelPlane from '../../components/ui/SentinelPlane.astro';
+import ProductGlyph from '../../components/ProductGlyph.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Arrow from '../../components/Arrow.astro';
+import { productList, grcFamily, ariaPath } from '../../data/products';
+import { breadcrumbSchema } from '../../lib/seo';
+
+const detail: Record<string, { verb: string; text: string; tags: string[] }> = {
+  grc: {
+    verb: 'Govern risk.',
+    text: 'Compliance, risk, audit, vendor management, contracts, quality management, and learning in one connected program, with AI that works from your own policies and playbook.',
+    tags: [
+      'Compliance',
+      'Risk',
+      'Audit',
+      'Vendors',
+      'Contracts',
+      'QMS',
+      'Learning',
+      'Trust Center',
+    ],
+  },
+  amplify: {
+    verb: 'Grow revenue.',
+    text: 'AI-native sales, marketing, and revenue operations for contractors and home-service businesses, from lead response to estimate follow-up and attribution.',
+    tags: ['Lead response', 'Nurturing', 'Estimate recovery', 'CRM', 'Attribution', 'Campaigns'],
+  },
+  sentinel: {
+    verb: 'Defend operations.',
+    text: 'AI-native security operations that bring alerts, correlation, investigation, and case management into one workflow, with human approval for consequential actions.',
+    tags: [
+      'Alert ingestion',
+      'Correlation',
+      'Investigation',
+      'Case management',
+      'Approval gates',
+      'Audit logging',
+    ],
+  },
+};
+---
+
+<BaseLayout
+  title="Products"
+  description="The Aegis product family: Aegis GRC, Aegis Amplify, and Aegis Sentinel. AI-native platforms for governance and compliance, revenue operations, and security operations."
+  path="/products/"
+  schema={[
+    breadcrumbSchema(
+      [
+        { name: 'Aegis', path: '/' },
+        { name: 'Products', path: '/products/' },
+      ],
+      Astro.site,
+    ),
+  ]}
+>
+  <PageHero
+    label="Products"
+    title="The Aegis product family."
+    lede="Three AI-native platforms for revenue, risk, and security, built on the same principles: automation within limits, people approving what matters, and a record of what happened."
+    crumbs={[{ name: 'Aegis', href: '/' }, { name: 'Products' }]}
+  />
+
+  <section class="section list" aria-label="Products">
+    <div class="container">
+      {productList.map((p) => (
+        <article class="item" data-product={p.id}>
+          <div class="stack">
+            <span class="label">
+              <ProductGlyph product={p.id} size={17} />
+              {p.name}
+            </span>
+            <h2>{detail[p.id].verb}</h2>
+            <p class="lede">{detail[p.id].text}</p>
+            <ul class="ticks">
+              {detail[p.id].tags.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+            <div class="links">
+              <a class="btn btn--primary" href={p.path}>
+                Explore {p.name}
+                <Arrow />
+              </a>
+              {p.id === 'grc' &&
+                grcFamily.map((c) => (
+                  <a class="link-arrow" href={c.path}>
+                    {c.name}
+                    <Arrow />
+                  </a>
+                ))}
+            </div>
+          </div>
+          <div class="vis">
+            {p.id === 'grc' && <GrcPlane />}
+            {p.id === 'amplify' && <AmplifyPlane />}
+            {p.id === 'sentinel' && <SentinelPlane />}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section ground-fog" aria-labelledby="aria-title">
+    <div class="container split split--even">
+      <div class="stack">
+        <h2 id="aria-title">One approach to AI, applied to each domain.</h2>
+      </div>
+      <div class="stack">
+        <p class="lede">
+          Aria is the Aegis intelligence layer: a shared approach to reasoning, orchestration, and
+          human control that each product applies to its own work.
+        </p>
+        <a class="link-arrow" href={ariaPath}>
+          Meet Aria
+          <Arrow />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Not sure where to start?"
+    text="Start from the problem you want to solve, or tell us about it and we will point you to the right product."
+    primary={{ label: 'Browse solutions', href: '/solutions/' }}
+    secondary={{ label: 'Contact sales', href: '/contact/' }}
+  />
+</BaseLayout>
+
+<style>
+  .list {
+    padding-top: clamp(24px, 4vw, 56px);
+  }
+  .item {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(32px, 6vw, 96px);
+    align-items: center;
+    padding-block: clamp(48px, 6vw, 88px);
+    border-top: 1px solid var(--line-2);
+  }
+  .item:first-child {
+    border-top: 0;
+  }
+  .item h2 {
+    font-size: clamp(2.25rem, 1rem + 3.6vw, 4rem);
+    letter-spacing: -0.048em;
+    line-height: 0.98;
+    font-weight: 580;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 26px;
+    margin-top: 6px;
+  }
+  .vis {
+    min-width: 0;
+  }
+  @media (max-width: 960px) {
+    .item {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
