@@ -32,4 +32,3 @@ dist/
 
 # Local Claude Code tooling (kept on disk, not shipped with the site)
 .claude/skills/
-.claude/settings.json
