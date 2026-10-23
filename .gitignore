@@ -29,3 +29,7 @@ dist/
 # Vendored third-party skill kept local (3.6 MB incl. executable Python and tests).
 # Pinned commit and re-install steps are recorded in .claude/TOOLING.md.
 .claude/skills/ui-ux-pro-max/
+
+# Local Claude Code tooling (kept on disk, not shipped with the site)
+.claude/skills/
+.claude/settings.json
