@@ -1,0 +1,293 @@
+---
+import LockGlyph from './LockGlyph.astro';
+/**
+ * Sentinel body pattern: the guardrail rail. Same investigation sequence as SentinelRail, drawn as three
+ * zones (Sentinel assembles / a person decides / a bounded action) so approval and the action boundary
+ * read as architecture, not as features. Control titles and text are the approved copy. No autonomy claims.
+ */
+interface Control {
+  title: string;
+  text: string;
+}
+interface Props {
+  access: Control;
+  approval: Control[];
+  boundary: Control[];
+  audit: Control;
+}
+const { access, approval, boundary, audit } = Astro.props;
+const assemble = ['Signal', 'Context', 'Correlation', 'Investigation'];
+---
+
+<div class="gr" data-product="sentinel">
+  <ul class="zones">
+    <li class="zone z-a">
+      <p class="zl">Sentinel assembles</p>
+      <ol class="nodes">
+        {assemble.map((n) => (
+          <li>{n}</li>
+        ))}
+      </ol>
+      <div class="ctl">
+        <h3>{access.title}</h3>
+        <p>{access.text}</p>
+      </div>
+    </li>
+    <li class="zone z-b">
+      <p class="zl">A person decides</p>
+      <ol class="nodes">
+        <li>Plan</li>
+        <li class="gate">
+          <span class="lock">
+            <LockGlyph />
+          </span>
+          Approval
+        </li>
+      </ol>
+      {approval.map((c) => (
+        <div class="ctl">
+          <h3>{c.title}</h3>
+          <p>{c.text}</p>
+        </div>
+      ))}
+    </li>
+    <li class="zone z-c">
+      <p class="zl">Action boundary</p>
+      <ol class="nodes">
+        <li class="edge">Bounded action</li>
+      </ol>
+      {boundary.map((c) => (
+        <div class="ctl">
+          <h3>{c.title}</h3>
+          <p>{c.text}</p>
+        </div>
+      ))}
+    </li>
+  </ul>
+  <div class="audit">
+    <span class="al" aria-hidden="true">
+      Across every step
+    </span>
+    <h3>{audit.title}</h3>
+    <p>{audit.text}</p>
+  </div>
+</div>
+
+<style>
+  .gr {
+    color: var(--text);
+  }
+  .zones {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 4.2fr) minmax(0, 3.4fr) minmax(0, 3fr);
+    gap: 0;
+  }
+  .zone {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 22px;
+    padding: 0 clamp(16px, 2.4vw, 36px);
+  }
+  .zone:first-child {
+    padding-left: 0;
+  }
+  .zone + .zone {
+    border-left: 1px solid var(--line-2);
+  }
+  .z-c {
+    border-left: 2px solid var(--sentinel);
+    background: repeating-linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--sentinel) 7%, transparent) 0 1px,
+      transparent 1px 12px
+    );
+  }
+  .zl {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .z-a .zl {
+    color: var(--sentinel-lum);
+  }
+  .z-b .zl {
+    color: #fff;
+  }
+  .nodes {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 2px;
+  }
+  .nodes::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 15px;
+    height: 2px;
+    background: var(--sentinel);
+    opacity: 0.55;
+  }
+  .z-c .nodes::before {
+    right: auto;
+    width: 14px;
+    opacity: 1;
+  }
+  .nodes li {
+    position: relative;
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+    font-size: var(--fs-small);
+    font-weight: 560;
+  }
+  .nodes li::before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--navy-deep);
+    border: 2px solid var(--sentinel);
+    margin: 8px 0;
+  }
+  .nodes li.gate {
+    color: #fff;
+  }
+  .lock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--navy);
+  }
+  .lock :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+  .nodes li.gate::before {
+    visibility: hidden;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+  }
+  .nodes li.edge::before {
+    border-style: dashed;
+    margin-left: 14px;
+  }
+  .nodes li.edge {
+    padding-left: 0;
+  }
+  .ctl {
+    display: grid;
+    gap: 6px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-2);
+  }
+  .ctl h3 {
+    font-size: var(--fs-small);
+    letter-spacing: -0.005em;
+    font-weight: 600;
+  }
+  .ctl p {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .audit {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.3fr);
+    align-items: baseline;
+    gap: 6px clamp(16px, 3vw, 40px);
+    margin-top: clamp(32px, 4vw, 48px);
+    padding: 16px 0 0;
+    border-top: 2px solid var(--line-2);
+  }
+  .audit::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 38%;
+    height: 2px;
+    background: var(--sentinel);
+  }
+  .al {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .audit h3 {
+    font-size: var(--fs-small);
+    font-weight: 600;
+  }
+  .audit p {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  @media (max-width: 820px) {
+    .zones {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+    .zone,
+    .zone:first-child {
+      padding: 0;
+    }
+    .zone + .zone {
+      border-left: 0;
+      border-top: 1px solid var(--line-2);
+      padding-top: 24px;
+    }
+    .z-c {
+      border-top: 2px solid var(--sentinel);
+      padding: 24px 16px 20px;
+    }
+    .nodes {
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 16px;
+      padding-left: 0;
+    }
+    .nodes::before {
+      left: 6px;
+      right: auto;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      height: auto;
+    }
+    .z-c .nodes::before {
+      display: none;
+    }
+    .nodes li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .nodes li::before {
+      margin: 0;
+      flex: none;
+    }
+    .nodes li.gate::before {
+      margin-left: -8px;
+    }
+    .nodes li.edge::before {
+      margin-left: 0;
+    }
+    .audit {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .audit::before {
+      width: 38%;
+    }
+  }
+</style>

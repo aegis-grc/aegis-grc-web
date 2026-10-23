@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ProductSubnav from '../../components/ProductSubnav.astro';
 import AmplifyFlow from '../../components/ui/AmplifyFlow.astro';
+import AmplifyHandoff from '../../components/ui/AmplifyHandoff.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { products, ariaPath } from '../../data/products';
@@ -130,42 +131,7 @@ const groups = [
           its time on the conversations that need a person.
         </p>
       </div>
-      <div class="contrast">
-        <div>
-          <h3>AI agents handle</h3>
-          <ul>
-            <li>
-              <strong>First response</strong>
-              <span>Reply to a new lead right away.</span>
-            </li>
-            <li>
-              <strong>Nurturing</strong>
-              <span>Keep the conversation going until the customer is ready.</span>
-            </li>
-            <li>
-              <strong>Follow-up</strong>
-              <span>Chase estimates that have gone quiet.</span>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3>Your team handles</h3>
-          <ul>
-            <li>
-              <strong>The conversations that need a person</strong>
-              <span>Questions, judgment calls, and relationships.</span>
-            </li>
-            <li>
-              <strong>The estimate and the job</strong>
-              <span>Pricing, scheduling, and the work itself.</span>
-            </li>
-            <li>
-              <strong>The customer relationship</strong>
-              <span>Repeat work, referrals, and trust built over time.</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <AmplifyHandoff />
       <p class="aria-line">
         <span class="muted">
           Aegis Amplify is part of the Aegis family, alongside Aegis GRC and Aegis Sentinel. Aria,

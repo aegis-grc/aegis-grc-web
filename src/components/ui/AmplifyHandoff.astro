@@ -1,0 +1,268 @@
+---
+/**
+ * Amplify body pattern: the lead-to-attribution route as a chevron band with two swim lanes
+ * (AI agents / your team). Roles come only from the approved copy: AI agents handle first response,
+ * nurturing and follow-up; the team handles conversations that need a person, the estimate and the job.
+ * Schematic, no numbers. One slow pulse travels the band; it stops under reduced motion.
+ */
+const stages = [
+  { name: 'Lead', note: 'Every inquiry lands in one place.' },
+  { name: 'Response', note: 'First reply, right away.', ai: 'Replies right away' },
+  {
+    name: 'Nurture',
+    note: 'Kept warm until ready.',
+    ai: 'Keeps the conversation going',
+    team: 'Steps in when a person is needed',
+  },
+  {
+    name: 'Estimate',
+    note: 'Sent, then followed up.',
+    ai: 'Chases it when it goes quiet',
+    team: 'Prices the estimate',
+  },
+  { name: 'Booking', note: 'On the calendar.', team: 'Scheduling and the work' },
+  { name: 'Attribution', note: 'Traced to its source.' },
+];
+---
+
+<div class="handoff" data-product="amplify">
+  <p class="legend" aria-hidden="true">
+    <span class="k ai">AI agents</span>
+    <span class="k team">Your team</span>
+  </p>
+  <ol class="stages">
+    {stages.map((s, i) => (
+      <li style={`--i:${i}`}>
+        <span class="chev">
+          <span class="idx" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <b>{s.name}</b>
+        </span>
+        <span class="stg-note">{s.note}</span>
+        <span class:list={['cell', 'ai', { empty: !s.ai }]}>
+          {s.ai && (
+            <>
+              <i class="lbl">
+                <span class="sr">AI agents: </span>
+                <span aria-hidden="true">AI agents</span>
+              </i>
+              {s.ai}
+            </>
+          )}
+        </span>
+        <span class:list={['cell', 'team', { empty: !s.team }]}>
+          {s.team && (
+            <>
+              <i class="lbl">
+                <span class="sr">Your team: </span>
+                <span aria-hidden="true">Your team</span>
+              </i>
+              {s.team}
+            </>
+          )}
+        </span>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .legend {
+    display: flex;
+    gap: 22px;
+    margin-bottom: 18px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-dim);
+  }
+  .k::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--amplify);
+  }
+  .k.ai::before {
+    background: var(--amplify);
+  }
+  .stages {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: auto auto auto auto;
+    container-type: inline-size;
+  }
+  .stages > li {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    gap: 0;
+    padding-right: 6px;
+  }
+  .chev {
+    --tint: color-mix(in srgb, var(--amplify) calc(10% + var(--i) * 6%), var(--paper));
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 54px;
+    padding: 0 26px 0 24px;
+    margin-right: -6px;
+    background: var(--tint);
+    color: var(--navy);
+    clip-path: polygon(
+      0 0,
+      calc(100% - 16px) 0,
+      100% 50%,
+      calc(100% - 16px) 100%,
+      0 100%,
+      16px 50%
+    );
+  }
+  .stages > li:first-of-type .chev {
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+    padding-left: 18px;
+  }
+  .idx {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--amplify-text);
+  }
+  .chev b {
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .stg-note {
+    padding: 14px 14px 18px 18px;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .cell {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    margin: 0 10px 0 18px;
+    padding: 12px 0;
+    font-size: var(--fs-small);
+    color: var(--text);
+    border-top: 1px solid var(--line);
+  }
+  .cell.empty {
+    border-top-style: dashed;
+  }
+  .cell.ai:not(.empty) {
+    border-top: 2px solid var(--amplify);
+  }
+  .cell.team:not(.empty) {
+    border-top: 2px solid var(--navy);
+  }
+  .lbl {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
+  }
+  .stages::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 48px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--amplify);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--amplify) 22%, transparent);
+    z-index: 2;
+    animation: hand 7s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  }
+  @keyframes hand {
+    from {
+      transform: translateX(6px);
+    }
+    to {
+      transform: translateX(calc(100cqw - 20px));
+    }
+  }
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stages::before {
+      display: none;
+    }
+  }
+  @media (max-width: 820px) {
+    .stages {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      gap: 0;
+      border-left: 2px solid var(--amplify);
+      margin-left: 6px;
+    }
+    .stages::before {
+      display: none;
+    }
+    .stages > li {
+      grid-row: auto;
+      grid-template-rows: none;
+      padding: 0 0 26px 22px;
+      position: relative;
+    }
+    .stages > li::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 2px solid var(--amplify);
+    }
+    .chev,
+    .stages > li:first-of-type .chev {
+      height: auto;
+      padding: 0;
+      margin: 0;
+      background: none;
+      clip-path: none;
+    }
+    .chev {
+      min-height: 32px;
+    }
+    .stg-note {
+      padding: 2px 0 8px;
+    }
+    .cell {
+      margin: 0 0 6px;
+      padding: 8px 0 8px 12px;
+      border-top: 0;
+      border-left: 2px solid var(--amplify);
+      background: color-mix(in srgb, var(--amplify) 9%, transparent);
+    }
+    .cell.team:not(.empty) {
+      border-left-color: var(--navy);
+      background: color-mix(in srgb, var(--navy) 7%, transparent);
+    }
+    .cell.empty {
+      display: none;
+    }
+    .legend {
+      display: none;
+    }
+  }
+  @media (min-width: 821px) {
+    .lbl {
+      display: none;
+    }
+  }
+</style>

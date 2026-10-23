@@ -4,6 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import ProductSubnav from '../../components/ProductSubnav.astro';
 import SentinelWorkspace from '../../components/ui/SentinelWorkspace.astro';
 import SentinelRail from '../../components/ui/SentinelRail.astro';
+import SentinelGuardrails from '../../components/ui/SentinelGuardrails.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { products, ariaPath } from '../../data/products';
@@ -158,14 +159,12 @@ const controls = [
           consequential step has a person behind it.
         </p>
       </div>
-      <ul class="cols-3">
-        {controls.map((c) => (
-          <li class="col">
-            <h3>{c.title}</h3>
-            <p>{c.text}</p>
-          </li>
-        ))}
-      </ul>
+      <SentinelGuardrails
+        access={controls[4]}
+        approval={[controls[0], controls[1]]}
+        boundary={[controls[2], controls[3]]}
+        audit={controls[5]}
+      />
     </div>
   </section>
 

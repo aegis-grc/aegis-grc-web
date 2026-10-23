@@ -7,20 +7,50 @@ interface Props {
   variant?: 'compact' | 'wide';
 }
 const { variant = 'compact', class: className } = Astro.props;
-// Lanes and skeleton leads only: structure, not data.
+// Lanes and labelled example leads: structure and state, not data.
 const compact = [
-  { name: 'New', leads: [{ w: 72 }, { w: 56 }] },
-  { name: 'Replied', leads: [{ w: 64, hot: true }, { w: 48 }] },
-  { name: 'Booked', leads: [{ w: 60 }] },
-  { name: 'Quoted', leads: [{ w: 68 }, { w: 44 }] },
+  {
+    name: 'New',
+    leads: [
+      { src: 'Web form', st: 'Waiting' },
+      { src: 'Campaign', st: 'Waiting' },
+    ],
+  },
+  {
+    name: 'Replied',
+    leads: [
+      { src: 'Demand Network', st: 'Replied', hot: true },
+      { src: 'Web form', st: 'Replied' },
+    ],
+  },
+  { name: 'Booked', leads: [{ src: 'Campaign', st: 'On calendar' }] },
+  {
+    name: 'Quoted',
+    leads: [
+      { src: 'Web form', st: 'Estimate sent' },
+      { src: 'Lead gen', st: 'Follow-up due' },
+    ],
+  },
 ];
 const wide = [
-  { name: 'New lead', leads: [{ w: 72 }, { w: 56 }, { w: 64 }] },
-  { name: 'Instant reply', leads: [{ w: 64, hot: true }, { w: 48 }] },
-  { name: 'Nurture', leads: [{ w: 58 }, { w: 70 }] },
-  { name: 'Booked', leads: [{ w: 60 }, { w: 46 }] },
-  { name: 'Estimate', leads: [{ w: 68 }] },
-  { name: 'Follow-up', leads: [{ w: 52 }, { w: 62 }] },
+  {
+    name: 'New lead',
+    leads: [
+      { src: 'Web form', st: 'Waiting' },
+      { src: 'Campaign', st: 'Waiting' },
+    ],
+  },
+  {
+    name: 'Instant reply',
+    leads: [
+      { src: 'Demand Network', st: 'Replied', hot: true },
+      { src: 'Web form', st: 'Replied' },
+    ],
+  },
+  { name: 'Nurture', leads: [{ src: 'Campaign', st: 'Kept warm' }] },
+  { name: 'Booked', leads: [{ src: 'Web form', st: 'On calendar' }] },
+  { name: 'Estimate', leads: [{ src: 'Lead gen', st: 'Sent' }] },
+  { name: 'Follow-up', leads: [{ src: 'Web form', st: 'Due' }] },
 ];
 const lanes = variant === 'wide' ? wide : compact;
 ---
@@ -33,9 +63,9 @@ const lanes = variant === 'wide' ? wide : compact;
         {l.leads.map((lead) => (
           <div class:list={['lead', { hot: lead.hot }]}>
             <i class="av"></i>
-            <span class="lines">
-              <b style={`width:${lead.w}%`} />
-              <b style="width:38%" />
+            <span class="txt">
+              <b>{lead.src}</b>
+              <em>{lead.st}</em>
             </span>
             {lead.hot && <u class="tag">Instant</u>}
           </div>
@@ -46,10 +76,9 @@ const lanes = variant === 'wide' ? wide : compact;
   <div class="source">
     <span class="hd">Source</span>
     <span class="seg">
-      <i style="flex:5"></i>
-      <i style="flex:3"></i>
-      <i style="flex:2"></i>
-      <i style="flex:1"></i>
+      <i>Campaign</i>
+      <i>Demand Network</i>
+      <i>Web form</i>
     </span>
   </div>
 </Plane>
@@ -93,19 +122,28 @@ const lanes = variant === 'wide' ? wide : compact;
     background: var(--surface);
   }
   .av {
-    width: 18px;
-    height: 18px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: var(--silver-wash);
+    background: var(--accent);
+    opacity: 0.55;
   }
-  .lines {
+  .txt {
     display: grid;
-    gap: 5px;
+    gap: 1px;
+    min-width: 0;
   }
-  .lines b {
-    height: 6px;
-    border-radius: 3px;
-    background: var(--line-2);
+  .txt b {
+    font-size: var(--fs-small);
+    font-weight: 560;
+    line-height: 1.25;
+    color: var(--text);
+  }
+  .txt em {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--text-faint);
   }
   .lead.hot {
     border-color: var(--accent);
@@ -129,20 +167,27 @@ const lanes = variant === 'wide' ? wide : compact;
   }
   .seg {
     display: flex;
-    gap: 3px;
-    height: 8px;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
   }
   .seg i {
-    border-radius: 4px;
+    font-style: normal;
+  }
+  .seg i::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 7px;
+    border-radius: 50%;
     background: var(--accent);
   }
-  .seg i:nth-child(2) {
-    opacity: 0.7;
+  .seg i:nth-child(2)::before {
+    opacity: 0.65;
   }
-  .seg i:nth-child(3) {
-    opacity: 0.45;
-  }
-  .seg i:nth-child(4) {
-    opacity: 0.25;
+  .seg i:nth-child(3)::before {
+    opacity: 0.4;
   }
 </style>

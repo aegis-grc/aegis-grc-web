@@ -30,11 +30,13 @@ const { steps } = Astro.props;
           Approved
         </span>
       </div>
-      <i class="h"></i>
-      <i class="l" style="width:92%"></i>
-      <i class="l" style="width:84%"></i>
-      <i class="l" style="width:88%"></i>
-      <i class="l" style="width:52%"></i>
+      <p class="dt">Standard operating procedure</p>
+      <ol class="secs">
+        <li>Purpose</li>
+        <li>Scope</li>
+        <li>Procedure</li>
+        <li>Records</li>
+      </ol>
       <div class="chain">
         <b></b>
         <b></b>
@@ -134,19 +136,29 @@ const { steps } = Astro.props;
     width: 12px;
     height: 12px;
   }
-  .h {
-    display: block;
-    width: 58%;
-    height: 11px;
-    border-radius: 5px;
-    background: var(--ink);
-    opacity: 0.85;
+  .dt {
+    font-weight: 600;
+    font-size: var(--fs-small);
+    color: var(--ink);
   }
-  .l {
-    display: block;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--line-2);
+  .secs {
+    display: grid;
+    gap: 0;
+    counter-reset: sec;
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  .secs li {
+    counter-increment: sec;
+    padding: 5px 0;
+    border-top: 1px solid var(--line);
+  }
+  .secs li::before {
+    content: counter(sec, decimal-leading-zero);
+    margin-right: 12px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--grc-text);
   }
   .chain {
     display: flex;

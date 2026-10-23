@@ -1,0 +1,84 @@
+---
+/**
+ * Contracts secondary motif: what a contract commits you to, on one ruled line.
+ * Obligation, owner, due date, renewal. Labels only; no dates, names or counts.
+ */
+const marks = [
+  { k: 'Obligation', v: 'What the contract commits you to' },
+  { k: 'Owner', v: 'Who is responsible' },
+  { k: 'Due date', v: 'When it falls due' },
+  { k: 'Renewal', v: 'Alert before it slips past' },
+];
+---
+
+<ol class="ob" aria-label="How an obligation is tracked">
+  {marks.map((m, i) => (
+    <li class:list={{ last: i === marks.length - 1 }}>
+      <b>{m.k}</b>
+      <span>{m.v}</span>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .ob {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: clamp(28px, 4vw, 44px);
+    padding-top: 26px;
+  }
+  .ob::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 6px;
+    height: 1px;
+    background: var(--line-2);
+  }
+  .ob li {
+    position: relative;
+    display: grid;
+    gap: 4px;
+    align-content: start;
+  }
+  .ob li::before {
+    content: '';
+    position: absolute;
+    top: -26px;
+    left: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 1.5px solid var(--grc);
+    background: var(--paper);
+  }
+  .ob li.last::before {
+    background: var(--grc);
+  }
+  .ob b {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    font-weight: 500;
+    color: var(--grc-text);
+  }
+  .ob span {
+    font-size: var(--fs-small);
+    color: var(--text-dim);
+  }
+  @media (max-width: 820px) {
+    .ob {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 28px;
+    }
+    .ob::before {
+      display: none;
+    }
+    .ob li::before {
+      position: static;
+      margin-bottom: 8px;
+    }
+  }
+</style>

@@ -1,4 +1,5 @@
 ---
+import LockGlyph from './LockGlyph.astro';
 /**
  * Security hero: the principles as a controlled stack on one dark plane, ending in the human-approval gate.
  * Titles mirror the Security page principles. No claims of certification or tooling.
@@ -21,19 +22,7 @@ const { titles } = Astro.props;
       <li class:list={{ gate: t === 'Human approval' }}>
         <b>{String(i + 1).padStart(2, '0')}</b>
         <span>{t}</span>
-        {t === 'Human approval' && (
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="5" y="11" width="14" height="9" rx="2"></rect>
-            <path d="M8 11V8a4 4 0 0 1 8 0v3"></path>
-          </svg>
-        )}
+        {t === 'Human approval' && <LockGlyph />}
       </li>
     ))}
   </ol>
@@ -103,7 +92,7 @@ const { titles } = Astro.props;
     font-weight: 400;
     color: var(--text-faint);
   }
-  li svg {
+  li :global(svg) {
     width: 20px;
     height: 20px;
   }

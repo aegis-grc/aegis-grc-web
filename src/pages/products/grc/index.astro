@@ -4,6 +4,7 @@ import PageHero from '../../../components/PageHero.astro';
 import ProductSubnav from '../../../components/ProductSubnav.astro';
 import GrcLayers from '../../../components/ui/GrcLayers.astro';
 import GrcMap from '../../../components/ui/GrcMap.astro';
+import GrcModuleDiagram from '../../../components/ui/GrcModuleDiagram.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { products } from '../../../data/products';
@@ -42,8 +43,16 @@ const after = [
   },
 ];
 
-const capabilities = [
+const capabilities: {
+  kind: 'contracts' | 'qms' | 'risk' | 'vendors';
+  title: string;
+  href?: string;
+  cta?: string;
+  text: string;
+  items: string[];
+}[] = [
   {
+    kind: 'contracts',
     title: 'Contracts',
     href: '/products/grc/contracts/',
     cta: 'Explore Aegis Contracts',
@@ -58,6 +67,7 @@ const capabilities = [
     ],
   },
   {
+    kind: 'qms',
     title: 'Quality management (QMS)',
     href: '/products/grc/qms/',
     cta: 'Explore Aegis QMS',
@@ -70,6 +80,7 @@ const capabilities = [
     ],
   },
   {
+    kind: 'risk',
     title: 'Risk, audit, and compliance',
     text: 'From risk identification to audit evidence, with controls mapped to the frameworks your customers ask about.',
     items: [
@@ -81,6 +92,7 @@ const capabilities = [
     ],
   },
   {
+    kind: 'vendors',
     title: 'Vendors, learning, and trust',
     text: 'Every third party scored, every employee trained, and a public Trust Center that answers due-diligence questions before they are asked.',
     items: [
@@ -239,10 +251,13 @@ const security = [
           one works from the same context.
         </p>
       </div>
-      <ul class="defs">
-        {capabilities.map((c) => (
+      <ol class="modules">
+        {capabilities.map((c, i) => (
           <li>
-            <div class="stack">
+            <div class="m-head">
+              <span class="m-num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
               <h3>{c.title}</h3>
               {c.href && (
                 <a class="link-arrow" href={c.href}>
@@ -251,17 +266,18 @@ const security = [
                 </a>
               )}
             </div>
-            <div class="stack">
+            <GrcModuleDiagram kind={c.kind} />
+            <div class="m-body">
               <p>{c.text}</p>
               <ul class="ticks">
-                {c.items.map((i) => (
-                  <li>{i}</li>
+                {c.items.map((it) => (
+                  <li>{it}</li>
                 ))}
               </ul>
             </div>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   </section>
 
@@ -415,6 +431,44 @@ const security = [
   .fw-notes p {
     font-size: var(--fs-small);
     color: var(--text-dim);
+  }
+  .modules {
+    border-top: 1px solid var(--line-2);
+  }
+  .modules > li {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 5fr);
+    gap: clamp(20px, 3.4vw, 56px);
+    align-items: center;
+    padding: clamp(28px, 3.6vw, 48px) 0;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .m-head {
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+  }
+  .m-num {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--grc-text);
+  }
+  .m-head h3 {
+    font-size: clamp(1.4rem, 1.15rem + 1vw, 2rem);
+    letter-spacing: -0.03em;
+  }
+  .m-body {
+    display: grid;
+    gap: 14px;
+  }
+  .m-body p {
+    color: var(--text-dim);
+  }
+  @media (max-width: 960px) {
+    .modules > li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
   }
   .more {
     margin-top: 40px;
